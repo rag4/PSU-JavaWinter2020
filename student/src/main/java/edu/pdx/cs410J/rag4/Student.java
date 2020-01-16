@@ -26,6 +26,14 @@ public class Student extends Human {
    */                                                                               
   public Student(String name, ArrayList<String> classes, double gpa, String gender) {
     super(name);
+
+    if (gpa > 4.0) {
+      throw new IllegalArgumentException(gpa + " is too big");
+    }
+    if (gpa < 0.0) {
+      throw new IllegalArgumentException(gpa + " is too small");
+    }
+
     this.gpa = gpa;
   }
 
