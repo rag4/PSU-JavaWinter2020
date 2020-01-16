@@ -3,13 +3,16 @@ package edu.pdx.cs410J.rag4;
 import edu.pdx.cs410J.lang.Human;
 
 import java.util.ArrayList;
-                                                                                    
+import java.util.HashSet;
+import java.util.Set;
+
 /**                                                                                 
  * This class is represents a <code>Student</code>.                                 
  */                                                                                 
 public class Student extends Human {
 
   private final double gpa;
+  private final ArrayList<String> classes;
 
   /**                                                                               
    * Creates a new <code>Student</code>                                             
@@ -35,6 +38,17 @@ public class Student extends Human {
     }
 
     this.gpa = gpa;
+
+    throwDuplicateClassExceptionIfContainsDuplicates(classes);
+    this.classes = classes;
+  }
+
+  private void throwDuplicateClassExceptionIfContainsDuplicates(ArrayList<String> classes) {
+    Set<String> set = new HashSet<>(classes);
+    set.addAll(classes);
+    if (set.size() != classes.size()) {
+      throw new DuplicateClassException();
+    }
   }
 
   /**                                                                               
@@ -54,7 +68,9 @@ public class Student extends Human {
    */
   @Override
   public String toString() {
-    return getName() + " has a GPA of " + getGpa()  + " ";
+    int numberOfClasses = this.classes.size();
+    return getName() + " has a GPA of " + getGpa()  + " and is taking " +
+            numberOfClasses + " class" + (numberOfClasses != 1 ? "es" : "") + ": ";
   }
 
   /**

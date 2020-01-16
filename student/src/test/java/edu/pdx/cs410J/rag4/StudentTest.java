@@ -79,4 +79,33 @@ public class StudentTest
     createStudentWithGpa(-25.5);
   }
 
+  @Test
+  public void davesToStringContains3Classes() {
+    String classes = "and is taking 3 classes";
+    assertThat(getDave().toString(), containsString(classes));
+  }
+
+  @Test
+  public void whenStudentTakes1ClassTheWordClassIsSingular() {
+    ArrayList<String> classes = new ArrayList<>();
+    classes.add("One Class");
+    Student student = new Student("Name", classes, 1.23, "Other");
+    assertThat(student.toString(), containsString("and is taking 1 class: "));
+  }
+
+  @Test(expected = DuplicateClassException.class)
+  public void whenStudentTakesTheSameClassTwiceADuplicateClassExceptionShouldBeThrown() {
+    ArrayList<String> classes = new ArrayList<>();
+    classes.add("One Favorite Class");
+    classes.add("One Favorite Class");
+    new Student ("Name", classes, 1.23, "Other");
+  }
+
+  @Ignore
+  @Test
+  public void davesToStringContainsHisClasses() {
+    String classes = "and is taking 3 classes: Algorithms, Operating Systems, and Java.";
+    assertThat(getDave().toString(), containsString(classes));
+  }
+
 }
