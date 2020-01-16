@@ -3,7 +3,7 @@ package edu.pdx.cs410J.rag4;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -20,7 +20,7 @@ public class StudentTest
   @Test
   public void studentNamedPatIsNamedPat() {
     String name = "Pat";
-    var pat = new Student(name, new ArrayList<>(), 0.0, "Doesn't matter");
+    var pat = new Student(name, new HashSet<>(), 0.0, "Doesn't matter");
     assertThat(pat.getName(), equalTo(name));
   }
 
@@ -32,7 +32,7 @@ public class StudentTest
   }
 
   private Student getDave() {
-    ArrayList<String> classes = new ArrayList<>();
+    HashSet<String> classes = new HashSet<>();
     classes.add("Algorithms");
     classes.add("Operating Systems");
     classes.add("Java");
@@ -66,7 +66,7 @@ public class StudentTest
   }
 
   private Student createStudentWithGpa(double gpa) {
-    return new Student("Name", new ArrayList<>(), gpa, "Other");
+    return new Student("Name", new HashSet<>(), gpa, "Other");
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -87,20 +87,12 @@ public class StudentTest
 
   @Test
   public void whenStudentTakes1ClassTheWordClassIsSingular() {
-    ArrayList<String> classes = new ArrayList<>();
+    HashSet<String> classes = new HashSet<>();
     classes.add("One Class");
     Student student = new Student("Name", classes, 1.23, "Other");
     assertThat(student.toString(), containsString("and is taking 1 class: "));
   }
-
-  @Test(expected = DuplicateClassException.class)
-  public void whenStudentTakesTheSameClassTwiceADuplicateClassExceptionShouldBeThrown() {
-    ArrayList<String> classes = new ArrayList<>();
-    classes.add("One Favorite Class");
-    classes.add("One Favorite Class");
-    new Student ("Name", classes, 1.23, "Other");
-  }
-
+  
   @Ignore
   @Test
   public void davesToStringContainsHisClasses() {

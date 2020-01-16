@@ -12,7 +12,7 @@ import java.util.Set;
 public class Student extends Human {
 
   private final double gpa;
-  private final ArrayList<String> classes;
+  private final Set<String> classes;
 
   /**                                                                               
    * Creates a new <code>Student</code>                                             
@@ -27,7 +27,7 @@ public class Student extends Human {
    * @param gender                                                                  
    *        The student's gender ("male" or "female", or "other", case insensitive)
    */                                                                               
-  public Student(String name, ArrayList<String> classes, double gpa, String gender) {
+  public Student(String name, Set<String> classes, double gpa, String gender) {
     super(name);
 
     if (gpa > 4.0) {
@@ -39,16 +39,7 @@ public class Student extends Human {
 
     this.gpa = gpa;
 
-    throwDuplicateClassExceptionIfContainsDuplicates(classes);
     this.classes = classes;
-  }
-
-  private void throwDuplicateClassExceptionIfContainsDuplicates(ArrayList<String> classes) {
-    Set<String> set = new HashSet<>(classes);
-    set.addAll(classes);
-    if (set.size() != classes.size()) {
-      throw new DuplicateClassException();
-    }
   }
 
   /**                                                                               
