@@ -36,13 +36,17 @@ public class Student extends Human {
   public String says() {                                                            
     throw new UnsupportedOperationException("Not implemented yet");
   }
-                                                                                    
+
+  public double getGpa() {
+    return this.gpa;
+  }
   /**                                                                               
    * Returns a <code>String</code> that describes this                              
    * <code>Student</code>.                                                          
-   */                                                                               
+   */
+  @Override
   public String toString() {
-    throw new UnsupportedOperationException("Not implemented yet");
+    return getName() + " has a GPA of " + getGpa()  + " ";
   }
 
   /**
@@ -55,7 +59,4 @@ public class Student extends Human {
     System.exit(1);
   }
 
-  public double getGpa() {
-    return this.gpa;
-  }
 }

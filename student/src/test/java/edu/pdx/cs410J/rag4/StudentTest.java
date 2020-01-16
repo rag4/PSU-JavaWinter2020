@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 /**
@@ -33,17 +34,29 @@ public class StudentTest
   @Ignore
   @Test
   public void exampleStudentFromAssignment() {
-    //Dave male 3.64 Algorithms "Operating Systems" Java
-    ArrayList<String> classes = new ArrayList<>();
-    classes.add("Algorithms");
-    classes.add("Operating Systems");
-    classes.add("Java");
-    var dave = new Student("Dave", classes, 3.64, "male");
+    Student dave = getDave();
 
     assertThat(dave.toString(), equalTo("Dave has a GPA of 3.64 and is taking 3 classes: Algorithms, Operating\n" +
             "Systems, and Java. He says \"This class is too much work\".\n"));
   }
 
+  private Student getDave() {
+    ArrayList<String> classes = new ArrayList<>();
+    classes.add("Algorithms");
+    classes.add("Operating Systems");
+    classes.add("Java");
+    return new Student("Dave", classes, 3.64, "male");
+  }
+
+  @Test
+  public void toStringContainsStudentName() {
+    assertThat(getDave().toString(), containsString("Dave"));
+  }
+
+  @Test
+  public void toStringContainsGPA() {
+    assertThat(getDave().toString(), containsString(" has a GPA of 3.64 "));
+  }
 
 
 }
