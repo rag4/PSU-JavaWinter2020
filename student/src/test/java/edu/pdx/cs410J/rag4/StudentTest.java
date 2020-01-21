@@ -92,7 +92,7 @@ public class StudentTest
     Student student = new Student("Name", classes, 1.23, "Other");
     assertThat(student.toString(), containsString("and is taking 1 class: "));
   }
-  
+
   @Ignore
   @Test
   public void davesToStringContainsHisClasses() {
