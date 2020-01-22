@@ -11,7 +11,12 @@ public class Project1 {
   //MAIN
   public static void main(String[] args) {
 
-    commandLineInterface();
+    if(args.length == 0) {
+      System.err.println("Missing command line arguments");
+      commandLineInterface();
+      System.exit(1);
+    }
+
     int printOption = 0;
     int readmeOption = 0;
     if(args[0].equals("-print")){
@@ -23,19 +28,23 @@ public class Project1 {
 
     if(args.length < 6 && printOption == 0){
       System.err.println("Missing command line arguments");
-      System.exit(-1);
+      commandLineInterface();
+      System.exit(1);
     }
     if(args.length > 6 && printOption == 0){
       System.err.println("Too many command line arguments");
-      System.exit(-1);
+      commandLineInterface();
+      System.exit(1);
     }
     if(args.length < 7 && printOption == 1){
       System.err.println("Missing command line arguments");
-      System.exit(-1);
+      commandLineInterface();
+      System.exit(1);
     }
     if(args.length > 7 && printOption == 1){
       System.err.println("Too many command line arguments");
-      System.exit(-1);
+      commandLineInterface();
+      System.exit(1);
     }
 
     if (printOption == 0 && readmeOption == 0) {
@@ -59,11 +68,9 @@ public class Project1 {
       }
     }
 
-
-
-    for (String arg : args) {
+    /*for (String arg : args) {
       System.out.println(arg);
-    }
+    }*/
     System.exit(1);
   }
 

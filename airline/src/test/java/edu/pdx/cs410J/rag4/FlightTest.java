@@ -20,7 +20,6 @@ public class FlightTest {
     flight.getArrivalString();
   }
 
-  @Ignore
   @Test
   public void initiallyAllFlightsHaveTheSameNumber() {
     Flight flight = new Flight(42, "tst", "00/00/0000 00:00", "tst", "00/00/0000 00:00");
