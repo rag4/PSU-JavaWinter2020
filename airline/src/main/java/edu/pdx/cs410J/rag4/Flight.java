@@ -4,6 +4,7 @@ import edu.pdx.cs410J.AbstractAirline;
 import edu.pdx.cs410J.AbstractFlight;
 import edu.pdx.cs410J.AirlineDumper;
 
+import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,6 +33,44 @@ public class Flight extends AbstractFlight {
         this.src = src;
 
         //DEPART
+        if (depart.length() < 16){
+            throw new IllegalArgumentException("depart: wrong format: too small (##/##/#### ##:##)");
+        }
+        if (depart.length() > 16){
+            throw new IllegalArgumentException("depart: wrong format: too big (##/##/#### ##:##)");
+        }
+        if (depart.contains("[a-zA-Z]+")){
+            throw new IllegalArgumentException("depart: wrong format: contains letters (##/##/#### ##:##)");
+        }
+        for (int i = 0; i <= 15; i++){
+            if (i == 2 || i == 5){
+                if (depart.charAt(i) != '/'){
+                    throw new IllegalArgumentException("depart: wrong format: no slash (##/##/#### ##:##)");
+                }
+                else{
+                    i++;
+                }
+            }
+            if (i == 10){
+                if (!Character.isWhitespace(depart.charAt(i))){
+                    throw new IllegalArgumentException("depart: wrong format: no white space (##/##/#### ##:##)");
+                }
+                else{
+                    i++;
+                }
+            }
+            if (i == 13){
+                if (depart.charAt(i) != ':'){
+                    throw new IllegalArgumentException("depart: wrong format: no colon (##/##/#### ##:##)");
+                }
+                else{
+                    i++;
+                }
+            }
+            if (!Character.isDigit(depart.charAt(i))) {
+                throw new IllegalArgumentException("depart: wrong format: no digit (##/##/#### ##:##)");
+            }
+        }
         this.depart = depart;
 
         //DEST
@@ -47,6 +86,43 @@ public class Flight extends AbstractFlight {
         this.dest = dest;
 
         //ARRIVE
+        if (arrive.length() < 16){
+            throw new IllegalArgumentException("arrive: wrong format: too small (##/##/## ##:##)");
+
+        }
+        if (arrive.length() > 16){
+            throw new IllegalArgumentException("arrive: wrong format: too big (##/##/## ##:##)");
+        }
+        if (arrive.contains("[a-zA-Z]+")){
+            throw new IllegalArgumentException("arrive: wrong format: contains letters (##/##/## ##:##)");
+        }
+        for (int i = 0; i <= 15; i++) {
+            if (i == 2 || i == 5) {
+                if (arrive.charAt(i) != '/') {
+                    throw new IllegalArgumentException("arrive: wrong format: no slash (##/##/## ##:##)");
+                } else {
+                    i++;
+                }
+            }
+
+            if (i == 10) {
+                if (!Character.isWhitespace(arrive.charAt(i))) {
+                    throw new IllegalArgumentException("arrive: wrong format: no white space (##/##/## ##:##)");
+                } else {
+                    i++;
+                }
+            }
+            if (i == 13) {
+                if (arrive.charAt(i) != ':') {
+                    throw new IllegalArgumentException("arrive: wrong format: no colon (##/##/## ##:##)");
+                } else {
+                    i++;
+                }
+            }
+            if (!Character.isDigit(arrive.charAt(i))) {
+                throw new IllegalArgumentException("arrive: wrong format no digit (##/##/## ##:##)");
+            }
+        }
         this.arrive = arrive;
     }
 
@@ -82,4 +158,5 @@ public class Flight extends AbstractFlight {
         //throw new UnsupportedOperationException("This method is not implemented yet");
         return this.arrive;
     }
+
 }
