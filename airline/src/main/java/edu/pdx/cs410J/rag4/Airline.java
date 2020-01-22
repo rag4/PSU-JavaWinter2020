@@ -13,27 +13,41 @@ import java.util.Collection;
 //AIRLINE CLASS
 public class Airline extends AbstractAirline {
 
-  private final String airlineName;
-  private ArrayList<AbstractFlight> flightArray;
+  private final String airlineName; // the airline name
+  private ArrayList<AbstractFlight> flightArray; // the list of flights contained within an airline
 
+  /**
+   * Class implementation for Airline / Constructor
+   * @param airlineName
+   * @param flightArray
+   */
   public Airline(String airlineName, ArrayList<AbstractFlight> flightArray){
-    this.airlineName = airlineName;
-    this.flightArray = new ArrayList<AbstractFlight>();
+    this.airlineName = airlineName; // initialize
+    this.flightArray = new ArrayList<AbstractFlight>(); // initialize
   }
 
-  //GET AIRLINE NAME
+  /**
+   * returns the airlineName of the class
+   * @return
+   */
   @Override
   public String getName() {
     return this.airlineName;
   }
 
-  //ADD FLIGHT TO ARRAY LIST
+  /**
+   * appends a flight to the flightArray of the class
+   * @param flight
+   */
   @Override
   public void addFlight(AbstractFlight flight) {
     this.flightArray.add(flight);
   }
 
-  //???
+  /**
+   * returns the flightArray
+   * @return
+   */
   @Override
   public Collection getFlights() {
     return this.flightArray;

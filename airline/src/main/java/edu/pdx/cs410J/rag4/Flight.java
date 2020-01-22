@@ -10,40 +10,47 @@ import java.util.regex.Pattern;
 
 public class Flight extends AbstractFlight {
 
-    private final int flightNumber;
-    private final String src;
-    private final String depart;
-    private final String dest;
-    private final String arrive;
+    private final int flightNumber; // the flight number
+    private final String src; // the source three-letter code
+    private final String depart; // the departure date and time
+    private final String dest; // the destination three-letter code
+    private final String arrive; // the arrival date and time
 
-    //Class implementation for Flight
+    /**
+     * Class implementation for Flight / Constructor
+     * @param flightNumber
+     * @param src
+     * @param depart
+     * @param dest
+     * @param arrive
+     */
     public Flight(int flightNumber, String src, String depart, String dest, String arrive){
         this.flightNumber = flightNumber;
 
         //SRC
-        if (src.length() < 3) {
+        if (src.length() < 3) { // if src has no or too few letters
             throw new IllegalArgumentException("src: three-letter code is too SMALL");
         }
-        if (src.length() > 3) {
+        if (src.length() > 3) { // if src has too many letters
             throw new IllegalArgumentException("src: three-letter code is too BIG");
         }
-        if (Pattern.compile("[0-9]").matcher(src).find()){
-            throw new IllegalArgumentException("src: three-letter code contains a NUMBER");
+        if (Pattern.compile("[^a-zA-Z]").matcher(src).find()){ // if src contains something other than a letter
+            throw new IllegalArgumentException("src: three-letter code contains invalid character");
         }
-        this.src = src;
+        this.src = src; // initialize
 
         //DEPART
-        if (depart.length() < 16){
+        if (depart.length() < 16){ // if depart is smaller than expected
             throw new IllegalArgumentException("depart: wrong format: too small (##/##/#### ##:##)");
         }
-        if (depart.length() > 16){
+        if (depart.length() > 16){ // if depart is bigger than expected
             throw new IllegalArgumentException("depart: wrong format: too big (##/##/#### ##:##)");
         }
-        if (depart.contains("[a-zA-Z]+")){
+        if (depart.contains("[a-zA-Z]+")){ // if depart contains letters
             throw new IllegalArgumentException("depart: wrong format: contains letters (##/##/#### ##:##)");
         }
-        for (int i = 0; i <= 15; i++){
-            if (i == 2 || i == 5){
+        for (int i = 0; i <= 15; i++){ // check validity of certain strings
+            if (i == 2 || i == 5){ // check for proper backslash
                 if (depart.charAt(i) != '/'){
                     throw new IllegalArgumentException("depart: wrong format: no slash (##/##/#### ##:##)");
                 }
@@ -51,7 +58,7 @@ public class Flight extends AbstractFlight {
                     i++;
                 }
             }
-            if (i == 10){
+            if (i == 10){ // check for proper whitespace
                 if (!Character.isWhitespace(depart.charAt(i))){
                     throw new IllegalArgumentException("depart: wrong format: no white space (##/##/#### ##:##)");
                 }
@@ -59,7 +66,7 @@ public class Flight extends AbstractFlight {
                     i++;
                 }
             }
-            if (i == 13){
+            if (i == 13){ // check for proper colon
                 if (depart.charAt(i) != ':'){
                     throw new IllegalArgumentException("depart: wrong format: no colon (##/##/#### ##:##)");
                 }
@@ -67,37 +74,37 @@ public class Flight extends AbstractFlight {
                     i++;
                 }
             }
-            if (!Character.isDigit(depart.charAt(i))) {
+            if (!Character.isDigit(depart.charAt(i))) { // check if digit
                 throw new IllegalArgumentException("depart: wrong format: no digit (##/##/#### ##:##)");
             }
         }
-        this.depart = depart;
+        this.depart = depart; // initialize
 
         //DEST
-        if (dest.length() < 3) {
+        if (dest.length() < 3) { // if dest has no or too few letters
             throw new IllegalArgumentException("dest: three-letter code is too SMALL");
         }
-        if (dest.length() > 3) {
+        if (dest.length() > 3) { // if dest has too many letters
             throw new IllegalArgumentException("dest: three-letter code is too BIG");
         }
-        if (Pattern.compile("[0-9]").matcher(dest).find()){
-            throw new IllegalArgumentException("dest: three-letter code contains a NUMBER");
+        if (Pattern.compile("[^a-zA-Z]").matcher(dest).find()){ // if dest contains something other than a letter
+            throw new IllegalArgumentException("dest: three-letter code contains invalid character");
         }
-        this.dest = dest;
+        this.dest = dest; // initialize
 
         //ARRIVE
-        if (arrive.length() < 16){
+        if (arrive.length() < 16){ // if depart is smaller than expected
             throw new IllegalArgumentException("arrive: wrong format: too small (##/##/## ##:##)");
 
         }
-        if (arrive.length() > 16){
+        if (arrive.length() > 16){ // if depart is bigger than expected
             throw new IllegalArgumentException("arrive: wrong format: too big (##/##/## ##:##)");
         }
-        if (arrive.contains("[a-zA-Z]+")){
+        if (arrive.contains("[a-zA-Z]+")){ // if depart contains letters
             throw new IllegalArgumentException("arrive: wrong format: contains letters (##/##/## ##:##)");
         }
-        for (int i = 0; i <= 15; i++) {
-            if (i == 2 || i == 5) {
+        for (int i = 0; i <= 15; i++) { // check validity of certain strings
+            if (i == 2 || i == 5) { // check for proper backslash
                 if (arrive.charAt(i) != '/') {
                     throw new IllegalArgumentException("arrive: wrong format: no slash (##/##/## ##:##)");
                 } else {
@@ -105,54 +112,71 @@ public class Flight extends AbstractFlight {
                 }
             }
 
-            if (i == 10) {
+            if (i == 10) { // check for proper whitespace
                 if (!Character.isWhitespace(arrive.charAt(i))) {
                     throw new IllegalArgumentException("arrive: wrong format: no white space (##/##/## ##:##)");
                 } else {
                     i++;
                 }
             }
-            if (i == 13) {
+            if (i == 13) { // check for proper colon
                 if (arrive.charAt(i) != ':') {
                     throw new IllegalArgumentException("arrive: wrong format: no colon (##/##/## ##:##)");
                 } else {
                     i++;
                 }
             }
-            if (!Character.isDigit(arrive.charAt(i))) {
+            if (!Character.isDigit(arrive.charAt(i))) { // check if digit
                 throw new IllegalArgumentException("arrive: wrong format no digit (##/##/## ##:##)");
             }
         }
-        this.arrive = arrive;
+        this.arrive = arrive; // initialize
     }
 
-    //returns the flightNumber
+    /**
+     * returns the flightNumber of this class
+     * @return
+     */
     @Override
     public int getNumber() {
+        //return 42;
         return this.flightNumber;
     }
 
-    //returns the src
+    /**
+     * returns the src of this class
+     * @return
+     */
     @Override
     public String getSource() {
         //throw new UnsupportedOperationException("This method is not implemented yet");
         return this.src;
     }
 
+    /**
+     * returns the depart of this class
+     * @return
+     */
     @Override
     public String getDepartureString() {
         //throw new UnsupportedOperationException("This method is not implemented yet");
         return this.depart;
     }
 
-    //returns the dest
+    /**
+     * returns the dest of this class
+     * @return
+     */
     @Override
     public String getDestination() {
         //throw new UnsupportedOperationException("This method is not implemented yet");
         return this.dest;
     }
 
-    //returns the arrive
+    /**
+     * returns the arrive of this class
+     * @return
+     */
     @Override
     public String getArrivalString() {
         //throw new UnsupportedOperationException("This method is not implemented yet");
