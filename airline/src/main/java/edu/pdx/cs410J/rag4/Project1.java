@@ -17,7 +17,7 @@ public class Project1 {
       System.exit(1);
     }
 
-    if(args[0].equals("-README")){ // if there exists a -README option as the first command line argument, print out the README function, then exit
+    if(args[0].equals("-README") || args[1].equals("-README")){ // if there exists a -README option as the first command line argument, print out the README function, then exit
       printReadMe();
       System.exit(1);
     }
@@ -61,6 +61,7 @@ public class Project1 {
       ArrayList<AbstractFlight> flightArray = new ArrayList<AbstractFlight>();
       Airline airline = new Airline(args[1], flightArray);
       airline.addFlight(flight);
+      System.out.println("AIRLINE:" + airline.getName());
       System.out.println(flight.toString()); //since -print option exists, print the flight description
     }
 
@@ -95,7 +96,20 @@ public class Project1 {
    * prints out the README, should be used when -README option exists as the first command line argument in the main function
    */
   public static void printReadMe(){
-
+    System.out.println("PROJECT 1: DEESIGNING AN AIRLINE APPLICATION\n" +
+            "SUBMITION/DEVELOPED BY: Ramon Guarnes 942268924\n" +
+            "CLASS: CS410P Advanced Programmin with Java\n" +
+            "TEACHER: David Whitlock\n" +
+            "DUE DATE: January 22, 2019 before 5:30PM\n" +
+            "DESCRIPTION: In Project 1, my objective is to extend the AbstractAirline class with the class Airline, \n" +
+            "extend the AbstractFlight class with the class flight, implement assigned functionality for the main function \n" +
+            "within Project1.java, and to create test suites for all of these classes/files. \n\n" +
+            "In the Airline class, aside from error handling, I implemented a constructor to consider the airline's name, and a \n" +
+            "list of available flights the airline contains. In the Flight class, aside from error handling, I implemented a constructor\n" +
+            "to consider the flight's unique number, three-letter source code, departure date and time, three-letter destination code, \n" +
+            "and arrival date and time. Within the main function, the purpose of this function is to create an airline and flight to add\n" +
+            "to the airline using the values of the user's input command line arguments. The user also has the option to print the descriptions\n" +
+            "of the flight, as well as to be able to view this README.");
   }
 
 
