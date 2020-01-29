@@ -11,73 +11,79 @@ public class Project1 {
   //MAIN FUNCTION
   public static void main(String[] args) {
 
-    int printFlag = 0;
-    int departFlag = 0;
+    int printFlag = 0; //flag to tell if the -print option exists
+    int departFlag = 0; //flag to tell if we already inserted depart into ArrayList
     ArrayList<String> scanAirlineFlight = new ArrayList<String>();
 
-    if(args.length <= 0) {
+    if(args.length <= 0) { //error if there are missing command line arguments
       System.err.println("There are missing command line arguments.\n");
       commandLineInterface();
     }
-    for (int i = 0; i < args.length; i++){
+    for (int i = 0; i < args.length; i++){ //checks for -README option, if it exists, execute README then exit
       if (args[i].equals("-README")){
         printReadMe();
         System.exit(1);
       }
+      if (args[i].charAt(0) == '-'){ //this is a check for a nonexistant , nonsensical option
+        if(!args[i].equals("-README")  && !args[i].equals("-print")) {
+          System.out.println("FIRST CHARACTER OF STRING IS: " + args[i]);
+          System.err.println("OPTION DOES NOT EXIST. \n");
+          commandLineInterface();
+          System.exit(1);
+        }
+      }
     }
-    for (int i = 0; i < args.length; i++){
-      if (args[i].equals("-print")){
+    for (int i = 0; i < args.length; i++){ //for loop to put respective airlineName, flightNumber, src, depart, dest, and arrive from command line arguments into an arraylist
+      if (args[i].equals("-print")){ //if -print option exists, turn on printFlag then go to next for loop iteration
         printFlag = 1;
         continue;
       }
-      if (args[i].indexOf('/') == 2 || args[i].indexOf('/') == 1) {
-        if(args[i+1].equals("-print")){
+      if (args[i].indexOf('/') == 2 || args[i].indexOf('/') == 1) { // concatenate the date and time command line arguments into one string
+        if(args[i+1].equals("-print")){ // this considers if -print option exists between date and time, also turn on print flag
           scanAirlineFlight.add(args[i] + " " + args[i + 2]);
           printFlag = 1;
-          if (i + 3 == args.length) {
+          if (i + 3 == args.length) { // if it's already on arrival, end the for loop
             break;
           }
           i += 3;
         }
         else {
-          scanAirlineFlight.add(args[i] + " " + args[i + 1]);
-          if (i + 2 == args.length) {
+          scanAirlineFlight.add(args[i] + " " + args[i + 1]); //concatenate date and time into one string
+          if (i + 2 == args.length) { // if it's already on arrival, end the for loop
             break;
           }
           i += 2;
         }
       }
-      scanAirlineFlight.add(args[i]);
+      scanAirlineFlight.add(args[i]); //appends command line argument into arraylist
     }
 
-    for (int i = 0; i < scanAirlineFlight.size(); i++){
+    /*for (int i = 0; i < scanAirlineFlight.size(); i++){  //test to check what's in my scanAirlineFlight arraylist
       System.out.println("Content " + i + ": " + scanAirlineFlight.get(i));
-    }
+    }*/
 
-    if (scanAirlineFlight.size() < 6){
+    if (scanAirlineFlight.size() < 6){ //if arraylist has too few contents, print error
       System.err.println("You have too FEW command line arguments. \n");
       commandLineInterface();
       System.exit(1);
     }
-    if (scanAirlineFlight.size() > 6){
+    if (scanAirlineFlight.size() > 6){ //if arraylist has too many contents, print error
       System.err.println("You have far too MANY command line arguments. \n");
       commandLineInterface();
       System.exit(1);
     }
 
-    String flightNumberCheck = scanAirlineFlight.get(1);
-    if (!flightNumberCheck.matches("[0-9]+")){
-      System.err.println("Flight number contains illegal character. Can only be INTEGER. \n");
-      commandLineInterface();
-      System.exit(1);
+    String flightNumberCheck = scanAirlineFlight.get(1); //easy string variable to get the flight number
+    if (!flightNumberCheck.matches("[0-9]+")){ // if flight number contains anything other than numbers, throw an illegal argument exception
+      throw new IllegalArgumentException("Flight number contains illegal character. Flight number must be INTEGER. \n");
     }
 
-    ArrayList<AbstractFlight> flightArray = new ArrayList<AbstractFlight>();
-    Airline airline = new Airline(scanAirlineFlight.get(0), flightArray);
+    ArrayList<AbstractFlight> flightArray = new ArrayList<AbstractFlight>(); // new Abstract FLight Array List
+    Airline airline = new Airline(scanAirlineFlight.get(0), flightArray); // new Airline object
     Flight flight = new Flight(Integer.parseInt(scanAirlineFlight.get(1)), scanAirlineFlight.get(2), scanAirlineFlight.get(3), scanAirlineFlight.get(4), scanAirlineFlight.get(5));
-    airline.addFlight(flight);
-    if (printFlag == 1) {
-      System.out.println("AIRLINE:" + airline.getName());
+    airline.addFlight(flight); // add this newly created flight with initialized values into airline
+    if (printFlag == 1) { // if printFlag is on, print the airline and it's flight descriptions
+      System.out.println("AIRLINE: " + airline.getName());
       System.out.println(flight.toString()); //since -print option exists, print the flight description
     }
     System.exit(1);

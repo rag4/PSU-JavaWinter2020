@@ -11,9 +11,9 @@ import java.util.regex.Pattern;
 public class Flight extends AbstractFlight {
 
     private final int flightNumber; // the flight number
-    private final String src; // the source three-letter code
+    private final String src; // the source airport three-letter code
     private final String depart; // the departure date and time
-    private final String dest; // the destination three-letter code
+    private final String dest; // the destination airport three-letter code
     private final String arrive; // the arrival date and time
 
     /**
@@ -29,13 +29,13 @@ public class Flight extends AbstractFlight {
 
         //SRC
         if (src.length() < 3) { // if src has no or too few letters
-            throw new IllegalArgumentException("src: three-letter code is too SMALL");
+            throw new IllegalArgumentException("src: airport airport three-letter code is too SMALL");
         }
         if (src.length() > 3) { // if src has too many letters
-            throw new IllegalArgumentException("src: three-letter code is too BIG");
+            throw new IllegalArgumentException("src: airport three-letter code is too BIG");
         }
         if (Pattern.compile("[^a-zA-Z]").matcher(src).find()){ // if src contains something other than a letter
-            throw new IllegalArgumentException("src: three-letter code contains invalid character");
+            throw new IllegalArgumentException("src: airport three-letter code contains invalid character, IT MUST BE LETTERS");
         }
         this.src = src; // initialize
 
@@ -75,20 +75,20 @@ public class Flight extends AbstractFlight {
                 }
             }
             if (!Character.isDigit(depart.charAt(i))) { // check if digit
-                throw new IllegalArgumentException("depart: wrong format: no digit (##/##/#### ##:##)");
+                throw new IllegalArgumentException("depart: wrong format: not a digit (##/##/#### ##:##)");
             }
         }
         this.depart = depart; // initialize
 
         //DEST
         if (dest.length() < 3) { // if dest has no or too few letters
-            throw new IllegalArgumentException("dest: three-letter code is too SMALL");
+            throw new IllegalArgumentException("dest: airport three-letter code is too SMALL");
         }
         if (dest.length() > 3) { // if dest has too many letters
-            throw new IllegalArgumentException("dest: three-letter code is too BIG");
+            throw new IllegalArgumentException("dest: airport three-letter code is too BIG");
         }
         if (Pattern.compile("[^a-zA-Z]").matcher(dest).find()){ // if dest contains something other than a letter
-            throw new IllegalArgumentException("dest: three-letter code contains invalid character");
+            throw new IllegalArgumentException("dest: airport three-letter code contains invalid character, IT MUST BE LETTERS");
         }
         this.dest = dest; // initialize
 
