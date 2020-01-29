@@ -75,7 +75,7 @@ public class Flight extends AbstractFlight {
                 }
             }
             if (!Character.isDigit(depart.charAt(i))) { // check if digit
-                throw new IllegalArgumentException("depart: wrong format: not a digit (##/##/#### ##:##)");
+                throw new IllegalArgumentException("depart: wrong format: not a digit or incorrect placement (##/##/#### ##:##)");
             }
         }
         this.depart = depart; // initialize
@@ -127,7 +127,7 @@ public class Flight extends AbstractFlight {
                 }
             }
             if (!Character.isDigit(arrive.charAt(i))) { // check if digit
-                throw new IllegalArgumentException("arrive: wrong format no digit (##/##/#### ##:##)");
+                throw new IllegalArgumentException("arrive: wrong format not a digit or incorrect placement (##/##/#### ##:##)");
             }
         }
         this.arrive = arrive; // initialize
