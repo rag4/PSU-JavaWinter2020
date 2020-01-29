@@ -26,7 +26,7 @@ public class Project1IT extends InvokeMainTestCase {
     public void testNoCommandLineArguments() {
       MainMethodResult result = invokeMain();
       assertThat(result.getExitCode(), equalTo(1));
-      assertThat(result.getTextWrittenToStandardError(), containsString("There are missing command line arguments.\n"));
+      assertThat(result.getTextWrittenToStandardError(), containsString("There are NO command line arguments.\n"));
   }
 
     /**

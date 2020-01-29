@@ -3,6 +3,7 @@ package edu.pdx.cs410J.rag4;
 import edu.pdx.cs410J.AbstractAirline;
 import edu.pdx.cs410J.AbstractFlight;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -15,8 +16,8 @@ public class Project1 {
     int departFlag = 0; //flag to tell if we already inserted depart into ArrayList
     ArrayList<String> scanAirlineFlight = new ArrayList<String>();
 
-    if(args.length <= 0) { //error if there are missing command line arguments
-      System.err.println("There are missing command line arguments.\n");
+    if(args.length <= 0) { //error if there are NO command line arguments
+      System.err.println("There are NO command line arguments.\n");
       commandLineInterface();
     }
     for (int i = 0; i < args.length; i++){ //checks for -README option, if it exists, execute README then exit
@@ -24,35 +25,69 @@ public class Project1 {
         printReadMe();
         System.exit(1);
       }
+      if (args[i].equals("-print")){ // if -print option exists, turn on printFlag then go to next for loop iteration
+        printFlag = 1;
+        continue;
+      }
       if (args[i].charAt(0) == '-'){ //this is a check for a nonexistant , nonsensical option
         if(!args[i].equals("-README")  && !args[i].equals("-print")) {
-          System.out.println("FIRST CHARACTER OF STRING IS: " + args[i]);
-          System.err.println("OPTION DOES NOT EXIST. \n");
+          System.err.println("THE OPTION YOU HAVE INPUTTED DOES NOT EXIST. \n");
           commandLineInterface();
           System.exit(1);
         }
       }
     }
+
+    if (args.length < 8 &&  printFlag == 0){ //if command line arguments has too few contents, print error
+      System.err.println("You have too FEW command line arguments. \n");
+      commandLineInterface();
+      System.exit(1);
+    }
+    if (args.length > 8 && printFlag == 0){ //if command line arguments has too many contents, print error
+      System.err.println("You have far too MANY command line arguments. \n");
+      commandLineInterface();
+      System.exit(1);
+    }
+    if (args.length < 9 &&  printFlag == 1){ //if command line arguments has too few contents, print error
+      System.err.println("You have too FEW command line arguments. \n");
+      commandLineInterface();
+      System.exit(1);
+    }
+    if (args.length > 9 && printFlag == 1){ //if command line arguments has too many contents, print error
+      System.err.println("You have far too MANY command line arguments. \n");
+      commandLineInterface();
+      System.exit(1);
+    }
+
     for (int i = 0; i < args.length; i++){ //for loop to put respective airlineName, flightNumber, src, depart, dest, and arrive from command line arguments into an arraylist
-      if (args[i].equals("-print")){ //if -print option exists, turn on printFlag then go to next for loop iteration
-        printFlag = 1;
+      if (args[i].equals("-print")){ //if -print option exists, go to next for loop iteration
         continue;
       }
       if (args[i].indexOf('/') == 2 || args[i].indexOf('/') == 1) { // concatenate the date and time command line arguments into one string
-        if(args[i+1].equals("-print")){ // this considers if -print option exists between date and time, also turn on print flag
+        if(args[i].indexOf('/') == 1){ // insert a 0 if date format: d/mm/yyyy
+          args[i] = "0" + args[i];
+        }
+        if(args[i+1].equals("-print")){ // this considers if -print option exists between date and time
+          if(args[i+2].indexOf(':') == 1){ // insert a 0 if date format: h:mm
+            args[i+2] = "0" + args[i+2];
+          }
           scanAirlineFlight.add(args[i] + " " + args[i + 2]);
-          printFlag = 1;
           if (i + 3 == args.length) { // if it's already on arrival, end the for loop
             break;
           }
-          i += 3;
+          i += 2;
+          continue;
         }
         else {
+          if(args[i+1].indexOf(':') == 1){ // insert a 0 if date format: h:mm
+            args[i+1] = "0" + args[i+1];
+          }
           scanAirlineFlight.add(args[i] + " " + args[i + 1]); //concatenate date and time into one string
           if (i + 2 == args.length) { // if it's already on arrival, end the for loop
             break;
           }
-          i += 2;
+          i += 1;
+          continue;
         }
       }
       scanAirlineFlight.add(args[i]); //appends command line argument into arraylist
@@ -62,7 +97,7 @@ public class Project1 {
       System.out.println("Content " + i + ": " + scanAirlineFlight.get(i));
     }*/
 
-    if (scanAirlineFlight.size() < 6){ //if arraylist has too few contents, print error
+    /*if (scanAirlineFlight.size() < 6){ //if arraylist has too few contents, print error
       System.err.println("You have too FEW command line arguments. \n");
       commandLineInterface();
       System.exit(1);
@@ -71,7 +106,7 @@ public class Project1 {
       System.err.println("You have far too MANY command line arguments. \n");
       commandLineInterface();
       System.exit(1);
-    }
+    }*/
 
     String flightNumberCheck = scanAirlineFlight.get(1); //easy string variable to get the flight number
     if (!flightNumberCheck.matches("[0-9]+")){ // if flight number contains anything other than numbers, throw an illegal argument exception

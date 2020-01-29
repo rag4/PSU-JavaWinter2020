@@ -94,19 +94,19 @@ public class Flight extends AbstractFlight {
 
         //ARRIVE
         if (arrive.length() < 16){ // if depart is smaller than expected
-            throw new IllegalArgumentException("arrive: wrong format: too small (##/##/## ##:##)");
+            throw new IllegalArgumentException("arrive: wrong format: too small (mm/dd/yyyy hh:mm)");
 
         }
         if (arrive.length() > 16){ // if depart is bigger than expected
-            throw new IllegalArgumentException("arrive: wrong format: too big (##/##/## ##:##)");
+            throw new IllegalArgumentException("arrive: wrong format: too big (mm/dd/yyyy hh:mm)");
         }
         if (arrive.contains("[a-zA-Z]+")){ // if depart contains letters
-            throw new IllegalArgumentException("arrive: wrong format: contains letters (##/##/## ##:##)");
+            throw new IllegalArgumentException("arrive: wrong format: contains letters (mm/dd/yyyy hh:mm)");
         }
         for (int i = 0; i <= 15; i++) { // check validity of certain strings
             if (i == 2 || i == 5) { // check for proper backslash
                 if (arrive.charAt(i) != '/') {
-                    throw new IllegalArgumentException("arrive: wrong format: no slash (##/##/## ##:##)");
+                    throw new IllegalArgumentException("arrive: wrong format: no slash (mm/dd/yyyy hh:mm)");
                 } else {
                     i++;
                 }
@@ -114,20 +114,20 @@ public class Flight extends AbstractFlight {
 
             if (i == 10) { // check for proper whitespace
                 if (!Character.isWhitespace(arrive.charAt(i))) {
-                    throw new IllegalArgumentException("arrive: wrong format: no white space (##/##/## ##:##)");
+                    throw new IllegalArgumentException("arrive: wrong format: no white space (mm/dd/yyyy hh:mm)");
                 } else {
                     i++;
                 }
             }
             if (i == 13) { // check for proper colon
                 if (arrive.charAt(i) != ':') {
-                    throw new IllegalArgumentException("arrive: wrong format: no colon (##/##/## ##:##)");
+                    throw new IllegalArgumentException("arrive: wrong format: no colon (mm/dd/yyyy hh:mm)");
                 } else {
                     i++;
                 }
             }
             if (!Character.isDigit(arrive.charAt(i))) { // check if digit
-                throw new IllegalArgumentException("arrive: wrong format no digit (##/##/## ##:##)");
+                throw new IllegalArgumentException("arrive: wrong format no digit (mm/dd/yyyy hh:mm)");
             }
         }
         this.arrive = arrive; // initialize
