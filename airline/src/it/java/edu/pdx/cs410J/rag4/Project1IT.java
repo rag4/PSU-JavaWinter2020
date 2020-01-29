@@ -26,7 +26,7 @@ public class Project1IT extends InvokeMainTestCase {
     public void testNoCommandLineArguments() {
       MainMethodResult result = invokeMain();
       assertThat(result.getExitCode(), equalTo(1));
-      assertThat(result.getTextWrittenToStandardError(), containsString("Missing command line arguments"));
+      assertThat(result.getTextWrittenToStandardError(), containsString("There are missing command line arguments.\n"));
   }
 
     /**
@@ -36,7 +36,7 @@ public class Project1IT extends InvokeMainTestCase {
     public void testTooLessCommandLineArgumentsWithoutOption() {
       MainMethodResult result = invokeMain("Portland", "00", "pdx");
       assertThat(result.getExitCode(), equalTo(1));
-      assertThat(result.getTextWrittenToStandardError(), containsString("Missing command line arguments"));
+      assertThat(result.getTextWrittenToStandardError(), containsString("You have too FEW command line arguments. \n"));
   }
 
   /**
@@ -44,9 +44,9 @@ public class Project1IT extends InvokeMainTestCase {
    */
   @Test
   public void testTooManyCommandLineArgumentsWithoutOption() {
-      MainMethodResult result = invokeMain("Portland", "00", "pdx", "11/11/1111 11:11", "sfx", "22/22/2222", "heyyy");
+      MainMethodResult result = invokeMain("Portland", "00", "pdx", "11/11/1111", "11:11", "sfx", "22/22/2222", "22:22", "heyyy");
       assertThat(result.getExitCode(), equalTo(1));
-      assertThat(result.getTextWrittenToStandardError(), containsString("Too many command line arguments"));
+      assertThat(result.getTextWrittenToStandardError(), containsString("You have far too MANY command line arguments. \n"));
   }
 
     /**
@@ -56,7 +56,7 @@ public class Project1IT extends InvokeMainTestCase {
   public void testTooLessCommandLineArgumentsWithOption() {
     MainMethodResult result = invokeMain("-print", "Portland", "00", "pdx");
     assertThat(result.getExitCode(), equalTo(1));
-    assertThat(result.getTextWrittenToStandardError(), containsString("Missing command line arguments"));
+    assertThat(result.getTextWrittenToStandardError(), containsString("You have too FEW command line arguments. \n"));
   }
 
     /**
@@ -64,9 +64,9 @@ public class Project1IT extends InvokeMainTestCase {
      */
   @Test
   public void testTooManyCommandLineArgumentsWithOption() {
-    MainMethodResult result = invokeMain("-print", "Portland", "00", "pdx", "11/11/1111 11:11", "sfx", "22/22/2222 22:22", "heyyy");
+    MainMethodResult result = invokeMain("-print", "Portland", "00", "pdx", "11/11/1111", "11:11", "sfx", "22/22/2222", "22:22", "heyyy");
     assertThat(result.getExitCode(), equalTo(1));
-    assertThat(result.getTextWrittenToStandardError(), containsString("Too many command line arguments"));
+    assertThat(result.getTextWrittenToStandardError(), containsString("You have far too MANY command line arguments. \n"));
   }
 
     /**
@@ -83,7 +83,7 @@ public class Project1IT extends InvokeMainTestCase {
      */
   @Test
   public void testProperCommandLineArgumentsWithOption() {
-    MainMethodResult result = invokeMain("-print", "Portland", "00", "pdx", "11/11/1111 11:11", "sfx", "22/22/2222 22:22");
+    MainMethodResult result = invokeMain("-print", "Portland", "00", "pdx", "11/11/1111", "11:11", "sfx", "22/22/2222", "22:22");
     assertThat(result.getExitCode(), equalTo(1));
     assertThat(result.getTextWrittenToStandardOut(), containsString("Flight 0 departs pdx at 11/11/1111 11:11 arrives sfx at 22/22/2222 22:22"));
   }
@@ -94,9 +94,9 @@ public class Project1IT extends InvokeMainTestCase {
    */
   @Test
   public void readMeTestFirstArg() {
-    MainMethodResult result = invokeMain("-README", "Portland", "00", "pdx", "11/11/1111 11:11", "sfx", "22/22/2222 22:22");
+    MainMethodResult result = invokeMain("-README", "Portland", "00", "pdx", "11/11/1111", "11:11", "sfx", "22/22/2222", "22:22");
     assertThat(result.getExitCode(), equalTo(1));
-    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 1: DEESIGNING AN AIRLINE APPLICATION\n" +
+    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 1: DESIGNING AN AIRLINE APPLICATION\n" +
             "SUBMITION/DEVELOPED BY: Ramon Guarnes 942268924\n" +
             "CLASS: CS410P Advanced Programmin with Java\n" +
             "TEACHER: David Whitlock\n" +
@@ -119,9 +119,9 @@ public class Project1IT extends InvokeMainTestCase {
    */
   @Test
   public void readMeTestSecondArg() {
-    MainMethodResult result = invokeMain("-print", "-README", "Portland", "00", "pdx", "11/11/1111 11:11", "sfx", "22/22/2222 22:22");
+    MainMethodResult result = invokeMain("-print", "-README", "Portland", "00", "pdx", "11/11/1111", "11:11", "sfx", "22/22/2222", "22:22");
     assertThat(result.getExitCode(), equalTo(1));
-    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 1: DEESIGNING AN AIRLINE APPLICATION\n" +
+    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 1: DESIGNING AN AIRLINE APPLICATION\n" +
             "SUBMITION/DEVELOPED BY: Ramon Guarnes 942268924\n" +
             "CLASS: CS410P Advanced Programmin with Java\n" +
             "TEACHER: David Whitlock\n" +

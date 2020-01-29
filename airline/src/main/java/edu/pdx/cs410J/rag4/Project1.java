@@ -11,64 +11,68 @@ public class Project1 {
   //MAIN FUNCTION
   public static void main(String[] args) {
 
-    if(args.length == 0) { // if there are no command line arguments, print error message, print command line interface, then exit
-      System.err.println("Missing command line arguments");
+    int printFlag = 0;
+    int departFlag = 0;
+    ArrayList<String> scanAirlineFlight = new ArrayList<String>();
+
+    if(args.length <= 0) {
+      System.err.println("There are missing command line arguments.\n");
+      commandLineInterface();
+    }
+    for (int i = 0; i < args.length; i++){
+      if (args[i].equals("-README")){
+        printReadMe();
+        System.exit(1);
+      }
+    }
+    for (int i = 0; i < args.length; i++){
+      if (args[i].equals("-print")){
+        printFlag = 1;
+        continue;
+      }
+      if (args[i].indexOf('/') == 2 || args[i].indexOf('/') == 1) {
+        if(args[i+1].equals("-print")){
+          scanAirlineFlight.add(args[i] + " " + args[i + 2]);
+          printFlag = 1;
+          if (i + 3 == args.length) {
+            break;
+          }
+          i += 3;
+        }
+        else {
+          scanAirlineFlight.add(args[i] + " " + args[i + 1]);
+          if (i + 2 == args.length) {
+            break;
+          }
+          i += 2;
+        }
+      }
+      scanAirlineFlight.add(args[i]);
+    }
+
+    for (int i = 0; i < scanAirlineFlight.size(); i++){
+      System.out.println("Content " + i + ": " + scanAirlineFlight.get(i));
+    }
+
+    if (scanAirlineFlight.size() < 6){
+      System.err.println("You have too FEW command line arguments. \n");
+      commandLineInterface();
+      System.exit(1);
+    }
+    if (scanAirlineFlight.size() > 6){
+      System.err.println("You have far too MANY command line arguments. \n");
       commandLineInterface();
       System.exit(1);
     }
 
-    if(args[0].equals("-README") || args[1].equals("-README")){ // if there exists a -README option as the first command line argument, print out the README function, then exit
-      printReadMe();
-      System.exit(1);
-    }
-
-    int printOption = 0; // printOption flag should stay 0 if -print option is NOT the first command line argument
-
-    if(args[0].equals("-print")){ // printOption flag changes to 1 if -print option exist as the first command line argument
-      printOption = 1;
-    }
-
-    if(args.length < 6 && printOption == 0){ // if far too LESS arguments in command line (w/o -print), print error message, print command line interface, then exit
-      System.err.println("Missing command line arguments");
-      commandLineInterface();
-      System.exit(1);
-    }
-    if(args.length > 6 && printOption == 0){ // if far too MANY arguments in command line (w/o -print), print error message, print command line interface, then exit
-      System.err.println("Too many command line arguments");
-      commandLineInterface();
-      System.exit(1);
-    }
-    if(args.length < 7 && printOption == 1){ // if far too LESS arguments in command line (w/ -print), print error message, print command line interface, then exit
-      System.err.println("Missing command line arguments");
-      commandLineInterface();
-      System.exit(1);
-    }
-    if(args.length > 7 && printOption == 1){ // if far too MANY arguments in command line (w/ -print), print error message, print command line interface, then exit
-      System.err.println("Too many command line arguments");
-      commandLineInterface();
-      System.exit(1);
-    }
-
-    if (printOption == 0) { // if -print exists, create a new flight class using the respective command line arguments, create a new airline class using the respective command line arguments, add flight into airline's flightArray
-      Flight flight = new Flight(Integer.parseInt(args[1]), args[2], args[3], args[4], args[5]);
-      ArrayList<AbstractFlight> flightArray = new ArrayList<AbstractFlight>();
-      Airline airline = new Airline(args[0], flightArray);
-      airline.addFlight(flight);
-    }
-
-    if (printOption == 1) { // if -print exists, create a new flight class using the respective command line arguments, create a new airline class using the respective command line arguments, add flight into airline's flightArray
-      Flight flight = new Flight(Integer.parseInt(args[2]), args[3], args[4], args[5], args[6]);
-      ArrayList<AbstractFlight> flightArray = new ArrayList<AbstractFlight>();
-      Airline airline = new Airline(args[1], flightArray);
-      airline.addFlight(flight);
+    ArrayList<AbstractFlight> flightArray = new ArrayList<AbstractFlight>();
+    Airline airline = new Airline(scanAirlineFlight.get(0), flightArray);
+    Flight flight = new Flight(Integer.parseInt(scanAirlineFlight.get(1)), scanAirlineFlight.get(2), scanAirlineFlight.get(3), scanAirlineFlight.get(4), scanAirlineFlight.get(5));
+    airline.addFlight(flight);
+    if (printFlag == 1) {
       System.out.println("AIRLINE:" + airline.getName());
       System.out.println(flight.toString()); //since -print option exists, print the flight description
     }
-
-    /*for (String arg : args) {
-      System.out.println(arg);
-    }*/
-
     System.exit(1);
   }
 
@@ -96,7 +100,7 @@ public class Project1 {
    * prints out the README, should be used when -README option exists as the first command line argument in the main function
    */
   public static void printReadMe(){
-    System.out.println("PROJECT 1: DEESIGNING AN AIRLINE APPLICATION\n" +
+    System.out.println("PROJECT 1: DESIGNING AN AIRLINE APPLICATION\n" +
             "SUBMITION/DEVELOPED BY: Ramon Guarnes 942268924\n" +
             "CLASS: CS410P Advanced Programmin with Java\n" +
             "TEACHER: David Whitlock\n" +
