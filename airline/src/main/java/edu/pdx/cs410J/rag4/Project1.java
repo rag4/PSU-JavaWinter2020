@@ -64,8 +64,11 @@ public class Project1 {
         continue;
       }
       if (args[i].indexOf('/') == 2 || args[i].indexOf('/') == 1) { // concatenate the date and time command line arguments into one string
-        if(args[i].indexOf('/') == 1){ // insert a 0 if date format: d/mm/yyyy
+        if(args[i].charAt(1) == ('/')){ // insert a 0 if date format: m/dd/yyyy
           args[i] = "0" + args[i];
+        }
+        if(args[i].charAt(4) == ('/')){ // insert a 0 if date format: mm/d/yyyy OR m/d/yyyy --> mm/d/yyyy
+          args[i] =  args[i].substring(0,3) + "0" + (args[i].substring(3,args.length));
         }
         if(args[i+1].equals("-print")){ // this considers if -print option exists between date and time
           if(args[i+2].indexOf(':') == 1){ // insert a 0 if date format: h:mm

@@ -41,10 +41,10 @@ public class Flight extends AbstractFlight {
 
         //DEPART
         if (depart.length() < 16){ // if depart is smaller than expected
-            throw new IllegalArgumentException("depart: wrong format: too small (##/##/#### ##:##)");
+            throw new IllegalArgumentException("depart: wrong format: too small (mm/dd/yyyy)");
         }
         if (depart.length() > 16){ // if depart is bigger than expected
-            throw new IllegalArgumentException("depart: wrong format: too big (##/##/#### ##:##)");
+            throw new IllegalArgumentException("depart: wrong format: too big (mm/dd/yyyy)");
         }
         if (depart.contains("[a-zA-Z]+")){ // if depart contains letters
             throw new IllegalArgumentException("depart: wrong format: contains letters (##/##/#### ##:##)");
@@ -52,7 +52,7 @@ public class Flight extends AbstractFlight {
         for (int i = 0; i <= 15; i++){ // check validity of certain strings
             if (i == 2 || i == 5){ // check for proper backslash
                 if (depart.charAt(i) != '/'){
-                    throw new IllegalArgumentException("depart: wrong format: no slash (##/##/#### ##:##)");
+                    throw new IllegalArgumentException("depart: wrong format: no slash (mm/dd/yyyy)");
                 }
                 else{
                     i++;
@@ -60,7 +60,7 @@ public class Flight extends AbstractFlight {
             }
             if (i == 10){ // check for proper whitespace
                 if (!Character.isWhitespace(depart.charAt(i))){
-                    throw new IllegalArgumentException("depart: wrong format: no white space (##/##/#### ##:##)");
+                    throw new IllegalArgumentException("depart: wrong format: no white space (mm/dd/yyyy)");
                 }
                 else{
                     i++;
@@ -68,7 +68,7 @@ public class Flight extends AbstractFlight {
             }
             if (i == 13){ // check for proper colon
                 if (depart.charAt(i) != ':'){
-                    throw new IllegalArgumentException("depart: wrong format: no colon (##/##/#### ##:##)");
+                    throw new IllegalArgumentException("depart: wrong format: no colon (mm/dd/yyyy)");
                 }
                 else{
                     i++;
@@ -101,7 +101,7 @@ public class Flight extends AbstractFlight {
             throw new IllegalArgumentException("arrive: wrong format: too big (mm/dd/yyyy hh:mm)");
         }
         if (arrive.contains("[a-zA-Z]+")){ // if depart contains letters
-            throw new IllegalArgumentException("arrive: wrong format: contains letters (mm/dd/yyyy hh:mm)");
+            throw new IllegalArgumentException("arrive: wrong format: contains letters (##/##/#### ##:##)");
         }
         for (int i = 0; i <= 15; i++) { // check validity of certain strings
             if (i == 2 || i == 5) { // check for proper backslash
@@ -127,7 +127,7 @@ public class Flight extends AbstractFlight {
                 }
             }
             if (!Character.isDigit(arrive.charAt(i))) { // check if digit
-                throw new IllegalArgumentException("arrive: wrong format no digit (mm/dd/yyyy hh:mm)");
+                throw new IllegalArgumentException("arrive: wrong format no digit (##/##/#### ##:##)");
             }
         }
         this.arrive = arrive; // initialize
