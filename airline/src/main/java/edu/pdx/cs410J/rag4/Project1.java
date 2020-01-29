@@ -65,6 +65,12 @@ public class Project1 {
       System.exit(1);
     }
 
+    if (scanAirlineFlight.get(1).contains("[a-zA-Z]+")){
+      System.err.println("Flight number contains illegal character. Can only be INTEGER. \n");
+      commandLineInterface();
+      System.exit(1);
+    }
+
     ArrayList<AbstractFlight> flightArray = new ArrayList<AbstractFlight>();
     Airline airline = new Airline(scanAirlineFlight.get(0), flightArray);
     Flight flight = new Flight(Integer.parseInt(scanAirlineFlight.get(1)), scanAirlineFlight.get(2), scanAirlineFlight.get(3), scanAirlineFlight.get(4), scanAirlineFlight.get(5));
