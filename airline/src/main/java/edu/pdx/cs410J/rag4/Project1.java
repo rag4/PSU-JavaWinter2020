@@ -65,7 +65,8 @@ public class Project1 {
       System.exit(1);
     }
 
-    if (scanAirlineFlight.get(1).contains("[a-zA-Z]+")){
+    String flightNumberCheck = scanAirlineFlight.get(1);
+    if (!flightNumberCheck.matches("[0-9]+")){
       System.err.println("Flight number contains illegal character. Can only be INTEGER. \n");
       commandLineInterface();
       System.exit(1);
