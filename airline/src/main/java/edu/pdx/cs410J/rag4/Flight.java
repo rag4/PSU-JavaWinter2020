@@ -41,10 +41,12 @@ public class Flight extends AbstractFlight {
 
         //DEPART
         if (depart.length() < 16){ // if depart is smaller than expected
-            throw new IllegalArgumentException("depart: wrong format: too small (mm/dd/yyyy)");
+            System.out.println(depart);
+            throw new IllegalArgumentException("depart: wrong format: too small (mm/dd/yyyy hh:mm)");
         }
         if (depart.length() > 16){ // if depart is bigger than expected
-            throw new IllegalArgumentException("depart: wrong format: too big (mm/dd/yyyy)");
+            System.out.println(depart);
+            throw new IllegalArgumentException("depart: wrong format: too big (mm/dd/yyyy hh:mm)");
         }
         if (depart.contains("[a-zA-Z]+")){ // if depart contains letters
             throw new IllegalArgumentException("depart: wrong format: contains letters (##/##/#### ##:##)");
@@ -52,7 +54,7 @@ public class Flight extends AbstractFlight {
         for (int i = 0; i <= 15; i++){ // check validity of certain strings
             if (i == 2 || i == 5){ // check for proper backslash
                 if (depart.charAt(i) != '/'){
-                    throw new IllegalArgumentException("depart: wrong format: no slash (mm/dd/yyyy)");
+                    throw new IllegalArgumentException("depart: wrong format: no slash (mm/dd/yyyy hh:mm)");
                 }
                 else{
                     i++;
@@ -60,7 +62,7 @@ public class Flight extends AbstractFlight {
             }
             if (i == 10){ // check for proper whitespace
                 if (!Character.isWhitespace(depart.charAt(i))){
-                    throw new IllegalArgumentException("depart: wrong format: no white space (mm/dd/yyyy)");
+                    throw new IllegalArgumentException("depart: wrong format: no white space (mm/dd/yyyy hh:mm)");
                 }
                 else{
                     i++;
@@ -68,7 +70,7 @@ public class Flight extends AbstractFlight {
             }
             if (i == 13){ // check for proper colon
                 if (depart.charAt(i) != ':'){
-                    throw new IllegalArgumentException("depart: wrong format: no colon (mm/dd/yyyy)");
+                    throw new IllegalArgumentException("depart: wrong format: no colon (mm/dd/yyyy hh:mm)");
                 }
                 else{
                     i++;
