@@ -41,11 +41,11 @@ public class Flight extends AbstractFlight {
 
         //DEPART
         if (depart.length() < 16){ // if depart is smaller than expected
-            System.out.println(depart);
+            //System.out.println(depart);
             throw new IllegalArgumentException("depart: wrong format: too small (mm/dd/yyyy hh:mm)");
         }
         if (depart.length() > 16){ // if depart is bigger than expected
-            System.out.println(depart);
+            //System.out.println(depart);
             throw new IllegalArgumentException("depart: wrong format: too big (mm/dd/yyyy hh:mm)");
         }
         if (depart.contains("[a-zA-Z]+")){ // if depart contains letters
