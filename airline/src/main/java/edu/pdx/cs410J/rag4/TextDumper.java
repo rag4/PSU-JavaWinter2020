@@ -22,9 +22,9 @@ public class TextDumper implements AirlineDumper {
      */
     public TextDumper(String content){
         // make sure it doesn't contain special characters
-        if(!content.matches("([a-z]|[A-Z]|[0-9]|[.])*")){
+        /*if(!content.matches("([a-z]|[A-Z]|[0-9]|[.][/])*")){
             throw new IllegalArgumentException("File name contains NON ALPHANUMERICAL char. Can't Dump.");
-        }
+        }*/
         this.content = content;
     }
 
@@ -80,6 +80,23 @@ public class TextDumper implements AirlineDumper {
                 System.out.println("SUCCESS: Airline Contents DUMPED.\n\n");
             }
         } catch (IOException e) {
-            System.out.println("File does not exist."); }
+            File file = new File(this.content);
+            //if there is no file, create a brand new file and dump to it
+            FileWriter toWrite = new FileWriter(file, true);
+            BufferedWriter writer = new BufferedWriter(toWrite);
+            file.createNewFile();
+            System.out.println("\n\nFILE DOESN'T EXIST, CREATING NEW FILE, THEN ATTEMPTING TO DUMP...");
+            writer.write(airlineName);
+            writer.newLine();
+            for(int i = 0; i < flightArray.size(); i++) {
+                writer.write(flightArray.get(i).getNumber() + " " + flightArray.get(i).getSource() + " "
+                        + flightArray.get(i).getDepartureString() + " " + flightArray.get(i).getDestination() + " "
+                        + flightArray.get(i).getArrivalString() + " ");
+                writer.newLine();
+            }
+            writer.close();
+            toWrite.close();
+            System.out.println("SUCCESS: FILE CREATED -- Airline Contents DUMPED.\n\n");
+        }
     }
 }

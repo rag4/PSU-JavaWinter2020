@@ -73,7 +73,7 @@ public class Project2 {
 
       //if -textFile, turn text file flag on, also, store the next argument as the file name
       if (args[i].equals("-textFile")){
-        fileName = args[i+1] + ".txt";
+        fileName = args[i+1];
         textFileFlag = 1;
         numberOfOptions += 2;
         continue;

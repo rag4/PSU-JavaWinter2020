@@ -21,9 +21,9 @@ public class TextParser implements AirlineParser {
      */
     public TextParser(String content){
         // make sure it doesn't contain special characters
-        if(!content.matches("([a-z]|[A-Z]|[0-9]|[.])*")){
+       /* if(!content.matches("([a-z]|[A-Z]|[0-9]|[.])*")){
             throw new IllegalArgumentException("File name contains NON ALPHANUMERICAL char. Can't Parse.");
-        }
+        }*/
         // make sure to parse only if the file exists
         File check = new File(content);
         if (!check.exists()){
