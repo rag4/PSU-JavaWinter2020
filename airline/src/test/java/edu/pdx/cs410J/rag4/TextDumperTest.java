@@ -11,13 +11,17 @@ import java.util.ArrayList;
 
 public class TextDumperTest {
 
+    // return brand new textdumper object
     private TextDumper createTextDumper(String content){
         return new TextDumper(content + ".txt");
     }
+
+    // return brand new textparser object
     private TextParser createTextParser(String content) {
         return new TextParser(content + ".txt");
     }
 
+    // return brand new airline with filghts
     private Airline createAirlineWithFlights(String airlineName, String flightNumber, String src, String depart, String dest, String arrive){
         ArrayList<AbstractFlight> flightArray = new ArrayList<AbstractFlight>(); // new Abstract FLight Array List
         Airline airline = new Airline(airlineName, flightArray); // new Airline object
@@ -26,11 +30,16 @@ public class TextDumperTest {
         return airline;
     }
 
+    // return brand new flight
     private Flight createFlights(String flightNumber, String src, String depart, String dest, String arrive){
         Flight flight = new Flight(Integer.parseInt(flightNumber), src, depart, dest, arrive);
         return flight;
     }
 
+    /***
+     * tests to see if you can create a new file, then dump one airline with one flight into it
+     * @throws IOException
+     */
     @Test
     public void  createAFileAndPutAirlineWithOneFlight() throws IOException {
         TextDumper exampleText = createTextDumper("Example");
@@ -44,6 +53,10 @@ public class TextDumperTest {
         }
     }
 
+    /***
+     * tests to see if you can create a new file, then dump one airline with two flights into it
+     * @throws IOException
+     */
     @Test
     public void  createAFileAndPutAirlineWithTwoFlight() throws IOException {
         TextDumper exampleText = createTextDumper("Example");
@@ -58,6 +71,11 @@ public class TextDumperTest {
         }
     }
 
+    /***
+     * tests to see if you can create a new file, then dump two airline with one flight into it
+     * you are not supposed to be able to put two airlines -- should throw an exception
+     * @throws IOException
+     */
     @Test(expected = IllegalArgumentException.class)
     public void  createAFileAndPutTwoAirlinesWithFlight() throws IOException, ParserException {
         TextDumper exampleText = createTextDumper("Example");
@@ -73,6 +91,11 @@ public class TextDumperTest {
         exampleText.dump(exampleAirline2);
     }
 
+    /***
+     * tests to see if you can create a new file, then dump two airline with two flights into it
+     * you are not supposed to be able to put two airlines -- should throw an exception
+     * @throws IOException
+     */
     @Test(expected = IllegalArgumentException.class)
     public void  createAFileAndPutTwoAirlinesWithTwoFlight() throws IOException {
         TextDumper exampleText = createTextDumper("Example");
@@ -90,6 +113,11 @@ public class TextDumperTest {
         exampleText.dump(exampleAirline2);
     }
 
+    /***
+     * throws an exception if dumper tries to dump a file with a bad name
+     * @throws ParserException
+     * @throws IOException
+     */
     @Test(expected = IllegalArgumentException.class)
     public void dumpABadNameExampleFile() throws ParserException, IOException {
         TextDumper toDump = createTextDumper("%^$");

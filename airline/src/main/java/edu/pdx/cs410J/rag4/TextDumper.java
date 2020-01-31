@@ -10,24 +10,38 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+/***
+ *  TEXT DUMPER CLASS THAT IMPLEMENTS THE AIRLINEDUMPER CLASS
+ */
 public class TextDumper implements AirlineDumper {
-    private final String content;
+    private final String content; // file's name
 
+    /***
+     * Constructor
+     * @param content
+     */
     public TextDumper(String content){
+        // make sure it doesn't contain special characters
         if(!content.matches("([a-z]|[A-Z]|[0-9]|[.])*")){
             throw new IllegalArgumentException("File name contains NON ALPHANUMERICAL char. Can't Dump.");
         }
         this.content = content;
     }
 
+    /***
+     * dumps contents of passed in airline into a text file
+     * @param airline
+     * @throws IOException
+     */
     @Override
     public void dump(AbstractAirline airline) throws IOException {
-        String airlineName = airline.getName();
+        String airlineName = airline.getName(); //get the airlineName to put in as the first line of the text filie
         String line;
         ArrayList<AbstractFlight> flightArray = (ArrayList<AbstractFlight>) airline.getFlights();
 
         try{
             File file = new File(this.content);
+            //if there is no file, create a brand new file and dump to it
             if (file.exists() == false){
                 FileWriter toWrite = new FileWriter(file, true);
                 BufferedWriter writer = new BufferedWriter(toWrite);
@@ -44,6 +58,7 @@ public class TextDumper implements AirlineDumper {
                 writer.close();
                 toWrite.close();
                 System.out.println("SUCCESS: FILE CREATED -- Airline Contents DUMPED.\n\n");
+            //if file exists, update lists of flights to add a brand new flight
             }else{
                 FileWriter toWrite = new FileWriter(file);
                 BufferedWriter writer = new BufferedWriter(toWrite);
@@ -52,6 +67,8 @@ public class TextDumper implements AirlineDumper {
 
                 writer.write(airlineName);
                 writer.newLine();
+
+                //write down all the flights of the airline, line by line
                 for(int i = 0; i < flightArray.size(); i++) {
                     writer.write(flightArray.get(i).getNumber() + " " + flightArray.get(i).getSource() + " "
                             + flightArray.get(i).getDepartureString() + " " + flightArray.get(i).getDestination() + " "
@@ -63,14 +80,6 @@ public class TextDumper implements AirlineDumper {
                 System.out.println("SUCCESS: Airline Contents DUMPED.\n\n");
             }
         } catch (IOException e) {
-            System.out.println("File does not exist.");
-        }
+            System.out.println("File does not exist."); }
     }
-
-    public void checkIfEqual(String airlineUser, String airlineText){
-        if (!airlineUser.equals(airlineText)){
-            throw new IllegalArgumentException(" YOU CANNOT HAVE MORE THAN ONE AIRLINES ON THIS FILE");
-        }
-    }
-
 }

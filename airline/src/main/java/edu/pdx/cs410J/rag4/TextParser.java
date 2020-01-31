@@ -8,14 +8,23 @@ import edu.pdx.cs410J.ParserException;
 import java.io.*;
 import java.util.ArrayList;
 
+/***
+ * TEXT PARSER CLASS THAT IMPLEMENTS AIRLINEPARSER CLASS
+ */
 public class TextParser implements AirlineParser {
-    private final String content;
 
+    private final String content; // file's name
+
+    /***
+     * Constructor
+     * @param content
+     */
     public TextParser(String content){
-
+        // make sure it doesn't contain special characters
         if(!content.matches("([a-z]|[A-Z]|[0-9]|[.])*")){
             throw new IllegalArgumentException("File name contains NON ALPHANUMERICAL char. Can't Parse.");
         }
+        // make sure to parse only if the file exists
         File check = new File(content);
         if (!check.exists()){
             throw new IllegalArgumentException("FILE DOES NOT EXIST.");
@@ -23,21 +32,25 @@ public class TextParser implements AirlineParser {
         this.content = content;
     }
 
-
-   @Override
+    /***
+     * parses contents of a file, and returns it as an airline
+     * @return
+     * @throws ParserException
+     */
+    @Override
     public AbstractAirline parse() throws ParserException {
-        String [] newCommandArgs;
+        String [] newCommandArgs; // parse words into text file, and classify them into this String array
 
         try {
             FileReader file = new FileReader(this.content);
             BufferedReader reader = new BufferedReader(file);
-            String line = reader.readLine();
+            String line = reader.readLine(); // get first line, which should be the Airline name
 
-            ArrayList<AbstractFlight> flightArray = new ArrayList<AbstractFlight>(); // new Abstract FLight Array List
-            Airline airline = new Airline(line, flightArray); // new Airline object
+            ArrayList<AbstractFlight> flightArray = new ArrayList<AbstractFlight>();
+            Airline airline = new Airline(line, flightArray);
             line = reader.readLine();
-            //System.out.println("AIRLINE: " + airline.getName());
 
+            //in this while loop, go through each flight, parse into string array, then append information one at a time into airline's flightArray
             while (line!=null){
                 newCommandArgs = line.split(" ");
 
@@ -55,6 +68,11 @@ public class TextParser implements AirlineParser {
         return null;
     }
 
+    /***
+     * checks if two string are equal, in this case, check if file's airline equals to the new airline
+     * @param airlineUser
+     * @param airlineText
+     */
     public void checkIfEqual(String airlineUser, String airlineText){
         if (!airlineUser.equals(airlineText)){
             throw new IllegalArgumentException(" YOU CANNOT HAVE MORE THAN ONE AIRLINES ON THIS FILE");

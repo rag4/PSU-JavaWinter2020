@@ -10,14 +10,17 @@ import java.util.ArrayList;
 
 public class TextParserTest {
 
+    // return brand new textparser object
     private TextParser createTextParser(String content) {
         return new TextParser(content + ".txt");
     }
 
+    // return brand new textdumper object
     private TextDumper createTextDumper(String content) {
         return new TextDumper(content + ".txt");
     }
 
+    // return brand new airline with filghts
     private Airline createAirlineWithFlights(String airlineName, String flightNumber, String src, String depart, String dest, String arrive){
         ArrayList<AbstractFlight> flightArray = new ArrayList<AbstractFlight>(); // new Abstract FLight Array List
         Airline airline = new Airline(airlineName, flightArray); // new Airline object
@@ -26,11 +29,18 @@ public class TextParserTest {
         return airline;
     }
 
+    // return brand new flight
     private Flight createFlights(String flightNumber, String src, String depart, String dest, String arrive){
         Flight flight = new Flight(Integer.parseInt(flightNumber), src, depart, dest, arrive);
         return flight;
     }
 
+    /***
+     * creates a file with an airline, then tests if parse is able to get contents of airline
+     * and return it as a new airline
+     * @throws ParserException
+     * @throws IOException
+     */
     @Test
     public void parseAnProperExampleFile() throws ParserException, IOException {
         Airline airline = createAirlineWithFlights("Example", "11", "PDX", "11/11/1111 11:11",
@@ -49,12 +59,22 @@ public class TextParserTest {
         }
     }
 
+    /***
+     * throws an exception if parser tries to parse a file that does not exist
+     * @throws ParserException
+     * @throws IOException
+     */
     @Test(expected = IllegalArgumentException.class)
     public void parseANonExistingExampleFile() throws ParserException, IOException {
         TextParser toParse = createTextParser("NONEXISTANTFILE");
         Airline parsedAirline = (Airline) toParse.parse();
     }
 
+    /***
+     * throws an exception if parser tries to parse a file with a bad name
+     * @throws ParserException
+     * @throws IOException
+     */
     @Test(expected = IllegalArgumentException.class)
     public void parseABadNameExampleFile() throws ParserException, IOException {
         TextParser toParse = createTextParser("%^$");
