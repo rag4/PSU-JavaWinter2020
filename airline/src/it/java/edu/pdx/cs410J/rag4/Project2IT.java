@@ -142,7 +142,7 @@ public class Project2IT extends InvokeMainTestCase {
    */
   @Test
   public void testTextFileTooLessCommandLineArguments() {
-    MainMethodResult result = invokeMain("-textFile", "Example", "pdx");
+    MainMethodResult result = invokeMain("-textFile", "Example.txt", "pdx");
     assertThat(result.getExitCode(), equalTo(1));
     assertThat(result.getTextWrittenToStandardError(), containsString("You have too FEW command line arguments. \n"));
   }
@@ -152,7 +152,7 @@ public class Project2IT extends InvokeMainTestCase {
    */
   @Test
   public void testTextFileTooManyCommandLineArguments() {
-    MainMethodResult result = invokeMain("-textFile", "Example", "Portland", "00", "pdx", "11/11/1111", "11:11", "sfx", "22/22/2222", "22:22", "heyyy");
+    MainMethodResult result = invokeMain("-textFile", "Example.txt", "Portland", "00", "pdx", "11/11/1111", "11:11", "sfx", "22/22/2222", "22:22", "heyyy");
     assertThat(result.getExitCode(), equalTo(1));
     assertThat(result.getTextWrittenToStandardError(), containsString("You have far too MANY command line arguments. \n"));
   }
@@ -162,7 +162,7 @@ public class Project2IT extends InvokeMainTestCase {
    */
   @Test
   public void testTextFileOption(){
-    MainMethodResult result = invokeMain("-textFile", "Example", "TEST1", "11", "PDX", "11/11/1111", "11:11", "SFX", "22/22/2222", "22:22");
+    MainMethodResult result = invokeMain("-textFile", "Example.txt", "TEST1", "11", "PDX", "11/11/1111", "11:11", "SFX", "22/22/2222", "22:22");
     assertThat(result.getExitCode(), equalTo(1));
     File file = new File("Example.txt");
     if(file.delete()){
@@ -192,9 +192,9 @@ public class Project2IT extends InvokeMainTestCase {
    */
   @Test
   public void testTextFileOptionIfFileExists(){
-    MainMethodResult result = invokeMain("-textFile", "Example", "TEST1", "11", "PDX", "11/11/1111", "11:11", "SFX", "22/22/2222", "22:22");
+    MainMethodResult result = invokeMain("-textFile", "Example.txt", "TEST1", "11", "PDX", "11/11/1111", "11:11", "SFX", "22/22/2222", "22:22");
     assertThat(result.getExitCode(), equalTo(1));
-    MainMethodResult secondresult = invokeMain("-textFile", "Example", "TEST1", "11", "PDX", "11/11/1111", "11:11", "SFX", "22/22/2222", "22:22");
+    MainMethodResult secondresult = invokeMain("-textFile", "Example.txt", "TEST1", "11", "PDX", "11/11/1111", "11:11", "SFX", "22/22/2222", "22:22");
     assertThat(secondresult.getExitCode(), equalTo(1));
     File file = new File("Example.txt");
     if(file.delete()){
@@ -225,10 +225,10 @@ public class Project2IT extends InvokeMainTestCase {
   // test what happens if you add an airline of a different name to an existing file with an airline
   @Test
   public void testTextFileOptionIfFileExistsDifferentAirline(){
-    MainMethodResult result = invokeMain("-textFile", "Example", "TEST1", "11", "PDX", "11/11/1111", "11:11", "SFX", "22/22/2222", "22:22");
+    MainMethodResult result = invokeMain("-textFile", "Example.txt", "TEST1", "11", "PDX", "11/11/1111", "11:11", "SFX", "22/22/2222", "22:22");
     assertThat(result.getExitCode(), equalTo(1));
     try {
-      MainMethodResult secondresult = invokeMain("-textFile", "Example", "TEST2", "11", "PDX", "11/11/1111", "11:11", "SFX", "22/22/2222", "22:22");
+      MainMethodResult secondresult = invokeMain("-textFile", "Example.txt", "TEST2", "11", "PDX", "11/11/1111", "11:11", "SFX", "22/22/2222", "22:22");
       assertThat(secondresult.getExitCode(), equalTo(-1));
     } catch (IllegalArgumentException e) {
       //IllegalArgumentException Caught / Expected
@@ -244,7 +244,7 @@ public class Project2IT extends InvokeMainTestCase {
   // test -print option will work, even if -textFile is on
   @Test
   public void testTextFilePrintOption(){
-    MainMethodResult result = invokeMain("-textFile", "Example", "-print", "TEST1", "11", "PDX", "11/11/1111", "11:11", "SFX", "22/22/2222", "22:22");
+    MainMethodResult result = invokeMain("-textFile", "Example.txt", "-print", "TEST1", "11", "PDX", "11/11/1111", "11:11", "SFX", "22/22/2222", "22:22");
     File file = new File("Example.txt");
     if(file.delete()){
       System.out.println("Test testTextFilePrintOption() Passed. Deleting Example.txt file.");
@@ -260,8 +260,8 @@ public class Project2IT extends InvokeMainTestCase {
   // test -print option will work, even if -textFile is on and a file already exists
   @Test
   public void testTextFilePrintOptionIfFileExists(){
-    MainMethodResult result = invokeMain("-textFile", "Example", "-print", "TEST1", "11", "PDX", "11/11/1111", "11:11", "SFX", "22/22/2222", "22:22");
-    MainMethodResult secondresult = invokeMain("-textFile", "Example", "-print", "TEST1", "11", "PDX", "11/11/1111", "11:11", "SFX", "22/22/2222", "22:22");
+    MainMethodResult result = invokeMain("-textFile", "Example.txt", "-print", "TEST1", "11", "PDX", "11/11/1111", "11:11", "SFX", "22/22/2222", "22:22");
+    MainMethodResult secondresult = invokeMain("-textFile", "Example.txt", "-print", "TEST1", "11", "PDX", "11/11/1111", "11:11", "SFX", "22/22/2222", "22:22");
     File file = new File("Example.txt");
     if(file.delete()){
       System.out.println("Test testTextFilePrintOptionIfFileExists() Passed. Deleting Example.txt file.");
@@ -301,7 +301,7 @@ public class Project2IT extends InvokeMainTestCase {
    */
   @Test
   public void testTextFilePrintReadMeOption(){
-    MainMethodResult result = invokeMain("-textFile", "Example", "-print", "-README", "Portland", "00", "pdx", "11/11/1111", "11:11", "sfx", "22/22/2222", "22:22");
+    MainMethodResult result = invokeMain("-textFile", "Example.txt", "-print", "-README", "Portland", "00", "pdx", "11/11/1111", "11:11", "sfx", "22/22/2222", "22:22");
     assertThat(result.getExitCode(), equalTo(1));
     assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 2: STORING AN AIRLINE IN A TEXT FILE\n" +
             "SUBMITION/DEVELOPED BY: Ramon Guarnes 942268924\n" +
