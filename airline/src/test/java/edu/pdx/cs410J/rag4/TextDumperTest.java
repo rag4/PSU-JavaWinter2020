@@ -60,7 +60,7 @@ public class TextDumperTest {
      */
     @Test
     public void  createAFileAndPutAirlineWithTwoFlight() throws IOException {
-        TextDumper exampleText = createTextDumper("Example");
+        TextDumper exampleText = createTextDumper("Example.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST1", "00", "PDX", "10/10/1010 10:10", "SFX", "11/11/1111 11:11");
         exampleAirline.addFlight(createFlights( "01", "SFX", "11/11/1111 11:11", "PDX", "12/12/2222 22:22"));
         exampleText.dump(exampleAirline);
@@ -79,8 +79,8 @@ public class TextDumperTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void  createAFileAndPutTwoAirlinesWithFlight() throws IOException, ParserException {
-        TextDumper exampleText = createTextDumper("Example");
-        TextParser exampleParse = createTextParser("Example");
+        TextDumper exampleText = createTextDumper("Example.txt");
+        TextParser exampleParse = createTextParser("Example.txt");
         String AirlineName1 = "TEST1";
         String AirlineName2 = "TEST2";
 
@@ -99,8 +99,8 @@ public class TextDumperTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void  createAFileAndPutTwoAirlinesWithTwoFlight() throws IOException {
-        TextDumper exampleText = createTextDumper("Example");
-        TextParser exampleParse = createTextParser("Example");
+        TextDumper exampleText = createTextDumper("Example.txt");
+        TextParser exampleParse = createTextParser("Example.txt");
         String AirlineName1 = "TEST1";
         String AirlineName2 = "TEST2";
 

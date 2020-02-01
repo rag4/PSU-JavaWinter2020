@@ -168,17 +168,50 @@ public class Project2 {
 
     String flightNumberCheck = newCommandArgs.get(1); //easy string variable to get the flight number
     // if flight number contains anything other than numbers, throw an illegal argument exception
-    if (!flightNumberCheck.matches("[0-9]+")){
-      throw new IllegalArgumentException("Flight number contains illegal character. Flight number must be INTEGER. \n");
+    try {
+      if (!flightNumberCheck.matches("[0-9]+")) {
+        throw new IllegalArgumentException();
+      }
+    } catch (IllegalArgumentException e){
+      System.err.println("Flight number contains illegal character. Flight number must be INTEGER. \n");
+      System.exit(1);
     }
 
-    File exists = new File(fileName); //file to check if it exists
-    //if file exists, parse file contents as new airline, check if new flight has same airline, if it does: dump it back to the file
-    if (textFileFlag == 1 && exists.isFile()) {
-      TextParser toParse = new TextParser(fileName);
-      Airline airline = (Airline) toParse.parse();
-      // initialize flight values according to finals arraylist:
-      toParse.checkIfEqual(newCommandArgs.get(0), airline.getName());
+    try {
+      File exists = new File(fileName); //file to check if it exists
+      //if file exists, parse file contents as new airline, check if new flight has same airline, if it does: dump it back to the file
+      if (textFileFlag == 1 && exists.isFile()) {
+        TextParser toParse = new TextParser(fileName);
+        Airline airline = (Airline) toParse.parse();
+        // initialize flight values according to finals arraylist:
+        try {
+          toParse.checkIfEqual(newCommandArgs.get(0), airline.getName());
+          Flight flight = new Flight(Integer.parseInt(newCommandArgs.get(1)), newCommandArgs.get(2), newCommandArgs.get(3), newCommandArgs.get(4), newCommandArgs.get(5));
+          airline.addFlight(flight);
+          // if printFlag is on, print new flight description
+          if (printFlag == 1) {
+            System.out.println("AIRLINE: " + airline.getName());
+            System.out.println(flight.toString());
+          }
+          // dump updated contents into file
+          TextDumper toDump = new TextDumper(fileName);
+          toDump.dump(airline);
+          System.exit(1);
+        } catch (IllegalArgumentException e) {
+          System.err.println("Flight number contains illegal character. Flight number must be INTEGER. \n");
+          System.exit(1);
+        }
+      }
+    } catch (IllegalArgumentException e){
+      System.err.println("FILE MALFORMATED. EXITING");
+      System.exit(1);
+    }
+
+    // initialize flight values according to finals arraylist:
+    ArrayList<AbstractFlight> flightArray = new ArrayList<AbstractFlight>();
+    Airline airline = new Airline(newCommandArgs.get(0), flightArray);
+
+    try {
       Flight flight = new Flight(Integer.parseInt(newCommandArgs.get(1)), newCommandArgs.get(2), newCommandArgs.get(3), newCommandArgs.get(4), newCommandArgs.get(5));
       airline.addFlight(flight);
       // if printFlag is on, print new flight description
@@ -186,27 +219,15 @@ public class Project2 {
         System.out.println("AIRLINE: " + airline.getName());
         System.out.println(flight.toString());
       }
-      // dump updated contents into file
-      TextDumper toDump = new TextDumper(fileName);
-      toDump.dump(airline);
+      // if textFileFlag is on, dump this new airline and flight into a newly created file
+      if (textFileFlag == 1) {
+        TextDumper toDump = new TextDumper(fileName);
+        toDump.dump(airline);
+      }
+    } catch (IllegalArgumentException e) {
       System.exit(1);
     }
 
-    // initialize flight values according to finals arraylist:
-    ArrayList<AbstractFlight> flightArray = new ArrayList<AbstractFlight>();
-    Airline airline = new Airline(newCommandArgs.get(0), flightArray);
-    Flight flight = new Flight(Integer.parseInt(newCommandArgs.get(1)), newCommandArgs.get(2), newCommandArgs.get(3), newCommandArgs.get(4), newCommandArgs.get(5));
-    airline.addFlight(flight);
-    // if printFlag is on, print new flight description
-    if (printFlag == 1) {
-      System.out.println("AIRLINE: " + airline.getName());
-      System.out.println(flight.toString());
-    }
-    // if textFileFlag is on, dump this new airline and flight into a newly created file
-    if (textFileFlag == 1) {
-      TextDumper toDump = new TextDumper(fileName);
-      toDump.dump(airline);
-    }
 
     System.exit(1);
   }

@@ -229,7 +229,7 @@ public class Project2IT extends InvokeMainTestCase {
     assertThat(result.getExitCode(), equalTo(1));
     try {
       MainMethodResult secondresult = invokeMain("-textFile", "Example.txt", "TEST2", "11", "PDX", "11/11/1111", "11:11", "SFX", "22/22/2222", "22:22");
-      assertThat(secondresult.getExitCode(), equalTo(-1));
+      assertThat(secondresult.getExitCode(), equalTo(1));
     } catch (IllegalArgumentException e) {
       //IllegalArgumentException Caught / Expected
     }

@@ -46,18 +46,18 @@ public class TextParserTest {
     public void parseAnProperExampleFile() throws ParserException, IOException {
         Airline airline = createAirlineWithFlights("Example", "11", "PDX", "11/11/1111 11:11",
                 "SFX", "22/22/2222 22:22");
-        TextDumper toDump = createTextDumper("Example1");
+        TextDumper toDump = createTextDumper("Example");
         toDump.dump(airline);
 
-        TextParser toParse = createTextParser("Example1");
+        TextParser toParse = createTextParser("Example");
         Airline parsedAirline = (Airline) toParse.parse();
 
-        File file = new File("Example1.txt");
-        /*if(file.delete()){
+        File file = new File("Example.txt");
+        if(file.delete()){
             System.out.println("Test parseAnProperExampleFile() Passed. Example.txt PARSED. Deleting Example.txt file.");
         }else{
             System.out.println("Test parseAnProperExampleFile() failed. Did not PARSE.");
-        }*/
+        }
     }
 
     /***

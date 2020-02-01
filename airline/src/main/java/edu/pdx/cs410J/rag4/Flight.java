@@ -10,11 +10,11 @@ import java.util.regex.Pattern;
 
 public class Flight extends AbstractFlight {
 
-    private final int flightNumber; // the flight number
-    private final String src; // the source airport three-letter code
-    private final String depart; // the departure date and time
-    private final String dest; // the destination airport three-letter code
-    private final String arrive; // the arrival date and time
+    private int flightNumber; // the flight number
+    private String src = ""; // the source airport three-letter code
+    private String depart = ""; // the departure date and time
+    private String dest = ""; // the destination airport three-letter code
+    private String arrive = ""; // the arrival date and time
 
     /**
      * Class implementation for Flight / Constructor
@@ -24,115 +24,152 @@ public class Flight extends AbstractFlight {
      * @param dest
      * @param arrive
      */
-    public Flight(int flightNumber, String src, String depart, String dest, String arrive){
+    public Flight(int flightNumber, String src, String depart, String dest, String arrive) throws IllegalArgumentException {
+        String error = "";
         this.flightNumber = flightNumber;
 
         //SRC
-        if (src.length() < 3) { // if src has no or too few letters
-            throw new IllegalArgumentException("src: airport airport three-letter code is too SMALL");
+        try {
+            if (src.length() < 3) { // if src has no or too few letters
+                error = "THE LENGTH IS TOO SMALL.";
+                throw new IllegalArgumentException();
+            }
+            if (src.length() > 3) { // if src has too many letters
+                error = "THE LENGTH IS TOO BIG.";
+                throw new IllegalArgumentException();
+            }
+            if (Pattern.compile("[^a-zA-Z]").matcher(src).find()) { // if src contains something other than a letter
+                error = "IT  CONTAINS AN ILLEGAL CHARACTER.";
+                throw new IllegalArgumentException();
+            }
+            this.src = src; // initialize
+        } catch (IllegalArgumentException e) {
+            System.err.print("The SRC you have inputted is not valid. " + error);
+            throw new IllegalArgumentException();
         }
-        if (src.length() > 3) { // if src has too many letters
-            throw new IllegalArgumentException("src: airport three-letter code is too BIG");
-        }
-        if (Pattern.compile("[^a-zA-Z]").matcher(src).find()){ // if src contains something other than a letter
-            throw new IllegalArgumentException("src: airport three-letter code contains invalid character, IT MUST BE LETTERS");
-        }
-        this.src = src; // initialize
 
         //DEPART
-        if (depart.length() < 16){ // if depart is smaller than expected
-            //System.out.println(depart);
-            throw new IllegalArgumentException("depart: wrong format: too small (mm/dd/yyyy hh:mm)");
-        }
-        if (depart.length() > 16){ // if depart is bigger than expected
-            //System.out.println(depart);
-            throw new IllegalArgumentException("depart: wrong format: too big (mm/dd/yyyy hh:mm)");
-        }
-        if (depart.contains("[a-zA-Z]+")){ // if depart contains letters
-            throw new IllegalArgumentException("depart: wrong format: contains letters (##/##/#### ##:##)");
-        }
-        for (int i = 0; i <= 15; i++){ // check validity of certain strings
-            if (i == 2 || i == 5){ // check for proper backslash
-                if (depart.charAt(i) != '/'){
-                    throw new IllegalArgumentException("depart: wrong format: no slash (mm/dd/yyyy hh:mm)");
+        try {
+            if (depart.length() < 16) { // if depart is smaller than expected
+                error = "THE LENGTH IS TOO SMALL.";
+                throw new IllegalArgumentException();
+            }
+            if (depart.length() > 16) { // if depart is bigger than expected
+                error = "THE LENGTH IS TOO BIG.";
+                throw new IllegalArgumentException();
+            }
+            if (depart.contains("[a-zA-Z]+")) { // if depart contains letters
+                error = "IT SHOULDN'T CONTAIN LETTERS.";
+                throw new IllegalArgumentException();
+            }
+            for (int i = 0; i <= 15; i++) { // check validity of certain strings
+                if (i == 2 || i == 5) { // check for proper backslash
+                    if (depart.charAt(i) != '/') {
+                        error = "FORMAT IS WRONG. CANNOT FIND BACKSLASH IN CORRECT POSITION";
+                        throw new IllegalArgumentException();
+                    } else {
+                        i++;
+                    }
                 }
-                else{
-                    i++;
+                if (i == 10) { // check for proper whitespace
+                    if (!Character.isWhitespace(depart.charAt(i))) {
+                        error = "FORMAT IS WRONG. CANNOT FIND WHITESPACE IN CORRECT POSITION";
+                        throw new IllegalArgumentException();
+                    } else {
+                        i++;
+                    }
+                }
+                if (i == 13) { // check for proper colon
+                    if (depart.charAt(i) != ':') {
+                        error = "FORMAT IS WRONG. CANNOT FIND COLON IN CORRECT POSITION";
+                        throw new IllegalArgumentException();
+                    } else {
+                        i++;
+                    }
+                }
+                if (!Character.isDigit(depart.charAt(i))) { // check if digit
+                    error = "ILLEGAL CHARACTER, IT MUST BE A DIGIT.";
+                    throw new IllegalArgumentException();
                 }
             }
-            if (i == 10){ // check for proper whitespace
-                if (!Character.isWhitespace(depart.charAt(i))){
-                    throw new IllegalArgumentException("depart: wrong format: no white space (mm/dd/yyyy hh:mm)");
-                }
-                else{
-                    i++;
-                }
-            }
-            if (i == 13){ // check for proper colon
-                if (depart.charAt(i) != ':'){
-                    throw new IllegalArgumentException("depart: wrong format: no colon (mm/dd/yyyy hh:mm)");
-                }
-                else{
-                    i++;
-                }
-            }
-            if (!Character.isDigit(depart.charAt(i))) { // check if digit
-                throw new IllegalArgumentException("depart: wrong format: not a digit or incorrect placement (##/##/#### ##:##)");
-            }
+            this.depart = depart; // initialize
+        } catch (IllegalArgumentException e) {
+            System.err.println("The DEPART DATE AND TIME you have inputted is not valid. " + error);
+            throw new IllegalArgumentException();
         }
-        this.depart = depart; // initialize
 
         //DEST
-        if (dest.length() < 3) { // if dest has no or too few letters
-            throw new IllegalArgumentException("dest: airport three-letter code is too SMALL");
+        try {
+            if (dest.length() < 3) { // if dest has no or too few letters
+                error = "THE LENGTH IS TOO SMALL.";
+                throw new IllegalArgumentException("dest: airport three-letter code is too SMALL");
+            }
+            if (dest.length() > 3) { // if dest has too many letters
+                error = "THE LENGTH IS TOO BIG.";
+                throw new IllegalArgumentException("dest: airport three-letter code is too BIG");
+            }
+            if (Pattern.compile("[^a-zA-Z]").matcher(dest).find()) { // if dest contains something other than a letter
+                error = "IT  CONTAINS AN ILLEGAL CHARACTER.";
+                throw new IllegalArgumentException("dest: airport three-letter code contains invalid character, IT MUST BE LETTERS");
+            }
+            this.dest = dest; // initialize
+        } catch (IllegalArgumentException e) {
+            System.err.print("The DEST you have inputted is not valid. " + error);
+            throw new IllegalArgumentException();
         }
-        if (dest.length() > 3) { // if dest has too many letters
-            throw new IllegalArgumentException("dest: airport three-letter code is too BIG");
-        }
-        if (Pattern.compile("[^a-zA-Z]").matcher(dest).find()){ // if dest contains something other than a letter
-            throw new IllegalArgumentException("dest: airport three-letter code contains invalid character, IT MUST BE LETTERS");
-        }
-        this.dest = dest; // initialize
 
         //ARRIVE
-        if (arrive.length() < 16){ // if depart is smaller than expected
-            throw new IllegalArgumentException("arrive: wrong format: too small (mm/dd/yyyy hh:mm)");
+        try {
+            if (arrive.length() < 16) { // if depart is smaller than expected
+                error = "THE LENGTH IS TOO SMALL.";
+                throw new IllegalArgumentException("arrive: wrong format: too small (mm/dd/yyyy hh:mm)");
 
-        }
-        if (arrive.length() > 16){ // if depart is bigger than expected
-            throw new IllegalArgumentException("arrive: wrong format: too big (mm/dd/yyyy hh:mm)");
-        }
-        if (arrive.contains("[a-zA-Z]+")){ // if depart contains letters
-            throw new IllegalArgumentException("arrive: wrong format: contains letters (##/##/#### ##:##)");
-        }
-        for (int i = 0; i <= 15; i++) { // check validity of certain strings
-            if (i == 2 || i == 5) { // check for proper backslash
-                if (arrive.charAt(i) != '/') {
-                    throw new IllegalArgumentException("arrive: wrong format: no slash (mm/dd/yyyy hh:mm)");
-                } else {
-                    i++;
-                }
             }
+            if (arrive.length() > 16) { // if depart is bigger than expected
+                error = "THE LENGTH IS TOO BIG.";
+                throw new IllegalArgumentException("arrive: wrong format: too big (mm/dd/yyyy hh:mm)");
+            }
+            if (arrive.contains("[a-zA-Z]+")) { // if depart contains letters
+                error = "IT SHOULDN'T CONTAIN LETTERS.";
+                throw new IllegalArgumentException("arrive: wrong format: contains letters (##/##/#### ##:##)");
+            }
+            for (int i = 0; i <= 15; i++) { // check validity of certain strings
+                if (i == 2 || i == 5) { // check for proper backslash
+                    if (arrive.charAt(i) != '/') {
+                        error = "FORMAT IS WRONG. CANNOT FIND BACKSLASH IN CORRECT POSITION";
+                        throw new IllegalArgumentException("arrive: wrong format: no slash (mm/dd/yyyy hh:mm)");
+                    } else {
+                        i++;
+                    }
+                }
 
-            if (i == 10) { // check for proper whitespace
-                if (!Character.isWhitespace(arrive.charAt(i))) {
-                    throw new IllegalArgumentException("arrive: wrong format: no white space (mm/dd/yyyy hh:mm)");
-                } else {
-                    i++;
+                if (i == 10) { // check for proper whitespace
+                    if (!Character.isWhitespace(arrive.charAt(i))) {
+                        error = "FORMAT IS WRONG. CANNOT FIND WHITESPACE IN CORRECT POSITION";
+                        throw new IllegalArgumentException("arrive: wrong format: no white space (mm/dd/yyyy hh:mm)");
+                    } else {
+                        i++;
+                    }
+                }
+                if (i == 13) { // check for proper colon
+                    if (arrive.charAt(i) != ':') {
+                        error = "FORMAT IS WRONG. CANNOT FIND COLON IN CORRECT POSITION";
+                        throw new IllegalArgumentException("arrive: wrong format: no colon (mm/dd/yyyy hh:mm)");
+                    } else {
+                        i++;
+                    }
+                }
+                if (!Character.isDigit(arrive.charAt(i))) { // check if digit
+                    error = "ILLEGAL CHARACTER, IT MUST BE A DIGIT.";
+                    throw new IllegalArgumentException("arrive: wrong format not a digit or incorrect placement (##/##/#### ##:##)");
                 }
             }
-            if (i == 13) { // check for proper colon
-                if (arrive.charAt(i) != ':') {
-                    throw new IllegalArgumentException("arrive: wrong format: no colon (mm/dd/yyyy hh:mm)");
-                } else {
-                    i++;
-                }
-            }
-            if (!Character.isDigit(arrive.charAt(i))) { // check if digit
-                throw new IllegalArgumentException("arrive: wrong format not a digit or incorrect placement (##/##/#### ##:##)");
-            }
+            this.arrive = arrive; // initialize
+        } catch (IllegalArgumentException e) {
+            System.err.println("The ARRIVE DATE AND TIME you have inputted is not valid. " + error);
+            throw new IllegalArgumentException();
         }
-        this.arrive = arrive; // initialize
+
     }
 
     /**

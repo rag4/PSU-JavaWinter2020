@@ -1,7 +1,10 @@
 package edu.pdx.cs410J.rag4;
 
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
 
 import java.util.HashSet;
 
@@ -11,7 +14,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * Unit tests for the {@link Flight} class.
  */
+
+
 public class FlightTest {
+
 
   // test expects an unsupported operation exception if the getArrival() function in our Flight class has not been implemented
   @Ignore
