@@ -11,7 +11,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Project2 {
+public class Project3 {
 
   /***
    * MAIN FUNCTION
