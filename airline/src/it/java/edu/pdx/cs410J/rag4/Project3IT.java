@@ -352,4 +352,44 @@ public class Project3IT extends InvokeMainTestCase {
             "airline's flights. We will need to use DateFormat to make our dates look nice, and we are also recommended to use the AirportNames class.\n\n"));
   }
 
+  @Test
+  public void testPrettyOutOption() {
+    MainMethodResult result = invokeMain("-pretty", "-", "TEST1", "11", "PDX", "11/11/1111",  "11:11", "am", "lax", "22/22/2222", "22:22", "pm");
+    assertThat(result.getExitCode(), equalTo(1));
+  }
+
+  @Test
+  public void testPrettyFileOption() {
+    MainMethodResult result = invokeMain("-pretty", "Example.txt", "TEST1", "11", "PDX", "11/11/1111",  "11:11", "am", "lax", "22/22/2222", "22:22", "pm");
+    assertThat(result.getExitCode(), equalTo(1));
+  }
+
+  @Test
+  public void testPrettyOutPrintOption() {
+    MainMethodResult result = invokeMain("-pretty", "-", "-print", "TEST1", "11", "PDX", "11/11/1111",  "11:11", "am", "lax", "22/22/2222", "22:22", "pm");
+    assertThat(result.getExitCode(), equalTo(1));
+  }
+
+  @Test
+  public void testPrettyFilePrintOption() {
+    MainMethodResult result = invokeMain("-pretty", "Example.txt", "-print", "TEST1", "11", "PDX", "11/11/1111", "11:11", "am", "lax", "22/22/2222", "22:22", "pm");
+    assertThat(result.getExitCode(), equalTo(1));
+  }
+
+  @Test
+  public void testPrettyFilePrintReadMeOption() {
+    MainMethodResult result = invokeMain("-pretty", "Example.txt", "-print", "-README", "TEST1", "11", "PDX", "11/11/1111", "11:11", "am", "lax", "22/22/2222", "22:22", "pm");
+    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 3: PRETTY PRINTING YOUR AIRLINE\n" +
+            "SUBMITION/DEVELOPED BY: Ramon Guarnes 942268924\n" +
+            "CLASS: CS410P Advanced Programmin with Java\n" +
+            "TEACHER: David Whitlock\n" +
+            "DUE DATE: February 5, 2019 before 5:30PM\n" +
+            "DESCRIPTION: In Project 3, my job is to represent our departure and arrival times as instances of java.util.Date, instead of our\n" +
+            "prior String values. Our get methods however, for these will return String Formats of these instances, so a conversion is needed.\n" +
+            "We will also need to implement sorting for our flights, where our flights should be sorted alphabetically by their code of their source.\n" +
+            "If they depart from the same airport, however, we will need to sort by their departure time in chronological order. We can achieve our\n" +
+            "sorting methods by having our Flight class implment java.lang.Comparable. Our next step is to create a class called the PrettyPrinter class.\n" +
+            "The PrettyPrinterClass implements the AirlineDumper interface, and its purpose is to create a nicely formatted textual presentation of our\n" +
+            "airline's flights. We will need to use DateFormat to make our dates look nice, and we are also recommended to use the AirportNames class.\n\n"));
+  }
 }
