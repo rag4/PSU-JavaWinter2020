@@ -3,6 +3,7 @@ package edu.pdx.cs410J.rag4;
 import edu.pdx.cs410J.AbstractAirline;
 import edu.pdx.cs410J.AbstractFlight;
 import edu.pdx.cs410J.AirlineDumper;
+import edu.pdx.cs410J.AirportNames;
 
 import javax.swing.text.DateFormatter;
 import java.text.DateFormat;
@@ -52,6 +53,11 @@ public class Flight extends AbstractFlight implements Comparable<Flight>{
                 error = "IT  CONTAINS AN ILLEGAL CHARACTER.";
                 throw new IllegalArgumentException();
             }
+            if(AirportNames.getName(src) == null){
+                error = "THE SOURCE CODE DOES NOT CORRESPOND TO AN EXISTING AIRPORT. ";
+                throw new IllegalArgumentException();
+            }
+
             this.src = src; // initialize
         } catch (IllegalArgumentException e) {
             System.err.print("The SRC you have inputted is not valid. " + error);
@@ -143,6 +149,10 @@ public class Flight extends AbstractFlight implements Comparable<Flight>{
             if (Pattern.compile("[^a-zA-Z]").matcher(dest).find()) { // if dest contains something other than a letter
                 error = "IT  CONTAINS AN ILLEGAL CHARACTER.";
                 throw new IllegalArgumentException("dest: airport three-letter code contains invalid character, IT MUST BE LETTERS");
+            }
+            if(AirportNames.getName(dest) == null){
+                error = "THE SOURCE CODE DOES NOT CORRESPOND TO AN EXISTING AIRPORT. ";
+                throw new IllegalArgumentException();
             }
             this.dest = dest; // initialize
         } catch (IllegalArgumentException e) {

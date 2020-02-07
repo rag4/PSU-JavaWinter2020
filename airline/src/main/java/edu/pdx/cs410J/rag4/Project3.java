@@ -183,7 +183,6 @@ public class Project3 {
           toDump.dump(airline);
           System.exit(1);
         } catch (IllegalArgumentException e) {
-          System.err.println("Flight number contains illegal character. Flight number must be INTEGER. \n");
           System.exit(1);
         }
       }
@@ -205,7 +204,6 @@ public class Project3 {
           //toPretty.dump(airline);
           System.exit(1);
         } catch (IllegalArgumentException e) {
-          System.err.println("Flight number contains illegal character. Flight number must be INTEGER. \n");
           System.exit(1);
         }
       }
@@ -300,13 +298,12 @@ public class Project3 {
             "CLASS: CS410P Advanced Programmin with Java\n" +
             "TEACHER: David Whitlock\n" +
             "DUE DATE: February 5, 2019 before 5:30PM\n" +
-            "DESCRIPTION: In Project 2, my objective is to implement the AirlineDumper interface with new java class TextDumper, \n" +
-            "implement the AirlineParser interface with new java class TextParser, and to refactor Project 1 --> Project 2 for new \n" +
-            "option: -textFile file. The purpose of the TextDumper class is to take an airline and its flights, and dump those contents \n" +
-            "into a file. The purpose of the TextParser class is to take a text file that holds an airline's contents and its flights, \n" +
-            "and to create and return a new airline from those contents. In the Project 2 class, when the user puts the option -textFile file \n" +
-            "in the command line, it can do one of two things: " +
-            "\n1) It will create a new file to dump an airline in " +
-            "\n2) It will parse the airline in an existing text file, add a new flight only if the flight is from the same airline , then dump it back in \n\n");
+            "DESCRIPTION: In Project 3, my job is to represent our departure and arrival times as instances of java.util.Date, instead of our\n" +
+            "prior String values. Our get methods however, for these will return String Formats of these instances, so a conversion is needed.\n" +
+            "We will also need to implement sorting for our flights, where our flights should be sorted alphabetically by their code of their source.\n" +
+            "If they depart from the same airport, however, we will need to sort by their departure time in chronological order. We can achieve our\n" +
+            "sorting methods by having our Flight class implment java.lang.Comparable. Our next step is to create a class called the PrettyPrinter class.\n" +
+            "The PrettyPrinterClass implements the AirlineDumper interface, and its purpose is to create a nicely formatted textual presentation of our\n" +
+            "airline's flights. We will need to use DateFormat to make our dates look nice, and we are also recommended to use the AirportNames class.\n\n");
   }
 }
