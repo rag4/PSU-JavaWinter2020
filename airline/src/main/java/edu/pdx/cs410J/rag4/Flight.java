@@ -4,17 +4,23 @@ import edu.pdx.cs410J.AbstractAirline;
 import edu.pdx.cs410J.AbstractFlight;
 import edu.pdx.cs410J.AirlineDumper;
 
+import javax.swing.text.DateFormatter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Flight extends AbstractFlight {
+public class Flight extends AbstractFlight implements Comparable<Flight>{
 
     private int flightNumber; // the flight number
     private String src = ""; // the source airport three-letter code
-    private String depart = ""; // the departure date and time
+    private Date depart; // the departure date and time
     private String dest = ""; // the destination airport three-letter code
-    private String arrive = ""; // the arrival date and time
+    private Date arrive; // the arrival date and time
 
     /**
      * Class implementation for Flight / Constructor
@@ -92,7 +98,13 @@ public class Flight extends AbstractFlight {
                     throw new IllegalArgumentException();
                 }
             }
-            this.depart = depart; // initialize
+            int year = Integer.parseInt(depart.substring(6,10));
+            int month = Integer.parseInt(depart.substring(0,2));
+            int day = Integer.parseInt(depart.substring(3,5));
+            int hour = Integer.parseInt(depart.substring(11,13));
+            int min = Integer.parseInt(depart.substring(14,16));
+            this.depart = new Date(year, month, day, hour, min); // initialize
+
         } catch (IllegalArgumentException e) {
             System.err.println("The DEPART DATE AND TIME you have inputted is not valid. " + error);
             throw new IllegalArgumentException();
@@ -164,7 +176,17 @@ public class Flight extends AbstractFlight {
                     throw new IllegalArgumentException("arrive: wrong format not a digit or incorrect placement (##/##/#### ##:##)");
                 }
             }
-            this.arrive = arrive; // initialize
+            int year = Integer.parseInt(depart.substring(6,10));
+            int month = Integer.parseInt(depart.substring(0,2));
+            int day = Integer.parseInt(depart.substring(3,5));
+            int hour = Integer.parseInt(depart.substring(11,13));
+            int min = Integer.parseInt(depart.substring(14,16));
+            Date check = new Date(year, month, day, hour, min);
+            if(!check.after(this.depart)) {
+                error = "ARRIVAL DATE AND TIME CANNOT BE BEFORE DEPART DATE AND TIME.";
+                throw new IllegalArgumentException();
+            }
+            this.arrive = check; // initialize
         } catch (IllegalArgumentException e) {
             System.err.println("The ARRIVE DATE AND TIME you have inputted is not valid. " + error);
             throw new IllegalArgumentException();
@@ -199,7 +221,9 @@ public class Flight extends AbstractFlight {
     @Override
     public String getDepartureString() {
         //throw new UnsupportedOperationException("This method is not implemented yet");
-        return this.depart;
+        DateFormat dateFormat;
+        dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
+        return dateFormat.format(this.depart);
     }
 
     /**
@@ -219,7 +243,16 @@ public class Flight extends AbstractFlight {
     @Override
     public String getArrivalString() {
         //throw new UnsupportedOperationException("This method is not implemented yet");
-        return this.arrive;
+        DateFormat dateFormat;
+        dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
+        return dateFormat.format(this.arrive);
     }
 
+    @Override
+    public int compareTo(Flight flight) {
+        int i = this.src.compareTo(flight.src);
+        if (i != 0) return i;
+
+        return Long.compare(depart.getTime(), flight.depart.getTime());
+    }
 }
