@@ -1,12 +1,16 @@
 package edu.pdx.cs410J.rag4;
 
+import edu.pdx.cs410J.AbstractFlight;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 
-import java.util.HashSet;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -272,5 +276,47 @@ public class FlightTest {
     String validArrive = "02/02/2222 22:22";
     createFlightFinal(validSrc, validDepart, validDest, validArrive);
   }
+
+  @Test
+  public void testSorting(){
+    ArrayList<Flight> flightArray  = new ArrayList<Flight>();
+    flightArray.add(createFlightFinal("pdx", "01/01/1111 11:11 am", "sfx", "02/02/2222 22:22 am"));
+    flightArray.add(createFlightFinal("pdx", "01/01/1111 10:10 pm", "sfx", "02/02/2222 11:11 pm"));
+    flightArray.add(createFlightFinal("pdx", "01/01/1111 10:10 am", "sfx", "02/02/2222 11:11 am"));
+    flightArray.add(createFlightFinal("abc", "01/01/1111 10:10 am", "sfx", "02/02/2222 11:11 am"));
+
+    Collections.sort(flightArray);
+
+    for(AbstractFlight f : flightArray){
+      System.out.println(f.getNumber() + " " + f.getSource() + " " + f.getDepartureString() + " " + f.getDestination() + " " + f.getArrivalString());
+    }
+  }
+
+  @Test
+  public void testAMPM() throws ParseException {
+    DateFormat format = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+    Date date = format.parse("11/22/1997 10:30 pm");
+    System.out.println(date);
+    System.out.println(format.format(date));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testAPFail(){
+    ArrayList<Flight> flightArray  = new ArrayList<Flight>();
+    flightArray.add(createFlightFinal("pdx", "01/01/1111 11:11 dm", "sfx", "02/02/2222 22:22 am"));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testMFail(){
+    ArrayList<Flight> flightArray  = new ArrayList<Flight>();
+    flightArray.add(createFlightFinal("pdx", "01/01/1111 11:11 dn", "sfx", "02/02/2222 22:22 am"));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void arriveBeforeArrive(){
+    ArrayList<Flight> flightArray  = new ArrayList<Flight>();
+    flightArray.add(createFlightFinal("pdx", "02/02/2222 22:22 am", "sfx", "01/01/1111 11:11 pm"));
+  }
+
 }
 

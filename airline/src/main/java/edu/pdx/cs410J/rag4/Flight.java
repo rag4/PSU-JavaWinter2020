@@ -6,6 +6,7 @@ import edu.pdx.cs410J.AirlineDumper;
 
 import javax.swing.text.DateFormatter;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
@@ -18,9 +19,12 @@ public class Flight extends AbstractFlight implements Comparable<Flight>{
 
     private int flightNumber; // the flight number
     private String src = ""; // the source airport three-letter code
-    private Date depart; // the departure date and time
+    private DateFormat departFormat; // the departure date and time
+    private Date depart;
     private String dest = ""; // the destination airport three-letter code
+    private DateFormat arriveFormat; // the arrival date and time
     private Date arrive; // the arrival date and time
+
 
     /**
      * Class implementation for Flight / Constructor
@@ -56,19 +60,21 @@ public class Flight extends AbstractFlight implements Comparable<Flight>{
 
         //DEPART
         try {
-            if (depart.length() < 16) { // if depart is smaller than expected
+
+            if (depart.length() < 19) { // if depart is smaller than expected
                 error = "THE LENGTH IS TOO SMALL.";
                 throw new IllegalArgumentException();
             }
-            if (depart.length() > 16) { // if depart is bigger than expected
+            if (depart.length() > 19) { // if depart is bigger than expected
+                System.out.println(depart);
                 error = "THE LENGTH IS TOO BIG.";
                 throw new IllegalArgumentException();
             }
-            if (depart.contains("[a-zA-Z]+")) { // if depart contains letters
+            if (depart.substring(0,15).contains("[a-zA-Z]+")) { // if depart contains letters
                 error = "IT SHOULDN'T CONTAIN LETTERS.";
                 throw new IllegalArgumentException();
             }
-            for (int i = 0; i <= 15; i++) { // check validity of certain strings
+            for (int i = 0; i <= 18; i++) { // check validity of certain strings
                 if (i == 2 || i == 5) { // check for proper backslash
                     if (depart.charAt(i) != '/') {
                         error = "FORMAT IS WRONG. CANNOT FIND BACKSLASH IN CORRECT POSITION";
@@ -77,7 +83,7 @@ public class Flight extends AbstractFlight implements Comparable<Flight>{
                         i++;
                     }
                 }
-                if (i == 10) { // check for proper whitespace
+                if (i == 10 || i == 16) { // check for proper whitespace
                     if (!Character.isWhitespace(depart.charAt(i))) {
                         error = "FORMAT IS WRONG. CANNOT FIND WHITESPACE IN CORRECT POSITION";
                         throw new IllegalArgumentException();
@@ -93,19 +99,33 @@ public class Flight extends AbstractFlight implements Comparable<Flight>{
                         i++;
                     }
                 }
+                if (i == 17) {
+                    if (depart.toUpperCase().charAt(i) != 'A' && depart.toUpperCase().charAt(i) != 'P'){
+                        error = "FORMAT IS WRONG. YOUR AM/PM ARE MALFORMATTED.";
+                        throw new IllegalArgumentException();
+                    } else {
+                        i++;
+                    }
+                }
+                if (i == 18) {
+                    if (depart.toUpperCase().charAt(i) != 'M'){
+                        error = "FORMAT IS WRONG. YOUR AM/PM ARE MALFORMATTED.";
+                        throw new IllegalArgumentException();
+                    } else {
+                        break;
+                    }
+                }
                 if (!Character.isDigit(depart.charAt(i))) { // check if digit
                     error = "ILLEGAL CHARACTER, IT MUST BE A DIGIT.";
                     throw new IllegalArgumentException();
                 }
             }
-            int year = Integer.parseInt(depart.substring(6,10));
-            int month = Integer.parseInt(depart.substring(0,2));
-            int day = Integer.parseInt(depart.substring(3,5));
-            int hour = Integer.parseInt(depart.substring(11,13));
-            int min = Integer.parseInt(depart.substring(14,16));
-            this.depart = new Date(year, month, day, hour, min); // initialize
+            DateFormat format = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+            Date date = format.parse(depart);
+            this.depart = date;
+            this.departFormat = format; // initialize
 
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | ParseException e) {
             System.err.println("The DEPART DATE AND TIME you have inputted is not valid. " + error);
             throw new IllegalArgumentException();
         }
@@ -132,20 +152,20 @@ public class Flight extends AbstractFlight implements Comparable<Flight>{
 
         //ARRIVE
         try {
-            if (arrive.length() < 16) { // if depart is smaller than expected
+            if (arrive.length() < 19) { // if depart is smaller than expected
                 error = "THE LENGTH IS TOO SMALL.";
                 throw new IllegalArgumentException("arrive: wrong format: too small (mm/dd/yyyy hh:mm)");
 
             }
-            if (arrive.length() > 16) { // if depart is bigger than expected
+            if (arrive.length() > 19) { // if depart is bigger than expected
                 error = "THE LENGTH IS TOO BIG.";
                 throw new IllegalArgumentException("arrive: wrong format: too big (mm/dd/yyyy hh:mm)");
             }
-            if (arrive.contains("[a-zA-Z]+")) { // if depart contains letters
+            if (arrive.substring(0,15).contains("[a-zA-Z]+")) { // if depart contains letters
                 error = "IT SHOULDN'T CONTAIN LETTERS.";
                 throw new IllegalArgumentException("arrive: wrong format: contains letters (##/##/#### ##:##)");
             }
-            for (int i = 0; i <= 15; i++) { // check validity of certain strings
+            for (int i = 0; i <= 18; i++) { // check validity of certain strings
                 if (i == 2 || i == 5) { // check for proper backslash
                     if (arrive.charAt(i) != '/') {
                         error = "FORMAT IS WRONG. CANNOT FIND BACKSLASH IN CORRECT POSITION";
@@ -155,7 +175,7 @@ public class Flight extends AbstractFlight implements Comparable<Flight>{
                     }
                 }
 
-                if (i == 10) { // check for proper whitespace
+                if (i == 10 || i == 16) { // check for proper whitespace
                     if (!Character.isWhitespace(arrive.charAt(i))) {
                         error = "FORMAT IS WRONG. CANNOT FIND WHITESPACE IN CORRECT POSITION";
                         throw new IllegalArgumentException("arrive: wrong format: no white space (mm/dd/yyyy hh:mm)");
@@ -171,23 +191,38 @@ public class Flight extends AbstractFlight implements Comparable<Flight>{
                         i++;
                     }
                 }
+                if (i == 17) {
+                    if (arrive.toUpperCase().charAt(i) != 'A' && arrive.toUpperCase().charAt(i) != 'P'){
+                        error = "FORMAT IS WRONG. YOUR AM/PM ARE MALFORMATTED.";
+                        throw new IllegalArgumentException();
+                    } else {
+                        i++;
+                    }
+                }
+                if (i == 18) {
+                    if (arrive.toUpperCase().charAt(i) != 'M'){
+                        //System.out.println(i);
+                        error = "FORMAT IS WRONG. YOUR AM/PM ARE MALFORMATTED.";
+                        throw new IllegalArgumentException();
+                    } else {
+                        break;
+                    }
+                }
                 if (!Character.isDigit(arrive.charAt(i))) { // check if digit
                     error = "ILLEGAL CHARACTER, IT MUST BE A DIGIT.";
                     throw new IllegalArgumentException("arrive: wrong format not a digit or incorrect placement (##/##/#### ##:##)");
                 }
             }
-            int year = Integer.parseInt(depart.substring(6,10));
-            int month = Integer.parseInt(depart.substring(0,2));
-            int day = Integer.parseInt(depart.substring(3,5));
-            int hour = Integer.parseInt(depart.substring(11,13));
-            int min = Integer.parseInt(depart.substring(14,16));
-            Date check = new Date(year, month, day, hour, min);
-            if(!check.after(this.depart)) {
+            DateFormat format = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+            Date departDate = format.parse(depart);
+            Date arriveDate = format.parse(arrive);
+            if(!arriveDate.after(departDate)) {
                 error = "ARRIVAL DATE AND TIME CANNOT BE BEFORE DEPART DATE AND TIME.";
                 throw new IllegalArgumentException();
             }
-            this.arrive = check; // initialize
-        } catch (IllegalArgumentException e) {
+            this.arrive = arriveDate;
+            this.arriveFormat = format; // initialize
+        } catch (IllegalArgumentException | ParseException e) {
             System.err.println("The ARRIVE DATE AND TIME you have inputted is not valid. " + error);
             throw new IllegalArgumentException();
         }
@@ -250,9 +285,8 @@ public class Flight extends AbstractFlight implements Comparable<Flight>{
 
     @Override
     public int compareTo(Flight flight) {
-        int i = this.src.compareTo(flight.src);
+        int i = this.src.compareToIgnoreCase(flight.src);
         if (i != 0) return i;
-
-        return Long.compare(depart.getTime(), flight.depart.getTime());
+        return Long.compare(this.depart.getTime(), flight.depart.getTime());
     }
 }

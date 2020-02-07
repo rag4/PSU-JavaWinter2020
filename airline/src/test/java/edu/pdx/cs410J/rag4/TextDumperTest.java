@@ -24,7 +24,7 @@ public class TextDumperTest {
 
     // return brand new airline with filghts
     private Airline createAirlineWithFlights(String airlineName, String flightNumber, String src, String depart, String dest, String arrive){
-        ArrayList<AbstractFlight> flightArray = new ArrayList<AbstractFlight>(); // new Abstract FLight Array List
+        ArrayList<Flight> flightArray = new ArrayList<Flight>(); // new Abstract FLight Array List
         Airline airline = new Airline(airlineName, flightArray); // new Airline object
         Flight flight = new Flight(Integer.parseInt(flightNumber), src, depart, dest, arrive);
         airline.addFlight(flight); // add this newly created flight with initialized values into airline

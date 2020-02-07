@@ -23,13 +23,15 @@ public class Project3 {
 
     int printFlag = 0; //flag to tell if the -print option exists
     int textFileFlag = 0; //flag to tell if -textFile file option exists
+    int prettyFlag = 0;
     int numberOfOptions = 0; //count of how many options are in the command line args minus -README
     int invalidOption = 0; //flag to tell if option proceeding '-' does not exist or is bad
-    String [] options = {"-README", "-print", "-textFile"}; //String array of possible options
+    String [] options = {"-README", "-print", "-textFile", "-prettyPrint"}; //String array of possible options
 
-    int airlineFlightsCommand = 8;  //command list will always have 8 finals: airlineName, flightNumber, src, depart_date, depart_time,
-                                    //dest, arrive_date, arrive_time
-    String fileName = ""; //String to input file name, located after -textFile
+    int airlineFlightsCommand = 10;  //command list will always have 10 finals: airlineName, flightNumber, src, depart_date, depart_time, depart_symbol
+                                    //dest, arrive_date, arrive_time, arrive_symbol
+    String textfileName = ""; //String to input file name, located after -textFile
+    String prettyfileName = ""; //String to input file name, located after -textFile
     ArrayList<String> newCommandArgs = new ArrayList<String>(); //new arraylist to get 8 finals as said above
 
     //error if there are NO command line arguments
@@ -73,8 +75,15 @@ public class Project3 {
 
       //if -textFile, turn text file flag on, also, store the next argument as the file name
       if (args[i].equals("-textFile")){
-        fileName = args[i+1];
+        textfileName = args[i+1];
         textFileFlag = 1;
+        numberOfOptions += 2;
+        continue;
+      }
+
+      if (args[i].equals("-pretty")){
+        prettyfileName = args[i+1];
+        prettyFlag = 1;
         numberOfOptions += 2;
         continue;
       }
@@ -93,16 +102,15 @@ public class Project3 {
       commandLineInterface();
       System.exit(1);
     }
-
     //for loop to find and put finals in an arraylist
-    for (int i = 0; i < args.length; i++){
+    for (int i = 0; i < args.length; ++i){
       //if -print option here, go to next for loop iteration
       if (args[i].equals("-print")){
         continue;
       }
 
       //if -textFile option here, iterate plus 2
-      if (args[i].equals("-textFile")){
+      if (args[i].equals("-textFile") || args[i].equals("-pretty")){
         i++;
         continue;
       }
@@ -115,53 +123,30 @@ public class Project3 {
         }
         // insert a 0 if date format: mm/d/yyyy OR m/d/yyyy --> mm/d/yyyy
         if(args[i].charAt(4) == ('/')){
-          args[i] =  args[i].substring(0,3) + "0" + (args[i].substring(3,args.length));
+          args[i] =  args[i].substring(0,3) + "0" + (args[i].substring(3,args[i].length()));
         }
-        // this considers if -textFile option exists between date and time
-        if(args[i+1].equals("-textFile")){
-          // insert a 0 if time format: h:mm
-          if(args[i+3].indexOf(':') == 1){
-            args[i+3] = "0" + args[i+3];
-          }
-          // CONCATENATION
-          newCommandArgs.add(args[i] + " " + args[i+3]);
-          // if it's already on arrival, end the for loop
-          if (i + 4 == args.length){
-            break;
-          }
-          i += 3;
-          continue;
+        // insert a 0 if time format: h:mm
+        if(args[i+1].indexOf(':') == 1){
+          args[i+1] = "0" + args[i+1];
         }
-        // this considers if -print option exists between date and time
-        if(args[i+1].equals("-print")){
-          // insert a 0 if time format: h:mm
-          if(args[i+2].indexOf(':') == 1){
-            args[i+2] = "0" + args[i+2];
+
+        if(Integer.parseInt(args[i+1].substring(0,2)) > 12){
+          System.out.print(args[i+2].charAt(0));
+          if(args[i+2].charAt(0) == 'A'){
+            args[i+2].replace('A', 'P');
+            System.out.print(args[i+2]);
           }
-          // CONCATENATION
-          newCommandArgs.add(args[i] + " " + args[i + 2]);
-          // if it's already on arrival, end the for loop
-          if (i + 3 == args.length) {
-            break;
-          }
-          i += 2;
-          continue;
         }
-        else {
-          // insert a 0 if time format: h:mm
-          if(args[i+1].indexOf(':') == 1){
-            args[i+1] = "0" + args[i+1];
-          }
-          // CONCATENATION
-          newCommandArgs.add(args[i] + " " + args[i + 1]);
-          // if it's already on arrival, end the for loop
-          if (i + 2 == args.length) {
-            break;
-          }
-          i += 1;
-          continue;
+
+        // CONCATENATION
+        newCommandArgs.add(args[i] + " " + args[i + 1] + " " + args[i + 2]);
+        // if it's already on arrival, end the for loop
+        if (i + 3 == args.length) {
+          break;
         }
+        i += 3;
       }
+
       //appends command line argument into arraylist
       newCommandArgs.add(args[i]);
     }
@@ -178,10 +163,10 @@ public class Project3 {
     }
 
     try {
-      File exists = new File(fileName); //file to check if it exists
+      File exists = new File(textfileName); //file to check if it exists
       //if file exists, parse file contents as new airline, check if new flight has same airline, if it does: dump it back to the file
       if (textFileFlag == 1 && exists.isFile()) {
-        TextParser toParse = new TextParser(fileName);
+        TextParser toParse = new TextParser(textfileName);
         Airline airline = (Airline) toParse.parse();
         // initialize flight values according to finals arraylist:
         try {
@@ -194,8 +179,30 @@ public class Project3 {
             System.out.println(flight.toString());
           }
           // dump updated contents into file
-          TextDumper toDump = new TextDumper(fileName);
+          TextDumper toDump = new TextDumper(textfileName);
           toDump.dump(airline);
+          System.exit(1);
+        } catch (IllegalArgumentException e) {
+          System.err.println("Flight number contains illegal character. Flight number must be INTEGER. \n");
+          System.exit(1);
+        }
+      }
+      File existsP = new File(prettyfileName); //pretty file to check if it exists
+      if (prettyFlag == 1 && existsP.isFile()){
+        TextParser toParsePretty = new TextParser(prettyfileName);
+        Airline airline = (Airline) toParsePretty.prettyparse();
+        // initialize flight values according to finals arraylist:
+        try {
+          toParsePretty.checkIfEqual(newCommandArgs.get(0), airline.getName());
+          Flight flight = new Flight(Integer.parseInt(newCommandArgs.get(1)), newCommandArgs.get(2), newCommandArgs.get(3), newCommandArgs.get(4), newCommandArgs.get(5));
+          airline.addFlight(flight);
+          // if printFlag is on, print new flight description
+          if (printFlag == 1) {
+            System.out.println("AIRLINE: " + airline.getName());
+            System.out.println(flight.toString());
+          }
+          //PrettyPrinter toPretty = new PrettyPrinter(prettyfileName);
+          //toPretty.dump(airline);
           System.exit(1);
         } catch (IllegalArgumentException e) {
           System.err.println("Flight number contains illegal character. Flight number must be INTEGER. \n");
@@ -208,9 +215,10 @@ public class Project3 {
     }
 
     // initialize flight values according to finals arraylist:
-    ArrayList<AbstractFlight> flightArray = new ArrayList<AbstractFlight>();
+    ArrayList<Flight> flightArray = new ArrayList<Flight>();
     Airline airline = new Airline(newCommandArgs.get(0), flightArray);
 
+    //NO EXISTING FILE
     try {
       Flight flight = new Flight(Integer.parseInt(newCommandArgs.get(1)), newCommandArgs.get(2), newCommandArgs.get(3), newCommandArgs.get(4), newCommandArgs.get(5));
       airline.addFlight(flight);
@@ -221,8 +229,12 @@ public class Project3 {
       }
       // if textFileFlag is on, dump this new airline and flight into a newly created file
       if (textFileFlag == 1) {
-        TextDumper toDump = new TextDumper(fileName);
+        TextDumper toDump = new TextDumper(textfileName);
         toDump.dump(airline);
+      }
+      if (prettyFlag == 1) {
+        //PrettyPrinter toPretty = new PrettyPrinter(prettyfileName);
+        //toPretty.dump(airline);
       }
     } catch (IllegalArgumentException e) {
       System.exit(1);
@@ -236,19 +248,20 @@ public class Project3 {
    * prints out the command line interface, should be used when improper usage of the command line arguments in the main function occurs
    */
   public static void commandLineInterface(){
-    System.out.println("usage: java edu.pdx.cs410J.rag4.Project1 [options] <args>\n" +
-            "\targs are (in this order):\n" +
-            "\t\tairline The name of the airline\n" +
-            "\t\tflightNumber The flight number\n" +
-            "\t\tsrc Three-letter code of departure airport\n" +
-            "\t\tdepart Departure date and time (24-hour time)\n" +
-            "\t\tdest Three-letter code of arrival airport\n" +
-            "\t\tarrive Arrival date and time (24-hour time)\n" +
-            "\toptions are (options may appear in any order):\n" +
-            "\t\t-textFile file Where to read/write the airline info\n" +
-            "\t\t-print Prints a description of the new flight\n" +
-            "\t\t-README Prints a README for this project and exits\n" +
-            "\tDate and time should be in the format: mm/dd/yyyy hh:mm\n");
+    System.out.println("usage: java edu.pdx.cs410J.<login-id>.Project3 [options] <args>\n" +
+            "args are (in this order):\n" +
+            "airline The name of the airline\n" +
+            "flightNumber The flight number\n" +
+            "src Three-letter code of departure airport\n" +
+            "depart Departure date time am/pm\n" +
+            "dest Three-letter code of arrival airport\n" +
+            "arrive Arrival date time am/pm\n" +
+            "options are (options may appear in any order):\n" +
+            "-pretty file Pretty print the airline’s flights to\n" +
+            "a text file or standard out (file -)\n" +
+            "-textFile file Where to read/write the airline info\n" +
+            "-print Prints a description of the new flight\n" +
+            "-README Prints a README for this project and exits\n");
   }
 
   /**README
@@ -269,11 +282,24 @@ public class Project3 {
                 "and arrival date and time. Within the main function, the purpose of this function is to create an airline and flight to add\n" +
                 "to the airline using the values of the user's input command line arguments. The user also has the option to print the descriptions\n" +
                 "of the flight, as well as to be able to view this README.");*/
-    System.out.println("PROJECT 2: STORING AN AIRLINE IN A TEXT FILE\n" +
+    /*System.out.println("PROJECT 2: STORING AN AIRLINE IN A TEXT FILE\n" +
             "SUBMITION/DEVELOPED BY: Ramon Guarnes 942268924\n" +
             "CLASS: CS410P Advanced Programmin with Java\n" +
             "TEACHER: David Whitlock\n" +
             "DUE DATE: January 29, 2019 before 5:30PM\n" +
+            "DESCRIPTION: In Project 2, my objective is to implement the AirlineDumper interface with new java class TextDumper, \n" +
+            "implement the AirlineParser interface with new java class TextParser, and to refactor Project 1 --> Project 2 for new \n" +
+            "option: -textFile file. The purpose of the TextDumper class is to take an airline and its flights, and dump those contents \n" +
+            "into a file. The purpose of the TextParser class is to take a text file that holds an airline's contents and its flights, \n" +
+            "and to create and return a new airline from those contents. In the Project 2 class, when the user puts the option -textFile file \n" +
+            "in the command line, it can do one of two things: " +
+            "\n1) It will create a new file to dump an airline in " +
+            "\n2) It will parse the airline in an existing text file, add a new flight only if the flight is from the same airline , then dump it back in \n\n");*/
+    System.out.println("PROJECT 3: PRETTY PRINTING YOUR AIRLINE\n" +
+            "SUBMITION/DEVELOPED BY: Ramon Guarnes 942268924\n" +
+            "CLASS: CS410P Advanced Programmin with Java\n" +
+            "TEACHER: David Whitlock\n" +
+            "DUE DATE: February 5, 2019 before 5:30PM\n" +
             "DESCRIPTION: In Project 2, my objective is to implement the AirlineDumper interface with new java class TextDumper, \n" +
             "implement the AirlineParser interface with new java class TextParser, and to refactor Project 1 --> Project 2 for new \n" +
             "option: -textFile file. The purpose of the TextDumper class is to take an airline and its flights, and dump those contents \n" +

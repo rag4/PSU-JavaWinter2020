@@ -3,8 +3,7 @@ package edu.pdx.cs410J.rag4;
 import edu.pdx.cs410J.AbstractAirline;
 import edu.pdx.cs410J.AbstractFlight;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 /**
  * The main class for the CS410J airline Project
@@ -14,16 +13,16 @@ import java.util.Collection;
 public class Airline extends AbstractAirline {
 
   private final String airlineName; // the airline name
-  private ArrayList<AbstractFlight> flightArray; // the list of flights contained within an airline
+  private ArrayList<Flight> flightArray; // the list of flights contained within an airline
 
   /**
    * Class implementation for Airline / Constructor
    * @param airlineName
    * @param flightArray
    */
-  public Airline(String airlineName, ArrayList<AbstractFlight> flightArray){
+  public Airline(String airlineName, ArrayList<Flight> flightArray){
     this.airlineName = airlineName; // initialize
-    this.flightArray = new ArrayList<AbstractFlight>(); // initialize
+    this.flightArray = flightArray; // initialize
   }
 
   /**
@@ -41,9 +40,16 @@ public class Airline extends AbstractAirline {
    */
   @Override
   public void addFlight(AbstractFlight flight) {
-    this.flightArray.add(flight);
+    this.flightArray.add((Flight) flight);
+    Collections.sort(this.flightArray);
   }
 
+  public void printFlights(){
+    for(AbstractFlight f : this.flightArray){
+      System.out.println(f.getNumber() + " " + f.getSource() + " " + f.getDepartureString() + " " + f.getDestination() + " " + f.getArrivalString());
+    }
+
+  }
   /**
    * returns the flightArray
    * @return

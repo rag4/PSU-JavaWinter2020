@@ -50,9 +50,11 @@ public class TextDumper implements AirlineDumper {
                 writer.write(airlineName);
                 writer.newLine();
                 for(int i = 0; i < flightArray.size(); i++) {
+                    String departureDate = flightArray.get(i).getDepartureString().replace(",", "");
+                    String arrivalDate = flightArray.get(i).getArrivalString().replace(",", "");
                     writer.write(flightArray.get(i).getNumber() + " " + flightArray.get(i).getSource() + " "
-                            + flightArray.get(i).getDepartureString() + " " + flightArray.get(i).getDestination() + " "
-                            + flightArray.get(i).getArrivalString() + " ");
+                            + departureDate + " " + flightArray.get(i).getDestination() + " "
+                            + arrivalDate + " ");
                     writer.newLine();
                 }
                 writer.close();
@@ -70,9 +72,11 @@ public class TextDumper implements AirlineDumper {
 
                 //write down all the flights of the airline, line by line
                 for(int i = 0; i < flightArray.size(); i++) {
+                    String departureDate = flightArray.get(i).getDepartureString().replace(",", "");
+                    String arrivalDate = flightArray.get(i).getArrivalString().replace(",", "");
                     writer.write(flightArray.get(i).getNumber() + " " + flightArray.get(i).getSource() + " "
-                            + flightArray.get(i).getDepartureString() + " " + flightArray.get(i).getDestination() + " "
-                            + flightArray.get(i).getArrivalString() + " ");
+                            + departureDate + " " + flightArray.get(i).getDestination() + " "
+                            + arrivalDate + " ");
                     writer.newLine();
                 }
                 writer.close();
@@ -89,9 +93,11 @@ public class TextDumper implements AirlineDumper {
             writer.write(airlineName);
             writer.newLine();
             for(int i = 0; i < flightArray.size(); i++) {
+                String departureDate = flightArray.get(i).getDepartureString().replace(",", "");
+                String arrivalDate = flightArray.get(i).getArrivalString().replace(",", "");
                 writer.write(flightArray.get(i).getNumber() + " " + flightArray.get(i).getSource() + " "
-                        + flightArray.get(i).getDepartureString() + " " + flightArray.get(i).getDestination() + " "
-                        + flightArray.get(i).getArrivalString() + " ");
+                        + departureDate + " " + flightArray.get(i).getDestination() + " "
+                        + arrivalDate + " ");
                 writer.newLine();
             }
             writer.close();
