@@ -318,5 +318,55 @@ public class FlightTest {
     flightArray.add(createFlightFinal("pdx", "02/02/2222 22:22 am", "sfx", "01/01/1111 11:11 pm"));
   }
 
+  @Test
+  public void getDifferenceMorning(){
+    Flight flight = createFlightFinal("ABE", "02/02/2222 01:00 am", "ABQ", "02/02/2222 02:00 am");
+    System.out.println(flight.getDifference());
+  }
+  @Test
+  public void getDifferenceOneDay(){
+    Flight flight = createFlightFinal("ABE", "02/02/2222 01:00 am", "ABQ", "02/03/2222 01:00 am");
+    System.out.println(flight.getDifference());
+  }
+  @Test
+  public void getDifferenceTwelve(){
+    Flight flight = createFlightFinal("ABE", "02/02/2222 01:00 am", "ABQ", "02/02/2222 01:00 pm");
+    System.out.println(flight.getDifference());
+  }
+  @Test
+  public void getDifferenceMultipile(){
+    ArrayList<Flight> flightArray  = new ArrayList<Flight>();
+    flightArray.add(createFlightFinal("ABE", "01/01/1111 10:00 am", "ABQ", "01/01/1111 12:00 pm"));
+    flightArray.add(createFlightFinal("ABE", "01/01/1111 10:00 am", "ABQ", "01/01/1111 10:00 pm"));
+    flightArray.add(createFlightFinal("ABE", "01/01/1111 10:00 am", "ABQ", "01/02/1111 10:00 am"));
+    flightArray.add(createFlightFinal("ABE", "01/01/1111 10:00 am", "ABQ", "01/02/1111 10:00 pm"));
+
+    Collections.sort(flightArray);
+
+    for(Flight f : flightArray){
+      System.out.println(f.getDifference());
+    }
+  }
+
+  @Test
+  public void getSRCName(){
+    ArrayList<Flight> flightArray  = new ArrayList<Flight>();
+    flightArray.add(createFlightFinal("PDX", "01/01/1111 10:00 am", "ABQ", "01/01/1111 12:00 pm"));
+
+    for(Flight f : flightArray){
+      System.out.println(f.getSRCName());
+    }
+  }
+
+  @Test
+  public void getDESTName(){
+    ArrayList<Flight> flightArray  = new ArrayList<Flight>();
+    flightArray.add(createFlightFinal("ABE", "01/01/1111 10:00 am", "ABQ", "01/01/1111 12:00 pm"));
+
+    for(Flight f : flightArray){
+      System.out.println(f.getDESTName());
+    }
+  }
+
 }
 

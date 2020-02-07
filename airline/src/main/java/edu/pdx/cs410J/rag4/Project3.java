@@ -23,10 +23,11 @@ public class Project3 {
 
     int printFlag = 0; //flag to tell if the -print option exists
     int textFileFlag = 0; //flag to tell if -textFile file option exists
-    int prettyFlag = 0;
+    int prettyFileFlag = 0;
+    int prettyOutFlag = 0;
     int numberOfOptions = 0; //count of how many options are in the command line args minus -README
     int invalidOption = 0; //flag to tell if option proceeding '-' does not exist or is bad
-    String [] options = {"-README", "-print", "-textFile", "-prettyPrint"}; //String array of possible options
+    String [] options = {"-README", "-print", "-textFile", "-pretty", "-"}; //String array of possible options
 
     int airlineFlightsCommand = 10;  //command list will always have 10 finals: airlineName, flightNumber, src, depart_date, depart_time, depart_symbol
                                     //dest, arrive_date, arrive_time, arrive_symbol
@@ -82,9 +83,14 @@ public class Project3 {
       }
 
       if (args[i].equals("-pretty")){
-        prettyfileName = args[i+1];
-        prettyFlag = 1;
-        numberOfOptions += 2;
+        if(args[i+1].equals("-")){
+          prettyOutFlag = 1;
+          numberOfOptions += 2;
+        }else {
+          prettyfileName = args[i + 1];
+          prettyFileFlag = 1;
+          numberOfOptions += 2;
+        }
         continue;
       }
     }
@@ -175,7 +181,7 @@ public class Project3 {
           airline.addFlight(flight);
           // if printFlag is on, print new flight description
           if (printFlag == 1) {
-            System.out.println("AIRLINE: " + airline.getName());
+            System.out.println("\nIRLINE: " + airline.getName());
             System.out.println(flight.toString());
           }
           // dump updated contents into file
@@ -187,9 +193,9 @@ public class Project3 {
         }
       }
       File existsP = new File(prettyfileName); //pretty file to check if it exists
-      if (prettyFlag == 1 && existsP.isFile()){
+      if (prettyFileFlag == 1 && existsP.isFile()){
         TextParser toParsePretty = new TextParser(prettyfileName);
-        Airline airline = (Airline) toParsePretty.prettyparse();
+        Airline airline = (Airline) toParsePretty.parse();
         // initialize flight values according to finals arraylist:
         try {
           toParsePretty.checkIfEqual(newCommandArgs.get(0), airline.getName());
@@ -197,11 +203,11 @@ public class Project3 {
           airline.addFlight(flight);
           // if printFlag is on, print new flight description
           if (printFlag == 1) {
-            System.out.println("AIRLINE: " + airline.getName());
+            System.out.println("\nAIRLINE: " + airline.getName());
             System.out.println(flight.toString());
           }
-          //PrettyPrinter toPretty = new PrettyPrinter(prettyfileName);
-          //toPretty.dump(airline);
+          PrettyPrinter toPretty = new PrettyPrinter();
+          toPretty.dump(airline);
           System.exit(1);
         } catch (IllegalArgumentException e) {
           System.exit(1);
@@ -222,17 +228,21 @@ public class Project3 {
       airline.addFlight(flight);
       // if printFlag is on, print new flight description
       if (printFlag == 1) {
-        System.out.println("AIRLINE: " + airline.getName());
+        System.out.println("\nAIRLINE: " + airline.getName());
         System.out.println(flight.toString());
+      }
+      if (prettyOutFlag == 1){
+        PrettyPrinter toPretty = new PrettyPrinter();
+        toPretty.dumpOut(airline);
       }
       // if textFileFlag is on, dump this new airline and flight into a newly created file
       if (textFileFlag == 1) {
         TextDumper toDump = new TextDumper(textfileName);
         toDump.dump(airline);
       }
-      if (prettyFlag == 1) {
-        //PrettyPrinter toPretty = new PrettyPrinter(prettyfileName);
-        //toPretty.dump(airline);
+      if (prettyFileFlag == 1) {
+        PrettyPrinter toPretty = new PrettyPrinter();
+        toPretty.dump(airline);
       }
     } catch (IllegalArgumentException e) {
       System.exit(1);

@@ -299,4 +299,17 @@ public class Flight extends AbstractFlight implements Comparable<Flight>{
         if (i != 0) return i;
         return Long.compare(this.depart.getTime(), flight.depart.getTime());
     }
+
+    public long getDifference(){
+        long milliseconds = this.arrive.getTime() - this.depart.getTime();
+        long minutes = milliseconds / 60000;
+        return minutes;
+    }
+
+    public String getSRCName(){
+        return AirportNames.getName(this.src);
+    }
+    public String getDESTName(){
+        return AirportNames.getName(this.dest);
+    }
 }
