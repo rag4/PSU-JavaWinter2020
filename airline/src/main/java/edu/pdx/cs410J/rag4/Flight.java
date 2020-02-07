@@ -53,7 +53,7 @@ public class Flight extends AbstractFlight implements Comparable<Flight>{
                 error = "IT  CONTAINS AN ILLEGAL CHARACTER.";
                 throw new IllegalArgumentException();
             }
-            if(AirportNames.getName(src) == null){
+            if(AirportNames.getName(src.toUpperCase()) == null){
                 error = "THE SOURCE CODE DOES NOT CORRESPOND TO AN EXISTING AIRPORT. ";
                 throw new IllegalArgumentException();
             }
@@ -150,7 +150,7 @@ public class Flight extends AbstractFlight implements Comparable<Flight>{
                 error = "IT  CONTAINS AN ILLEGAL CHARACTER.";
                 throw new IllegalArgumentException("dest: airport three-letter code contains invalid character, IT MUST BE LETTERS");
             }
-            if(AirportNames.getName(dest) == null){
+            if(AirportNames.getName(dest.toUpperCase()) == null){
                 error = "THE SOURCE CODE DOES NOT CORRESPOND TO AN EXISTING AIRPORT. ";
                 throw new IllegalArgumentException();
             }

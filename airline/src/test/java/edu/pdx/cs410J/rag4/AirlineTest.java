@@ -30,7 +30,7 @@ public class AirlineTest{
      */
     @Test
     public void addProperFlight(){
-        Flight flight = new Flight(00, "tst", "00/00/0000 00:00", "tst", "00/00/0000 00:00");
+        Flight flight = new Flight(00, "pdx", "00/00/0000 00:00 am", "lax", "00/00/0000 00:00 pm");
         ArrayList<Flight> flightArray = new ArrayList<Flight>();
         Airline airline = createAirlineFlightList(flightArray);
         airline.addFlight(flight);
@@ -41,7 +41,7 @@ public class AirlineTest{
      */
     @Test
     public void getProperFlight(){
-        Flight flight = new Flight(00, "tst", "00/00/0000 00:00", "tst", "00/00/0000 00:00");
+        Flight flight = new Flight(00, "pdx", "00/00/0000 00:00 am", "lax", "00/00/0000 00:00 pm");
         ArrayList<Flight> flightArray = new ArrayList<Flight>();
         Airline airline = createAirlineFlightList(flightArray);
         airline.getFlights();
@@ -93,9 +93,9 @@ public class AirlineTest{
 
     @Test
     public void sortThreeProperFlight(){
-        Flight flight = new Flight(00, "pdx", "01/01/1111 11:11", "sfx", "02/02/2222 22:22");
-        Flight flight2 = new Flight(00, "pdx", "01/01/1111 10:10", "sfx", "02/02/2222 11:11");
-        Flight flight3 = new Flight(00,"abc", "01/01/1111 10:10", "sfx", "02/02/2222 11:11");
+        Flight flight = new Flight(00, "pdx", "01/01/1111 11:11 am", "lax", "02/02/2222 22:22 pm");
+        Flight flight2 = new Flight(00, "pdx", "01/01/1111 10:10 am", "lax", "02/02/2222 11:11 pm");
+        Flight flight3 = new Flight(00,"pdx", "01/01/1111 10:10 am", "lax", "02/02/2222 11:11 pm");
         ArrayList<Flight> contain = new ArrayList<Flight>();
         Airline airline = new Airline("TEST", contain);
         airline.addFlight(flight);

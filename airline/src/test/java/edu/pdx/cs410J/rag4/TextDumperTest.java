@@ -44,7 +44,7 @@ public class TextDumperTest {
     @Test
     public void  createAFileAndPutAirlineWithOneFlight() throws IOException {
         TextDumper exampleText = createTextDumper("Example.txt");
-        Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10", "SFX", "11/11/1111 11:11");
+        Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         exampleText.dump(exampleAirline);
         File file = new File("Example.txt");
         if(file.delete()){
@@ -61,8 +61,8 @@ public class TextDumperTest {
     @Test
     public void  createAFileAndPutAirlineWithTwoFlight() throws IOException {
         TextDumper exampleText = createTextDumper("Example.txt");
-        Airline exampleAirline = createAirlineWithFlights("TEST1", "00", "PDX", "10/10/1010 10:10", "SFX", "11/11/1111 11:11");
-        exampleAirline.addFlight(createFlights( "01", "SFX", "11/11/1111 11:11", "PDX", "12/12/2222 22:22"));
+        Airline exampleAirline = createAirlineWithFlights("TEST1", "00", "PDX", "10/10/1010 10:10 am", "LAX", "11/11/1111 11:11 am");
+        exampleAirline.addFlight(createFlights( "01", "LAX", "11/11/1111 11:11 am", "PDX", "12/12/2222 22:22 am"));
         exampleText.dump(exampleAirline);
         File file = new File("Example.txt");
         if(file.delete()){

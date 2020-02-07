@@ -34,7 +34,7 @@ public class FlightTest {
   // test asserts that the flightNumber is 42 before implementing the getNumber() function in our Flight class
   @Test
   public void initiallyAllFlightsHaveTheSameNumber() {
-    Flight flight = new Flight(42, "tst", "00/00/0000 00:00", "tst", "00/00/0000 00:00");
+    Flight flight = new Flight(42, "pdx", "00/00/0000 00:00 am", "abq", "00/00/0000 00:00 pm");
     assertThat(flight.getNumber(), equalTo(42));
   }
 
@@ -71,7 +71,7 @@ public class FlightTest {
    * @return
    */
   private Flight createFlightWithSrc(String src) {
-    return new Flight(00, src, "00/00/0000 00:00", "tst", "00/00/0000 00:00");
+    return new Flight(00, src, "00/00/0000 00:00 am", "abq", "00/00/0000 00:00 pm");
   }
 
   /**
@@ -118,7 +118,7 @@ public class FlightTest {
    * @return
    */
   private Flight createFlightWithDepart(String depart) {
-    return new Flight(00, "tst", depart, "tst", "00/00/0000 00:00");
+    return new Flight(00, "pdx", depart, "abq", "03/30/3333 00:00 pm");
   }
 
   /**
@@ -126,7 +126,7 @@ public class FlightTest {
    */
   @Test
   public void properDepartTest(){
-    String validDepart = "01/01/1111 11:11";
+    String validDepart = "01/01/1111 11:11 am";
     createFlightWithDepart(validDepart);
   }
 
@@ -165,7 +165,7 @@ public class FlightTest {
    * @return
    */
   private Flight createFlightWithDest(String dest) {
-    return new Flight(00, "tst", "00/00/0000 00:00", dest, "00/00/0000 00:00");
+    return new Flight(00, "abq", "01/01/1111 00:00 am", dest, "02/02/2222 00:00 pm");
   }
 
   /**
@@ -173,7 +173,7 @@ public class FlightTest {
    */
   @Test
   public void properDestTest(){
-    String validDest = "sdx";
+    String validDest = "PDX";
     createFlightWithDest(validDest);
   }
 
@@ -191,7 +191,7 @@ public class FlightTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void whenDestMoreThanThreeLong(){
-    String invalidDest = "sfxt";
+    String invalidDest = "abqt";
     createFlightWithDest(invalidDest);
   }
 
@@ -212,7 +212,7 @@ public class FlightTest {
    * @return
    */
   private Flight createFlightWithArrive(String arrive) {
-    return new Flight(00, "tst", "00/00/0000 00:00", "tst", arrive);
+    return new Flight(00, "pdx", "03/03/3333 00:00 pm", "abq", arrive);
   }
 
   /**
@@ -220,7 +220,7 @@ public class FlightTest {
    */
   @Test
   public void properArriveTest(){
-    String validArrive = "01/01/1111 11:11";
+    String validArrive = "04/04/4444 11:11 am";
     createFlightWithArrive(validArrive);
   }
 
@@ -271,19 +271,19 @@ public class FlightTest {
   @Test
   public void properFinalTest(){
     String validSrc = "pdx";
-    String validDepart = "01/01/1111 11:11";
-    String validDest = "sfx";
-    String validArrive = "02/02/2222 22:22";
+    String validDepart = "01/01/1111 11:11 am";
+    String validDest = "abq";
+    String validArrive = "02/02/2222 22:22 am";
     createFlightFinal(validSrc, validDepart, validDest, validArrive);
   }
 
   @Test
   public void testSorting(){
     ArrayList<Flight> flightArray  = new ArrayList<Flight>();
-    flightArray.add(createFlightFinal("pdx", "01/01/1111 11:11 am", "sfx", "02/02/2222 22:22 am"));
-    flightArray.add(createFlightFinal("pdx", "01/01/1111 10:10 pm", "sfx", "02/02/2222 11:11 pm"));
-    flightArray.add(createFlightFinal("pdx", "01/01/1111 10:10 am", "sfx", "02/02/2222 11:11 am"));
-    flightArray.add(createFlightFinal("abc", "01/01/1111 10:10 am", "sfx", "02/02/2222 11:11 am"));
+    flightArray.add(createFlightFinal("pdx", "01/01/1111 11:11 am", "abq", "02/02/2222 22:22 am"));
+    flightArray.add(createFlightFinal("pdx", "01/01/1111 10:10 pm", "abq", "02/02/2222 11:11 pm"));
+    flightArray.add(createFlightFinal("pdx", "01/01/1111 10:10 am", "abq", "02/02/2222 11:11 am"));
+    flightArray.add(createFlightFinal("abe", "01/01/1111 10:10 am", "abq", "02/02/2222 11:11 am"));
 
     Collections.sort(flightArray);
 
@@ -303,19 +303,19 @@ public class FlightTest {
   @Test(expected = IllegalArgumentException.class)
   public void testAPFail(){
     ArrayList<Flight> flightArray  = new ArrayList<Flight>();
-    flightArray.add(createFlightFinal("pdx", "01/01/1111 11:11 dm", "sfx", "02/02/2222 22:22 am"));
+    flightArray.add(createFlightFinal("pdx", "01/01/1111 11:11 dm", "abq", "02/02/2222 22:22 am"));
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testMFail(){
     ArrayList<Flight> flightArray  = new ArrayList<Flight>();
-    flightArray.add(createFlightFinal("pdx", "01/01/1111 11:11 dn", "sfx", "02/02/2222 22:22 am"));
+    flightArray.add(createFlightFinal("pdx", "01/01/1111 11:11 dn", "abq", "02/02/2222 22:22 am"));
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void arriveBeforeArrive(){
     ArrayList<Flight> flightArray  = new ArrayList<Flight>();
-    flightArray.add(createFlightFinal("pdx", "02/02/2222 22:22 am", "sfx", "01/01/1111 11:11 pm"));
+    flightArray.add(createFlightFinal("pdx", "02/02/2222 22:22 am", "abq", "01/01/1111 11:11 pm"));
   }
 
   @Test

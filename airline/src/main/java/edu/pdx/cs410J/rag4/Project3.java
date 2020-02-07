@@ -137,11 +137,8 @@ public class Project3 {
         }
 
         if(Integer.parseInt(args[i+1].substring(0,2)) > 12){
-          System.out.print(args[i+2].charAt(0));
-          if(args[i+2].charAt(0) == 'A'){
-            args[i+2].replace('A', 'P');
-            System.out.print(args[i+2]);
-          }
+          System.err.println("PLEASE DO NOT PUT 24-HOUR TIME.");
+          System.exit(1);
         }
 
         // CONCATENATION
@@ -181,7 +178,7 @@ public class Project3 {
           airline.addFlight(flight);
           // if printFlag is on, print new flight description
           if (printFlag == 1) {
-            System.out.println("\nIRLINE: " + airline.getName());
+            System.out.println("\nAIRLINE: " + airline.getName());
             System.out.println(flight.toString());
           }
           // dump updated contents into file

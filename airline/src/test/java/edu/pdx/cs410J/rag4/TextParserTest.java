@@ -44,8 +44,8 @@ public class TextParserTest {
      */
     @Test
     public void parseAnProperExampleFile() throws ParserException, IOException {
-        Airline airline = createAirlineWithFlights("Example", "11", "PDX", "11/11/1111 11:11",
-                "SFX", "22/22/2222 22:22");
+        Airline airline = createAirlineWithFlights("Example", "11", "PDX", "11/11/1111 11:11 am",
+                "LAX", "22/22/2222 22:22 pm");
         TextDumper toDump = createTextDumper("Example");
         toDump.dump(airline);
 
