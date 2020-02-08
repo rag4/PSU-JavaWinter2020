@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class PrettyParserTest {
+public class PrettyPrinterTest {
 
     // return brand new airline with filghts
     private Airline createAirlineWithFlights(String airlineName, String flightNumber, String src, String depart, String dest, String arrive){
@@ -220,5 +220,7 @@ public class PrettyParserTest {
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "SFX", "11/11/1111 11:11 PM");
         pretty.dumpOut(exampleAirline);
     }
+
+
 
 }
