@@ -132,4 +132,45 @@ public class PrettyParserTest {
             System.out.println("Test createAPrettyPrintWithOneAirlineWithTwoFlight() failed.");
         }
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testPrettyFileNonExistantSRC() throws IOException {
+        PrettyPrinter pretty = new PrettyPrinter();
+        Airline exampleAirline = createAirlineWithFlights("TEST", "00", "SFX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
+        pretty.dump(exampleAirline);
+        File file = new File("PrettyFile.txt");
+        if(file.delete()){
+            System.out.println("Test createAPrettyPrintWithOneAirlineWithOneFlight() Passed. Deleting Example.txt file.");
+        }else{
+            System.out.println("Test createAPrettyPrintWithOneAirlineWithOneFlight() failed.");
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testPrettyFileNonExistantDEST() throws IOException {
+        PrettyPrinter pretty = new PrettyPrinter();
+        Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "SFX", "11/11/1111 11:11 PM");
+        pretty.dump(exampleAirline);
+        File file = new File("PrettyFile.txt");
+        if(file.delete()){
+            System.out.println("Test createAPrettyPrintWithOneAirlineWithOneFlight() Passed. Deleting Example.txt file.");
+        }else{
+            System.out.println("Test createAPrettyPrintWithOneAirlineWithOneFlight() failed.");
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void  testPrintOutOneNonExistantSRC() throws IOException {
+        PrettyPrinter pretty = new PrettyPrinter();
+        Airline exampleAirline = createAirlineWithFlights("TEST", "00", "SFX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
+        pretty.dumpOut(exampleAirline);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void  testPrintOutOneNonExistantDEPT() throws IOException {
+        PrettyPrinter pretty = new PrettyPrinter();
+        Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "SFX", "11/11/1111 11:11 PM");
+        pretty.dumpOut(exampleAirline);
+    }
+
 }
