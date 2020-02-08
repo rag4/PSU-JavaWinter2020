@@ -72,20 +72,6 @@ public class TextDumperTest {
         }
     }
 
-    @Test
-    public void  createAFileAndPutAirlineWithTwoFlightAlt() throws IOException {
-        TextDumper exampleText = createTextDumper("Example.txt");
-        Airline exampleAirline = createAirlineWithFlights("TEST1", "00", "PDX", "10/10/1010 10:10 am", "LAX", "11/11/1111 11:11 am");
-        exampleAirline.addFlight(createFlights( "01", "LAX", "11/11/1111 11:11 am", "PDX", "12/12/2222 22:22 am"));
-        exampleText.dump(exampleAirline);
-        File file = new File("Example.txt");
-        if(file.delete()){
-            System.out.println("Test createAFileAndPutAirlineWithTwoFlight() Passed. Deleting Example.txt file.");
-        }else{
-            System.out.println("Test createAFileAndPutAirlineWithTwoFlight() failed.");
-        }
-    }
-
     /***
      * tests to see if you can create a new file, then dump two airline with one flight into it
      * you are not supposed to be able to put two airlines -- should throw an exception

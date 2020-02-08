@@ -72,6 +72,34 @@ public class PrettyPrinterTest {
         pretty.dumpOut(exampleAirline);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void  testPrintOutOneMalformattedDepart() throws IOException {
+        PrettyPrinter pretty = new PrettyPrinter();
+        Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/11/1010c 10:10 PM", "LAX", "11/11/1111 11:11 PM");
+        pretty.dumpOut(exampleAirline);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void  testPrintOutOneMalformattedArrive() throws IOException {
+        PrettyPrinter pretty = new PrettyPrinter();
+        Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/110 10:10 PM", "LAX", "11/11/11b11 11:11 PM");
+        pretty.dumpOut(exampleAirline);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void  testPrintOutOneMalformattedDepartTIMES() throws IOException {
+        PrettyPrinter pretty = new PrettyPrinter();
+        Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:xx PM", "LAX", "11/11/1111 11:11 PM");
+        pretty.dumpOut(exampleAirline);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void  testPrintOutOneMalformattedArriveTIMES() throws IOException {
+        PrettyPrinter pretty = new PrettyPrinter();
+        Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 xx:11 PM");
+        pretty.dumpOut(exampleAirline);
+    }
+
     @Test
     public void  testPrintOutTwo() throws IOException {
         PrettyPrinter pretty = new PrettyPrinter();
