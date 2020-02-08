@@ -101,6 +101,63 @@ public class AirlineTest{
         airline.addFlight(flight);
         airline.addFlight(flight2);
         airline.addFlight(flight3);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void sortBadDate(){
+        Flight flight = new Flight(00, "pdx", "02/02/2222 22:22 pm", "lax", "01/01/1111 11:11 am");
+        ArrayList<Flight> contain = new ArrayList<Flight>();
+        Airline airline = new Airline("TEST", contain);
+        airline.addFlight(flight);
+        airline.printFlights();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void sortBadDepartTimeName(){
+        Flight flight = new Flight(00, "pdx", "01/01/1111 11:11 xm" , "lax", "02/02/2222 22:22 pm");
+        ArrayList<Flight> contain = new ArrayList<Flight>();
+        Airline airline = new Airline("TEST", contain);
+        airline.addFlight(flight);
+        airline.printFlights();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void sortBadArrivalTimeName(){
+        Flight flight = new Flight(00, "pdx", "01/01/1111 11:11 pm" , "lax", "02/02/2222 22:22 dm");
+        ArrayList<Flight> contain = new ArrayList<Flight>();
+        Airline airline = new Airline("TEST", contain);
+        airline.addFlight(flight);
+        airline.printFlights();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void sortBadSrcName(){
+        Flight flight = new Flight(00, "sfx", "01/01/1111 11:11 dm", "lax", "02/02/2222 22:22 dm");
+        ArrayList<Flight> contain = new ArrayList<Flight>();
+        Airline airline = new Airline("TEST", contain);
+        airline.addFlight(flight);
+        airline.printFlights();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void sortBadDestName(){
+        Flight flight = new Flight(00, "pdx", "01/01/1111 11:11 pm", "sfx", "02/02/2222 22:22 pm");
+        ArrayList<Flight> contain = new ArrayList<Flight>();
+        Airline airline = new Airline("TEST", contain);
+        airline.addFlight(flight);
+        airline.printFlights();
+    }
+
+    @Test
+    public void properSorting(){
+        Flight flight = new Flight(00, "pdx", "01/01/1111 11:11 am", "lax", "02/02/2222 22:22 pm");
+        Flight flight2 = new Flight(00, "pdx", "01/01/1111 10:10 am", "lax", "02/02/2222 11:11 pm");
+        Flight flight3 = new Flight(00,"pdx", "01/01/1111 10:10 am", "lax", "02/02/2222 11:11 pm");
+        ArrayList<Flight> contain = new ArrayList<Flight>();
+        Airline airline = new Airline("TEST", contain);
+        airline.addFlight(flight);
+        airline.addFlight(flight2);
+        airline.addFlight(flight3);
         airline.printFlights();
     }
 }
