@@ -357,6 +357,16 @@ public class Project3IT extends InvokeMainTestCase {
     MainMethodResult result = invokeMain("-pretty", "-", "TEST1", "11", "PDX", "11/11/1111",  "11:11", "am", "lax", "22/22/2222", "22:22", "pm");
     assertThat(result.getExitCode(), equalTo(1));
   }
+  @Test
+  public void testPrettyOutOptionTooMany() {
+    MainMethodResult result = invokeMain("-pretty", "-", "TEST1", "11", "PDX", "heyho",  "11/11/1111",  "11:11", "am", "lax", "22/22/2222", "22:22", "pm");
+    assertThat(result.getTextWrittenToStandardError(), containsString("You have far too MANY command line arguments. \n"));
+  }
+  @Test
+  public void testPrettyOutOptionTooFew() {
+    MainMethodResult result = invokeMain("-pretty", "-", "TEST1", "11:11", "am", "lax", "22/22/2222", "22:22", "pm");
+    assertThat(result.getTextWrittenToStandardError(), containsString("You have too FEW command line arguments. \n"));
+  }
 
   @Test
   public void testPrettyFileOption() {
@@ -375,6 +385,17 @@ public class Project3IT extends InvokeMainTestCase {
     MainMethodResult result = invokeMain("-pretty", "Example.txt", "-print", "TEST1", "11", "PDX", "11/11/1111", "11:11", "am", "lax", "22/22/2222", "22:22", "pm");
     assertThat(result.getExitCode(), equalTo(1));
   }
+  @Test
+  public void testPrettyFilePrintOptionTooMany() {
+    MainMethodResult result = invokeMain("-pretty", "Example.txt", "-print", "TEST1", "11", "PDX", "11/11/1111", "olo",  "11:11", "am", "lax", "22/22/2222", "22:22", "pm");
+    assertThat(result.getTextWrittenToStandardError(), containsString("You have far too MANY command line arguments. \n"));
+  }
+  @Test
+  public void testPrettyFilePrintOptionTooFew() {
+    MainMethodResult result = invokeMain("-pretty", "Example.txt", "-print", "TEST1", "11", "PDX", "11/11/1111", "11:11", "am", "22:22", "pm");
+    assertThat(result.getTextWrittenToStandardError(), containsString("You have too FEW command line arguments. \n"));
+  }
+
 
   @Test
   public void testPrettyFilePrintReadMeOption() {
