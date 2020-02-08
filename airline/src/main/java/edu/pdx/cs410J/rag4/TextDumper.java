@@ -46,41 +46,15 @@ public class TextDumper implements AirlineDumper {
                 FileWriter toWrite = new FileWriter(file, true);
                 BufferedWriter writer = new BufferedWriter(toWrite);
                 file.createNewFile();
-                System.out.println("\n\nFILE DOESN'T EXIST, CREATING NEW FILE, THEN ATTEMPTING TO DUMP...");
-                writer.write(airlineName);
-                writer.newLine();
-                for(int i = 0; i < flightArray.size(); i++) {
-                    String departureDate = flightArray.get(i).getDepartureString().replace(",", "");
-                    String arrivalDate = flightArray.get(i).getArrivalString().replace(",", "");
-                    writer.write(flightArray.get(i).getNumber() + " " + flightArray.get(i).getSource() + " "
-                            + departureDate + " " + flightArray.get(i).getDestination() + " "
-                            + arrivalDate + " ");
-                    writer.newLine();
-                }
-                writer.close();
-                toWrite.close();
-                System.out.println("SUCCESS: FILE CREATED -- Airline Contents DUMPED.\n\n");
-            //if file exists, update lists of flights to add a brand new flight
+                printNonExistant(airlineName, flightArray, toWrite, writer);
+                //if file exists, update lists of flights to add a brand new flight
             }else{
                 FileWriter toWrite = new FileWriter(file);
                 BufferedWriter writer = new BufferedWriter(toWrite);
 
                 System.out.println("\n\nFILE EXISTS, ATTEMPTING TO DUMP...");
 
-                writer.write(airlineName);
-                writer.newLine();
-
-                //write down all the flights of the airline, line by line
-                for(int i = 0; i < flightArray.size(); i++) {
-                    String departureDate = flightArray.get(i).getDepartureString().replace(",", "");
-                    String arrivalDate = flightArray.get(i).getArrivalString().replace(",", "");
-                    writer.write(flightArray.get(i).getNumber() + " " + flightArray.get(i).getSource() + " "
-                            + departureDate + " " + flightArray.get(i).getDestination() + " "
-                            + arrivalDate + " ");
-                    writer.newLine();
-                }
-                writer.close();
-                toWrite.close();
+                WriteYourFlights(airlineName, flightArray, toWrite, writer);
                 System.out.println("SUCCESS: Airline Contents DUMPED.\n\n");
             }
         } catch (IOException e) {
@@ -89,20 +63,28 @@ public class TextDumper implements AirlineDumper {
             FileWriter toWrite = new FileWriter(file, true);
             BufferedWriter writer = new BufferedWriter(toWrite);
             file.createNewFile();
-            System.out.println("\n\nFILE DOESN'T EXIST, CREATING NEW FILE, THEN ATTEMPTING TO DUMP...");
-            writer.write(airlineName);
-            writer.newLine();
-            for(int i = 0; i < flightArray.size(); i++) {
-                String departureDate = flightArray.get(i).getDepartureString().replace(",", "");
-                String arrivalDate = flightArray.get(i).getArrivalString().replace(",", "");
-                writer.write(flightArray.get(i).getNumber() + " " + flightArray.get(i).getSource() + " "
-                        + departureDate + " " + flightArray.get(i).getDestination() + " "
-                        + arrivalDate + " ");
-                writer.newLine();
-            }
-            writer.close();
-            toWrite.close();
-            System.out.println("SUCCESS: FILE CREATED -- Airline Contents DUMPED.\n\n");
+            printNonExistant(airlineName, flightArray, toWrite, writer);
         }
+    }
+
+    private void printNonExistant(String airlineName, ArrayList<AbstractFlight> flightArray, FileWriter toWrite, BufferedWriter writer) throws IOException {
+        System.out.println("\n\nFILE DOESN'T EXIST, CREATING NEW FILE, THEN ATTEMPTING TO DUMP...");
+        WriteYourFlights(airlineName, flightArray, toWrite, writer);
+        System.out.println("SUCCESS: FILE CREATED -- Airline Contents DUMPED.\n\n");
+    }
+
+    private void WriteYourFlights(String airlineName, ArrayList<AbstractFlight> flightArray, FileWriter toWrite, BufferedWriter writer) throws IOException {
+        writer.write(airlineName);
+        writer.newLine();
+        for(int i = 0; i < flightArray.size(); i++) {
+            String departureDate = flightArray.get(i).getDepartureString().replace(",", "");
+            String arrivalDate = flightArray.get(i).getArrivalString().replace(",", "");
+            writer.write(flightArray.get(i).getNumber() + " " + flightArray.get(i).getSource() + " "
+                    + departureDate + " " + flightArray.get(i).getDestination() + " "
+                    + arrivalDate + " ");
+            writer.newLine();
+        }
+        writer.close();
+        toWrite.close();
     }
 }
