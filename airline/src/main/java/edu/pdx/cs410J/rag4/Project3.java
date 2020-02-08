@@ -181,30 +181,17 @@ public class Project3 {
             System.out.println("\nAIRLINE: " + airline.getName());
             System.out.println(flight.toString());
           }
+          if (prettyOutFlag == 1){
+            PrettyPrinter toPretty = new PrettyPrinter(prettyfileName);
+            toPretty.dumpOut(airline);
+          }
+          if (prettyFileFlag == 1){
+            PrettyPrinter toPretty = new PrettyPrinter(prettyfileName);
+            toPretty.dump(airline);
+          }
           // dump updated contents into file
           TextDumper toDump = new TextDumper(textfileName);
           toDump.dump(airline);
-          System.exit(1);
-        } catch (IllegalArgumentException e) {
-          System.exit(1);
-        }
-      }
-      File existsP = new File(prettyfileName); //pretty file to check if it exists
-      if (prettyFileFlag == 1 && existsP.isFile()){
-        TextParser toParsePretty = new TextParser(prettyfileName);
-        Airline airline = (Airline) toParsePretty.parse();
-        // initialize flight values according to finals arraylist:
-        try {
-          toParsePretty.checkIfEqual(newCommandArgs.get(0), airline.getName());
-          Flight flight = new Flight(Integer.parseInt(newCommandArgs.get(1)), newCommandArgs.get(2), newCommandArgs.get(3), newCommandArgs.get(4), newCommandArgs.get(5));
-          airline.addFlight(flight);
-          // if printFlag is on, print new flight description
-          if (printFlag == 1) {
-            System.out.println("\nAIRLINE: " + airline.getName());
-            System.out.println(flight.toString());
-          }
-          PrettyPrinter toPretty = new PrettyPrinter();
-          toPretty.dump(airline);
           System.exit(1);
         } catch (IllegalArgumentException e) {
           System.exit(1);
@@ -228,17 +215,17 @@ public class Project3 {
         System.out.println("\nAIRLINE: " + airline.getName());
         System.out.println(flight.toString());
       }
-      if (prettyOutFlag == 1){
-        PrettyPrinter toPretty = new PrettyPrinter();
-        toPretty.dumpOut(airline);
-      }
       // if textFileFlag is on, dump this new airline and flight into a newly created file
       if (textFileFlag == 1) {
         TextDumper toDump = new TextDumper(textfileName);
         toDump.dump(airline);
       }
+      if (prettyOutFlag == 1){
+        PrettyPrinter toPretty = new PrettyPrinter(prettyfileName);
+        toPretty.dumpOut(airline);
+      }
       if (prettyFileFlag == 1) {
-        PrettyPrinter toPretty = new PrettyPrinter();
+        PrettyPrinter toPretty = new PrettyPrinter(prettyfileName);
         toPretty.dump(airline);
       }
     } catch (IllegalArgumentException e) {

@@ -14,8 +14,8 @@ public class PrettyPrinter implements AirlineDumper {
 
     private final String content;
 
-    public PrettyPrinter() {
-        this.content = "PrettyFile.txt";
+    public PrettyPrinter(String content) {
+        this.content = content;
     }
 
 

@@ -26,7 +26,7 @@ public class PrettyPrinterTest {
 
     @Test
     public void  createAPrettyPrintWithOneAirlineWithOneFlight() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         pretty.dump(exampleAirline);
         File file = new File("PrettyFile.txt");
@@ -39,7 +39,7 @@ public class PrettyPrinterTest {
 
     @Test
     public void  createAPrettyPrintWithOneAirlineWithTwoFlight() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         exampleAirline.addFlight(createFlights("00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
         pretty.dump(exampleAirline);
@@ -53,7 +53,7 @@ public class PrettyPrinterTest {
 
     @Test
     public void  createAPrettyPrintWithOneAirlineWithThreeFlight() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         exampleAirline.addFlight(createFlights("00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
         pretty.dump(exampleAirline);
@@ -67,42 +67,42 @@ public class PrettyPrinterTest {
 
     @Test
     public void  testPrintOutOne() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         pretty.dumpOut(exampleAirline);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void  testPrintOutOneMalformattedDepart() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/11/1010c 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         pretty.dumpOut(exampleAirline);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void  testPrintOutOneMalformattedArrive() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/110 10:10 PM", "LAX", "11/11/11b11 11:11 PM");
         pretty.dumpOut(exampleAirline);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void  testPrintOutOneMalformattedDepartTIMES() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:xx PM", "LAX", "11/11/1111 11:11 PM");
         pretty.dumpOut(exampleAirline);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void  testPrintOutOneMalformattedArriveTIMES() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 xx:11 PM");
         pretty.dumpOut(exampleAirline);
     }
 
     @Test
     public void  testPrintOutTwo() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         exampleAirline.addFlight(createFlights("00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
         pretty.dumpOut(exampleAirline);
@@ -110,7 +110,7 @@ public class PrettyPrinterTest {
 
     @Test
     public void  testPrintOutThree() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         exampleAirline.addFlight(createFlights("00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
         exampleAirline.addFlight(createFlights("00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
@@ -119,7 +119,7 @@ public class PrettyPrinterTest {
 
     @Test
     public void  testPrintOutSortName() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         exampleAirline.addFlight(createFlights("00", "ABQ", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
         pretty.dumpOut(exampleAirline);
@@ -127,7 +127,7 @@ public class PrettyPrinterTest {
 
     @Test
     public void  testPrintOutSortTime() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         exampleAirline.addFlight(createFlights("00", "PDX", "10/10/1010 09:10 PM", "LAX", "11/11/1111 11:11 PM"));
         pretty.dumpOut(exampleAirline);
@@ -135,7 +135,7 @@ public class PrettyPrinterTest {
 
     @Test
     public void  testPrintOutSortNameThree() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         exampleAirline.addFlight(createFlights("00", "ABE", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
         exampleAirline.addFlight(createFlights("00", "ABQ", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
@@ -144,7 +144,7 @@ public class PrettyPrinterTest {
 
     @Test
     public void  testPrintOutSortTimeThree() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         exampleAirline.addFlight(createFlights("00", "PDX", "10/10/1010 09:10 PM", "LAX", "11/11/1111 11:11 PM"));
         exampleAirline.addFlight(createFlights("00", "PDX", "10/10/1010 09:10 PM", "LAX", "11/11/1111 11:11 PM"));
@@ -153,7 +153,7 @@ public class PrettyPrinterTest {
 
     @Test
     public void  testPrintFileSortName() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         exampleAirline.addFlight(createFlights("00", "ABQ", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
         pretty.dump(exampleAirline);
@@ -167,7 +167,7 @@ public class PrettyPrinterTest {
 
     @Test
     public void  testPrintFileSortTime() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         exampleAirline.addFlight(createFlights("00", "PDX", "10/10/1010 09:10 PM", "LAX", "11/11/1111 11:11 PM"));
         pretty.dump(exampleAirline);
@@ -181,7 +181,7 @@ public class PrettyPrinterTest {
 
     @Test
     public void  testPrintFileSortNameThree() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         exampleAirline.addFlight(createFlights("00", "ABE", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
         exampleAirline.addFlight(createFlights("00", "ABQ", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
@@ -196,7 +196,7 @@ public class PrettyPrinterTest {
 
     @Test
     public void  testPrintFileSortTimeThree() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         exampleAirline.addFlight(createFlights("00", "PDX", "10/10/1010 09:10 PM", "LAX", "11/11/1111 11:11 PM"));
         exampleAirline.addFlight(createFlights("00", "PDX", "10/10/1010 09:10 PM", "LAX", "11/11/1111 11:11 PM"));
@@ -211,7 +211,7 @@ public class PrettyPrinterTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testPrettyFileNonExistantSRC() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "SFX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         pretty.dump(exampleAirline);
         File file = new File("PrettyFile.txt");
@@ -224,7 +224,7 @@ public class PrettyPrinterTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testPrettyFileNonExistantDEST() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "SFX", "11/11/1111 11:11 PM");
         pretty.dump(exampleAirline);
         File file = new File("PrettyFile.txt");
@@ -237,14 +237,14 @@ public class PrettyPrinterTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void  testPrintOutOneNonExistantSRC() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "SFX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         pretty.dumpOut(exampleAirline);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void  testPrintOutOneNonExistantDEPT() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
+        PrettyPrinter pretty = new PrettyPrinter("PrettyFile.txt");
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "SFX", "11/11/1111 11:11 PM");
         pretty.dumpOut(exampleAirline);
     }
