@@ -274,6 +274,20 @@ public class Project3IT extends InvokeMainTestCase {
                 "FILE EXISTS\n"));*/
   }
 
+  // test -print option will work, even if -textFile is on and a file already exists
+  @Test
+  public void testAllOptionsPrettyOut() {
+    MainMethodResult result = invokeMain("-textFile", "Example.txt", "-pretty", "-", "-print", "TEST1", "11", "PDX", "11/11/1111", "11:11", "lax", "22/22/2222", "22:22");
+    assertThat(result.getExitCode(), equalTo(1));
+  }
+
+  // test -print option will work, even if -textFile is on and a file already exists
+  @Test
+  public void testAllOptionsPrettyFile() {
+    MainMethodResult result = invokeMain("-textFile", "Example.txt", "-pretty", "Example.txt", "-print", "TEST1", "11", "PDX", "11/11/1111", "11:11", "lax", "22/22/2222", "22:22");
+    assertThat(result.getExitCode(), equalTo(1));
+  }
+
   /***
    * test README will invoke and nothing else happens
    */

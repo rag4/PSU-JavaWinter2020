@@ -66,22 +66,6 @@ public class PrettyPrinterTest {
     }
 
     @Test
-    public void  createAPrettyPrintWithOneAirlineWithThreeFlightAllWithDifferentSRC() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
-        Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
-        exampleAirline.addFlight(createFlights("00", "LAX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
-        exampleAirline.addFlight(createFlights("00", "ABE", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
-        exampleAirline.addFlight(createFlights("00", "ABQ", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
-        pretty.dump(exampleAirline);
-        File file = new File("PrettyFile.txt");
-        if(file.delete()){
-            System.out.println("Test createAPrettyPrintWithOneAirlineWithTwoFlight() Passed. Deleting Example.txt file.");
-        }else{
-            System.out.println("Test createAPrettyPrintWithOneAirlineWithTwoFlight() failed.");
-        }
-    }
-
-    @Test
     public void  testPrintOutOne() throws IOException {
         PrettyPrinter pretty = new PrettyPrinter();
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
@@ -130,16 +114,6 @@ public class PrettyPrinterTest {
         Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
         exampleAirline.addFlight(createFlights("00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
         exampleAirline.addFlight(createFlights("00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
-        pretty.dumpOut(exampleAirline);
-    }
-
-    @Test
-    public void  testPrintOutThreeAllWithDifferentNames() throws IOException {
-        PrettyPrinter pretty = new PrettyPrinter();
-        Airline exampleAirline = createAirlineWithFlights("TEST", "00", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM");
-        exampleAirline.addFlight(createFlights("00", "ABQ", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
-        exampleAirline.addFlight(createFlights("00", "LAX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
-        exampleAirline.addFlight(createFlights("00", "ABE", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
         pretty.dumpOut(exampleAirline);
     }
 
