@@ -368,5 +368,25 @@ public class FlightTest {
     }
   }
 
+  @Test
+  public void geteDepartureString(){
+    ArrayList<Flight> flightArray  = new ArrayList<Flight>();
+    flightArray.add(createFlightFinal("PDX", "01/01/1111 10:00 am", "ABQ", "01/01/1111 12:00 pm"));
+
+    for(Flight f : flightArray){
+      System.out.println(f.getDepartureString());
+    }
+  }
+
+  @Test
+  public void geteArrivalString(){
+    ArrayList<Flight> flightArray  = new ArrayList<Flight>();
+    flightArray.add(createFlightFinal("PDX", "01/01/1111 10:00 am", "ABQ", "01/01/1111 12:00 pm"));
+
+    for(Flight f : flightArray){
+      System.out.println(f.getArrivalString());
+    }
+  }
+
 }
 
