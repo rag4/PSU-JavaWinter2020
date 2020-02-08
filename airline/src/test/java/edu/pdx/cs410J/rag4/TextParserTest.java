@@ -60,6 +60,96 @@ public class TextParserTest {
         }
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void parseBadTime() throws ParserException, IOException {
+        Airline airline = createAirlineWithFlights("ExampleA", "11", "PDX", "01/23/45  04:44 dm",
+                "LAX", "12/34/56 05:55 pm");
+        TextDumper toDump = createTextDumper("Example");
+        toDump.dump(airline);
+
+        TextParser toParse = createTextParser("Example");
+        Airline parsedAirline = (Airline) toParse.parse();
+
+        File file = new File("Example.txt");
+        if(file.delete()){
+            System.out.println("Test parseAnProperExampleFile() Passed. Example.txt PARSED. Deleting Example.txt file.");
+        }else{
+            System.out.println("Test parseAnProperExampleFile() failed. Did not PARSE.");
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void parseBadTime2() throws ParserException, IOException {
+        Airline airline = createAirlineWithFlights("ExampleA", "11", "PDX", "01/23/45  04:44 pm",
+                "LAX", "12/34/56 05:55 dm");
+        TextDumper toDump = createTextDumper("Example");
+        toDump.dump(airline);
+
+        TextParser toParse = createTextParser("Example");
+        Airline parsedAirline = (Airline) toParse.parse();
+
+        File file = new File("Example.txt");
+        if(file.delete()){
+            System.out.println("Test parseAnProperExampleFile() Passed. Example.txt PARSED. Deleting Example.txt file.");
+        }else{
+            System.out.println("Test parseAnProperExampleFile() failed. Did not PARSE.");
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void parseBadTimeBefore() throws ParserException, IOException {
+        Airline airline = createAirlineWithFlights("Example", "11", "PDX", "01/23/45  04:44 pm",
+                "LAX", "12/34/56 05:55 pm");
+        TextDumper toDump = createTextDumper("Example");
+        toDump.dump(airline);
+
+        TextParser toParse = createTextParser("Example");
+        Airline parsedAirline = (Airline) toParse.parse();
+
+        File file = new File("Example.txt");
+        if(file.delete()){
+            System.out.println("Test parseAnProperExampleFile() Passed. Example.txt PARSED. Deleting Example.txt file.");
+        }else{
+            System.out.println("Test parseAnProperExampleFile() failed. Did not PARSE.");
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void parseBadSRC() throws ParserException, IOException {
+        Airline airline = createAirlineWithFlights("Example", "11", "ABC", "11/11/1111 11:11 am",
+                "LAX", "22/22/2222 22:22 pm");
+        TextDumper toDump = createTextDumper("Example");
+        toDump.dump(airline);
+
+        TextParser toParse = createTextParser("Example");
+        Airline parsedAirline = (Airline) toParse.parse();
+
+        File file = new File("Example.txt");
+        if(file.delete()){
+            System.out.println("Test parseAnProperExampleFile() Passed. Example.txt PARSED. Deleting Example.txt file.");
+        }else{
+            System.out.println("Test parseAnProperExampleFile() failed. Did not PARSE.");
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void parseBadDEST() throws ParserException, IOException {
+        Airline airline = createAirlineWithFlights("Example", "11", "PDX", "11/11/1111 11:11 am",
+                "ABC", "22/22/2222 22:22 pm");
+        TextDumper toDump = createTextDumper("Example");
+        toDump.dump(airline);
+
+        TextParser toParse = createTextParser("Example");
+        Airline parsedAirline = (Airline) toParse.parse();
+
+        File file = new File("Example.txt");
+        if(file.delete()){
+            System.out.println("Test parseAnProperExampleFile() Passed. Example.txt PARSED. Deleting Example.txt file.");
+        }else{
+            System.out.println("Test parseAnProperExampleFile() failed. Did not PARSE.");
+        }
+    }
+
     /***
      * throws an exception if parser tries to parse a file that does not exist
      * @throws ParserException
@@ -82,5 +172,7 @@ public class TextParserTest {
         TextParser toParse = createTextParser("%^$");
         Airline parsedAirline = (Airline) toParse.parse();
     }
+
+
 
 }
