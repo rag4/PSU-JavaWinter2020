@@ -160,4 +160,18 @@ public class AirlineTest{
         airline.addFlight(flight3);
         airline.printFlights();
     }
+    @Test
+    public void properSorting1(){
+        Flight flight = new Flight(00, "pdx", "01/01/1111 11:11 am", "lax", "02/02/2222 22:22 pm");
+        Flight flight2 = new Flight(00, "pdx", "01/01/1111 10:10 am", "lax", "02/02/2222 11:11 pm");
+        Flight flight3 = new Flight(00,"pdx", "01/01/1111 10:10 am", "lax", "02/02/2222 11:11 pm");
+        Flight flight4 = new Flight(00,"pdx", "01/01/1111 10:10 am", "lax", "02/02/2222 11:11 pm");
+        ArrayList<Flight> contain = new ArrayList<Flight>();
+        Airline airline = new Airline("TEST", contain);
+        airline.addFlight(flight);
+        airline.addFlight(flight2);
+        airline.addFlight(flight3);
+        airline.addFlight(flight4);
+        airline.printFlights();
+    }
 }
