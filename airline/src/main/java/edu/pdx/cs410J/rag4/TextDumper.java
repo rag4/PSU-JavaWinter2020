@@ -37,7 +37,7 @@ public class TextDumper implements AirlineDumper {
     public void dump(AbstractAirline airline) throws IOException {
         String airlineName = airline.getName(); //get the airlineName to put in as the first line of the text filie
         String line;
-        ArrayList<AbstractFlight> flightArray = (ArrayList<AbstractFlight>) airline.getFlights();
+        ArrayList<Flight> flightArray = (ArrayList<Flight>) airline.getFlights();
 
         try{
             File file = new File(this.content);
@@ -67,18 +67,18 @@ public class TextDumper implements AirlineDumper {
         }
     }
 
-    private void printNonExistant(String airlineName, ArrayList<AbstractFlight> flightArray, FileWriter toWrite, BufferedWriter writer) throws IOException {
+    private void printNonExistant(String airlineName, ArrayList<Flight> flightArray, FileWriter toWrite, BufferedWriter writer) throws IOException {
         System.out.println("\n\nFILE DOESN'T EXIST, CREATING NEW FILE, THEN ATTEMPTING TO DUMP...");
         WriteYourFlights(airlineName, flightArray, toWrite, writer);
         System.out.println("SUCCESS: FILE CREATED -- Airline Contents DUMPED.\n\n");
     }
 
-    private void WriteYourFlights(String airlineName, ArrayList<AbstractFlight> flightArray, FileWriter toWrite, BufferedWriter writer) throws IOException {
+    private void WriteYourFlights(String airlineName, ArrayList<Flight> flightArray, FileWriter toWrite, BufferedWriter writer) throws IOException {
         writer.write(airlineName);
         writer.newLine();
         for(int i = 0; i < flightArray.size(); i++) {
-            String departureDate = flightArray.get(i).getDepartureString().replace(",", "");
-            String arrivalDate = flightArray.get(i).getArrivalString().replace(",", "");
+            String departureDate = flightArray.get(i).getLongDeparture().replace(",", "");
+            String arrivalDate = flightArray.get(i).getLongArrival().replace(",", "");
             writer.write(flightArray.get(i).getNumber() + " " + flightArray.get(i).getSource() + " "
                     + departureDate + " " + flightArray.get(i).getDestination() + " "
                     + arrivalDate + " ");

@@ -44,6 +44,9 @@ public class Airline extends AbstractAirline {
     Collections.sort(this.flightArray);
   }
 
+  public void printAirlineName(){
+    System.out.println(this.airlineName);
+  }
   public void printFlights(){
     for(AbstractFlight f : this.flightArray){
       System.out.println(f.getNumber() + " " + f.getSource() + " " + f.getDepartureString() + " " + f.getDestination() + " " + f.getArrivalString());

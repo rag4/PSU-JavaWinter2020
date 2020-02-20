@@ -48,8 +48,8 @@ public class XmlDumperTest {
         XmlDumper exampleXml = createXmlDumper("Example2Sort.xml");
         ArrayList<Flight> flightArray = new ArrayList<Flight>();
         Airline exampleAirline = createAirline("LongBeaches Flights", flightArray);
-        exampleAirline.addFlight(createFlight( "02", "LAX", "11/11/1111 11:11 am", "PDX", "12/12/2222 22:22 am"));
-        exampleAirline.addFlight(createFlight("01", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
+        exampleAirline.addFlight(createFlight( "02", "ABQ", "11/11/1111 11:11 am", "PDX", "12/12/2222 22:22 am"));
+        exampleAirline.addFlight(createFlight("01", "ABE", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
         exampleXml.dump(exampleAirline);
     }
 

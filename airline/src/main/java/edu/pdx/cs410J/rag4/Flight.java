@@ -72,7 +72,6 @@ public class Flight extends AbstractFlight implements Comparable<Flight>{
                 throw new IllegalArgumentException();
             }
             if (depart.length() > 19) { // if depart is bigger than expected
-                System.out.println(depart);
                 error = "THE LENGTH IS TOO BIG.";
                 throw new IllegalArgumentException();
             }
@@ -211,7 +210,6 @@ public class Flight extends AbstractFlight implements Comparable<Flight>{
                 }
                 if (i == 18) {
                     if (arrive.toUpperCase().charAt(i) != 'M'){
-                        //System.out.println(i);
                         error = "FORMAT IS WRONG. YOUR AM/PM ARE MALFORMATTED.";
                         throw new IllegalArgumentException();
                     } else {
@@ -271,6 +269,10 @@ public class Flight extends AbstractFlight implements Comparable<Flight>{
         return dateFormat.format(this.depart);
     }
 
+    public String getLongDeparture() {
+        return departFormat.format(this.depart);
+    }
+
     /**
      * returns the dest of this class
      * @return
@@ -291,6 +293,10 @@ public class Flight extends AbstractFlight implements Comparable<Flight>{
         DateFormat dateFormat;
         dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
         return dateFormat.format(this.arrive);
+    }
+
+    public String getLongArrival() {
+        return arriveFormat.format(this.arrive);
     }
 
     @Override

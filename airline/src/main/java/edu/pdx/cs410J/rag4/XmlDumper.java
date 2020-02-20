@@ -49,8 +49,8 @@ public class XmlDumper implements AirlineDumper {
 
             //Flight
             for(Flight f : flightArray) {
-                String departureDate = f.getDepartureString().replace(",", "");
-                String arrivalDate = f.getArrivalString().replace(",", "");
+                String departureDate = f.getLongDeparture().replace(",", "");
+                String arrivalDate = f.getLongArrival().replace(",", "");
                 String num = String.valueOf(f.getNumber());
 
                 //Flight
@@ -73,7 +73,7 @@ public class XmlDumper implements AirlineDumper {
                 flightDest.appendChild(document.createTextNode(f.getDestination()));
                 flightRoot.appendChild(flightDest);
                 //FlightArrival
-                Element flightArrival = document.createElement("Destination");
+                Element flightArrival = document.createElement("Arrival");
                 flightArrival.appendChild(document.createTextNode(arrivalDate));
                 flightRoot.appendChild(flightArrival);
             }
@@ -85,7 +85,6 @@ public class XmlDumper implements AirlineDumper {
             StreamResult streamResult = new StreamResult(new File(this.content));
 
             transformer.transform(domSource, streamResult);
-            System.out.println("DONE");
         } catch (ParserConfigurationException | TransformerConfigurationException e) {
             e.printStackTrace();
         } catch (TransformerException e) {

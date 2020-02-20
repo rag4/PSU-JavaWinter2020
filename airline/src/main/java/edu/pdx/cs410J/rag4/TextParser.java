@@ -77,7 +77,6 @@ public class TextParser implements AirlineParser {
                     if(newCommandArgs[3].indexOf(':') == 1){
                         newCommandArgs[3] = "0" + newCommandArgs[3];
                     }
-                    newCommandArgs[2] = newCommandArgs[2].substring(0,6) + "20" + newCommandArgs[2].substring(6);
 
                     if(newCommandArgs[6].charAt(1) == ('/')){
                         newCommandArgs[6] = "0" + newCommandArgs[6];
@@ -88,8 +87,9 @@ public class TextParser implements AirlineParser {
                     if(newCommandArgs[7].indexOf(':') == 1){
                         newCommandArgs[7] = "0" + newCommandArgs[7];
                     }
-                    newCommandArgs[6] = newCommandArgs[6].substring(0,6) + "20" + newCommandArgs[6].substring(6);
 
+                    System.out.println(newCommandArgs[0] + " " + newCommandArgs[1] + " " + newCommandArgs[2] + " " + newCommandArgs[3] + " " + newCommandArgs[4] + " " +
+                            newCommandArgs[5] + " " + newCommandArgs[6] + " " + newCommandArgs[7] + " " + newCommandArgs[8]);
                     Flight flight = new Flight(Integer.parseInt(newCommandArgs[0]), newCommandArgs[1], newCommandArgs[2] + " " + newCommandArgs[3] + " " + newCommandArgs[4],
                             newCommandArgs[5], newCommandArgs[6] + " " + newCommandArgs[7] + " " + newCommandArgs[8]);
                     flightArray.add(flight); // add this newly created flight with initialized values into airline
