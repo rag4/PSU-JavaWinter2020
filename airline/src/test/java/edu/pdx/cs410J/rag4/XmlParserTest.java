@@ -31,7 +31,7 @@ public class XmlParserTest {
         XmlDumper exampleDump = createXmlDumper("Example.xml");
         ArrayList<Flight> flightArray = new ArrayList<Flight>();
         Airline exampleAirlineD = createAirline("LongBeaches Flights", flightArray);
-        exampleAirlineD.addFlight(createFlight("01", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
+        exampleAirlineD.addFlight(createFlight("01", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 AM"));
         exampleDump.dump(exampleAirlineD);
 
         XmlParser exampleParse = createXmlParser("Example.xml");

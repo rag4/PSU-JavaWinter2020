@@ -20,4 +20,9 @@ public class Converter {
         XmlDumper airlineToDump = new XmlDumper(this.xmlContent);
         airlineToDump.dump(airline);
     }
+
+    public static void main(String[] args){
+
+
+    }
 }

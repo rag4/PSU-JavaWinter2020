@@ -23,8 +23,8 @@ public class Project4 {
 
     int printFlag = 0; //flag to tell if the -print option exists
     int textFileFlag = 0; //flag to tell if -textFile file option exists
-    int prettyFileFlag = 0;
-    int prettyOutFlag = 0;
+    int prettyFileFlag = 0; //flag to tell if -pretty option exists (print to text file)
+    int prettyOutFlag = 0; //flag to tell if -pretty option exists (print out)
     int numberOfOptions = 0; //count of how many options are in the command line args minus -README
     int invalidOption = 0; //flag to tell if option proceeding '-' does not exist or is bad
     String [] options = {"-README", "-print", "-textFile", "-pretty", "-"}; //String array of possible options
@@ -240,20 +240,21 @@ public class Project4 {
    * prints out the command line interface, should be used when improper usage of the command line arguments in the main function occurs
    */
   public static void commandLineInterface(){
-    System.out.println("usage: java edu.pdx.cs410J.<login-id>.Project3 [options] <args>\n" +
+    System.out.println("usage: java edu.pdx.cs410J.<login-id>.Project4 [options] <args>\n" +
             "args are (in this order):\n" +
-            "airline The name of the airline\n" +
+            "name The name of the airline\n" +
             "flightNumber The flight number\n" +
             "src Three-letter code of departure airport\n" +
             "depart Departure date time am/pm\n" +
             "dest Three-letter code of arrival airport\n" +
             "arrive Arrival date time am/pm\n" +
             "options are (options may appear in any order):\n" +
+            "-xmlFile file Where to read/write the airline info\n" +
+            "-textFile file Where to read/write the airline info\n" +
             "-pretty file Pretty print the airline’s flights to\n" +
             "a text file or standard out (file -)\n" +
-            "-textFile file Where to read/write the airline info\n" +
             "-print Prints a description of the new flight\n" +
-            "-README Prints a README for this project and exits\n");
+            "-README Prints a README for this project and exits");
   }
 
   /**README
@@ -287,7 +288,7 @@ public class Project4 {
             "in the command line, it can do one of two things: " +
             "\n1) It will create a new file to dump an airline in " +
             "\n2) It will parse the airline in an existing text file, add a new flight only if the flight is from the same airline , then dump it back in \n\n");*/
-    System.out.println("PROJECT 3: PRETTY PRINTING YOUR AIRLINE\n" +
+    /*System.out.println("PROJECT 3: PRETTY PRINTING YOUR AIRLINE\n" +
             "SUBMITION/DEVELOPED BY: Ramon Guarnes 942268924\n" +
             "CLASS: CS410P Advanced Programmin with Java\n" +
             "TEACHER: David Whitlock\n" +
@@ -298,6 +299,17 @@ public class Project4 {
             "If they depart from the same airport, however, we will need to sort by their departure time in chronological order. We can achieve our\n" +
             "sorting methods by having our Flight class implment java.lang.Comparable. Our next step is to create a class called the PrettyPrinter class.\n" +
             "The PrettyPrinterClass implements the AirlineDumper interface, and its purpose is to create a nicely formatted textual presentation of our\n" +
-            "airline's flights. We will need to use DateFormat to make our dates look nice, and we are also recommended to use the AirportNames class.\n\n");
+            "airline's flights. We will need to use DateFormat to make our dates look nice, and we are also recommended to use the AirportNames class.\n\n");*/
+    System.out.println("PROJECT 4: XML\n" +
+            "SUBMITION/DEVELOPED BY: Ramon Guarnes 942268924\n" +
+            "CLASS: CS410P Advanced Programmin with Java\n" +
+            "TEACHER: David Whitlock\n" +
+            "DUE DATE: February 19, 2020 before 5:30PM\n" +
+            "DESCRIPTION: In Project 4, my job is to implement the classes: XmlDumper, XmlParser, and Converter. The XmlDumper class implements the \n" +
+            "AirlineDumper class, and its purpose is to take an instance of an airline and its flights, and to store it into an external XML file.\n" +
+            "Thew XmlParaser class implements the AirlineParser class, and its purpose is to read an airline instance from an XML file, and to create and\n" +
+            "return an airline from it. The Converter class converts an airline from a text file, and stores it into an XML file.\n" +
+            "The next step of this project is to reconfigure and refactor the Project 3 class --> Project 4 class. The Project 4 class should now include\n" +
+            "the option -xmlFile and should take in one to two parameters (one xml file) (or a text file and an xml file in succession).\n\n");
   }
 }
