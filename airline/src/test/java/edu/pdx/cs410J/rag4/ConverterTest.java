@@ -1,8 +1,10 @@
 package edu.pdx.cs410J.rag4;
 
+import edu.pdx.cs410J.InvokeMainTestCase;
 import edu.pdx.cs410J.ParserException;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -24,6 +26,7 @@ public class ConverterTest {
     private TextDumper createTextDumper(String content) {
         return new TextDumper(content);
     }
+
     private Airline createAirline(String airlineName, ArrayList<Flight> flightArray){
         Airline airline = new Airline(airlineName, flightArray); // new Airline object
         return airline;
@@ -44,6 +47,11 @@ public class ConverterTest {
 
         Converter toConvert = new Converter("ExampleConvert.txt", "ExampleConvert.xml");
         toConvert.convert();
+
+        File file = new File("ExampleConvert.txt");
+        file.delete();
+        file = new File("ExampleConvert.xml");
+        file.delete();
     }
 
     @Test
@@ -57,6 +65,11 @@ public class ConverterTest {
 
         Converter toConvert = new Converter("ExampleConvert2.txt", "ExampleConvert2.xml");
         toConvert.convert();
+
+        File file = new File("ExampleConvert2.txt");
+        file.delete();
+        file = new File("ExampleConvert2.xml");
+        file.delete();
     }
 
     @Test
@@ -70,5 +83,10 @@ public class ConverterTest {
 
         Converter toConvert = new Converter("ExampleConvert2Sort.txt", "ExampleConvert2Sort.xml");
         toConvert.convert();
+
+        File file = new File("ExampleConvert2Sort.txt");
+        file.delete();
+        file = new File("ExampleConvert2Sort.xml");
+        file.delete();
     }
 }

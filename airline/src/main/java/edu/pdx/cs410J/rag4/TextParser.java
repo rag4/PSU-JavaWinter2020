@@ -87,7 +87,6 @@ public class TextParser implements AirlineParser {
                     if(newCommandArgs[7].indexOf(':') == 1){
                         newCommandArgs[7] = "0" + newCommandArgs[7];
                     }
-
                     Flight flight = new Flight(Integer.parseInt(newCommandArgs[0]), newCommandArgs[1], newCommandArgs[2] + " " + newCommandArgs[3] + " " + newCommandArgs[4],
                             newCommandArgs[5], newCommandArgs[6] + " " + newCommandArgs[7] + " " + newCommandArgs[8]);
                     flightArray.add(flight); // add this newly created flight with initialized values into airline

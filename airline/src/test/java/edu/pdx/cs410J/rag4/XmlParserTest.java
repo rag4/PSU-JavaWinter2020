@@ -3,6 +3,7 @@ package edu.pdx.cs410J.rag4;
 import edu.pdx.cs410J.ParserException;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -38,6 +39,9 @@ public class XmlParserTest {
         Airline exampleAirlineP = (Airline) exampleParse.parse();
         exampleAirlineP.printAirlineName();
         exampleAirlineP.printFlights();
+
+        File file = new File("Example.xml");
+        file.delete();
     }
 
     @Test
@@ -53,6 +57,9 @@ public class XmlParserTest {
         Airline exampleAirlineP = (Airline) exampleParse.parse();
         exampleAirlineP.printAirlineName();
         exampleAirlineP.printFlights();
+
+        File file = new File("Example2.xml");
+        file.delete();
     }
 
     @Test
@@ -68,6 +75,9 @@ public class XmlParserTest {
         Airline exampleAirlineP = (Airline) exampleParse.parse();
         exampleAirlineP.printAirlineName();
         exampleAirlineP.printFlights();
+
+        File file = new File("Example2Sort.xml");
+        file.delete();
     }
 
     @Test(expected = IllegalArgumentException.class)

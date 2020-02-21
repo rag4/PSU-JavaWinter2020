@@ -52,10 +52,10 @@ public class TextDumper implements AirlineDumper {
                 FileWriter toWrite = new FileWriter(file);
                 BufferedWriter writer = new BufferedWriter(toWrite);
 
-                System.out.println("\n\nFILE EXISTS, ATTEMPTING TO DUMP...");
+                //System.out.println("\n\nFILE EXISTS, ATTEMPTING TO DUMP...");
 
                 WriteYourFlights(airlineName, flightArray, toWrite, writer);
-                System.out.println("SUCCESS: Airline Contents DUMPED.\n\n");
+                //System.out.println("SUCCESS: Airline Contents DUMPED.\n\n");
             }
         } catch (IOException e) {
             File file = new File(this.content);
@@ -68,9 +68,9 @@ public class TextDumper implements AirlineDumper {
     }
 
     private void printNonExistant(String airlineName, ArrayList<Flight> flightArray, FileWriter toWrite, BufferedWriter writer) throws IOException {
-        System.out.println("\n\nFILE DOESN'T EXIST, CREATING NEW FILE, THEN ATTEMPTING TO DUMP...");
+        //System.out.println("\n\nFILE DOESN'T EXIST, CREATING NEW FILE, THEN ATTEMPTING TO DUMP...");
         WriteYourFlights(airlineName, flightArray, toWrite, writer);
-        System.out.println("SUCCESS: FILE CREATED -- Airline Contents DUMPED.\n\n");
+        //System.out.println("SUCCESS: FILE CREATED -- Airline Contents DUMPED.\n\n");
     }
 
     private void WriteYourFlights(String airlineName, ArrayList<Flight> flightArray, FileWriter toWrite, BufferedWriter writer) throws IOException {

@@ -393,6 +393,7 @@ public class Project4IT extends InvokeMainTestCase {
     MainMethodResult result = invokeMain("-pretty", "Example.txt", "-print", "TEST1", "11", "PDX", "11/11/1111", "11:11", "am", "lax", "22/22/2222", "22:22", "pm");
     assertThat(result.getExitCode(), equalTo(1));
   }
+
   @Test
   public void testPrettyFilePrintOptionTooMany() {
     MainMethodResult result = invokeMain("-pretty", "Example.txt", "-print", "TEST1", "11", "PDX", "11/11/1111", "olo",  "11:11", "am", "lax", "22/22/2222", "22:22", "pm");
@@ -419,5 +420,22 @@ public class Project4IT extends InvokeMainTestCase {
             "return an airline from it. The Converter class converts an airline from a text file, and stores it into an XML file.\n" +
             "The next step of this project is to reconfigure and refactor the Project 3 class --> Project 4 class. The Project 4 class should now include\n" +
             "the option -xmlFile and should take in one to two parameters (one xml file) (or a text file and an xml file in succession).\n\n"));
+  }
+
+  @Test
+  public void testXmlFilePrintOption() {
+    MainMethodResult result = invokeMain("-xmlFile", "Example.xml", "-print", "TEST1", "11", "PDX", "11/11/1111", "11:11", "am", "lax", "22/22/2222", "22:22", "pm");
+    assertThat(result.getExitCode(), equalTo(1));
+  }
+
+  @Test
+  public void testXmlFilePrintOptionTooMany() {
+    MainMethodResult result = invokeMain("-xmlFile", "Example.xml", "-print", "TEST1", "11", "PDX", "11/11/1111", "olo",  "11:11", "am", "lax", "22/22/2222", "22:22", "pm");
+    assertThat(result.getTextWrittenToStandardError(), containsString("You have far too MANY command line arguments. \n"));
+  }
+  @Test
+  public void testXmlFilePrintOptionTooFew() {
+    MainMethodResult result = invokeMain("-xmlFile", "Example.xml", "-print", "TEST1", "11", "PDX", "11/11/1111", "11:11", "am", "22:22", "pm");
+    assertThat(result.getTextWrittenToStandardError(), containsString("You have too FEW command line arguments. \n"));
   }
 }

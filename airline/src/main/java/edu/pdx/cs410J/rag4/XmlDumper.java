@@ -93,7 +93,7 @@ public class XmlDumper implements AirlineDumper {
                 appendDateTime(doc, arrivalDate, flightRoot, arriveRoot);
             }
         } catch (DOMException e) {
-            e.printStackTrace();
+            System.err.println("DTD is not correct.");
         }
         try {
             Source src = new DOMSource(doc);
@@ -105,8 +105,7 @@ public class XmlDumper implements AirlineDumper {
             StreamResult streamResult = new StreamResult(new File(this.content));
             xForm.transform(src, streamResult);
         } catch (TransformerException ex) {
-            ex.printStackTrace(System.err);
-            System.exit(1);
+            System.err.println("Something went wrong with the xml dumper...");
         }
 
     }

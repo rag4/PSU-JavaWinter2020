@@ -1,7 +1,11 @@
 package edu.pdx.cs410J.rag4;
 
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,6 +35,9 @@ public class XmlDumperTest {
         Airline exampleAirline = createAirline("LongBeaches Flights", flightArray);
         exampleAirline.addFlight(createFlight("01", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
         exampleXml.dump(exampleAirline);
+
+        //File file = new File("Example.xml");
+        //file.delete();
     }
 
     @Test
@@ -41,6 +48,9 @@ public class XmlDumperTest {
         exampleAirline.addFlight(createFlight("01", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
         exampleAirline.addFlight(createFlight( "02", "LAX", "11/11/1111 11:11 am", "PDX", "12/12/2222 12:22 am"));
         exampleXml.dump(exampleAirline);
+
+        File file = new File("Example2.xml");
+        file.delete();
     }
 
     @Test
@@ -51,7 +61,9 @@ public class XmlDumperTest {
         exampleAirline.addFlight(createFlight( "02", "ABQ", "11/11/1111 11:11 am", "PDX", "12/12/2222 12:22 am"));
         exampleAirline.addFlight(createFlight("01", "ABE", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
         exampleXml.dump(exampleAirline);
-    }
 
+        File file = new File("Example2Sort.xml");
+        file.delete();
+    }
 
 }

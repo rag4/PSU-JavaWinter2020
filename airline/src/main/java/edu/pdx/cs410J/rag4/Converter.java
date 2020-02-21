@@ -5,20 +5,40 @@ import edu.pdx.cs410J.ParserException;
 import java.io.IOException;
 
 public class Converter {
-    private final String textContent;
-    private final String xmlContent;
+    private String textContent = null;
+    private String xmlContent = null;
 
     public Converter(String textContent, String xmlContent) {
-        this.textContent = textContent;
-        this.xmlContent = xmlContent;
+        String error = null;
+        try {
+            if (!textContent.contains(".txt")) {
+                error = "FIRST COMMAND LINE ARGUMENT NEEDS TO BE .TXT";
+                throw new IllegalArgumentException();
+            }
+            if (!xmlContent.contains(".xml")) {
+                error = "SECOND COMMAND LINE ARGUMENT NEEDS TO BE .XML";
+                throw new IllegalArgumentException();
+            }
+            this.textContent = textContent;
+            this.xmlContent = xmlContent;
+        } catch (IllegalArgumentException e) {
+            System.err.println(error);
+            throw new IllegalArgumentException();
+        }
     }
 
     public void convert() throws ParserException, IOException {
-        TextParser textToConvert = new TextParser(this.textContent);
-        Airline airline = (Airline) textToConvert.parse();
+        try {
+            TextParser textToConvert = new TextParser(this.textContent);
+            Airline airline = (Airline) textToConvert.parse();
+            XmlDumper airlineToDump = new XmlDumper(this.xmlContent);
+            airlineToDump.dump(airline);
+        }catch(NullPointerException e){
+            System.err.println("FILE DOES NOT EXISTS");
+            throw new IllegalArgumentException();
+        }
 
-        XmlDumper airlineToDump = new XmlDumper(this.xmlContent);
-        airlineToDump.dump(airline);
+
     }
 
     public static void main(String[] args) throws IOException, ParserException {
@@ -33,21 +53,17 @@ public class Converter {
             commandLineInterface();
             System.exit(1);
         }
-        if(!args[0].contains(".txt")){
-            System.err.println("First command line arguments needs to be .txt");
+        try {
+            System.out.println("Converting text file to xml file...");
+            Converter toConvert = new Converter(args[0], args[1]);
+            toConvert.convert();
+            System.out.println("Done converting");
+            System.exit(1);
+        }catch(IllegalArgumentException e){
+            System.err.println("COULD NOT CONVERT");
             commandLineInterface();
             System.exit(1);
         }
-        if(!args[1].contains(".xml")){
-            System.err.println("Second command line arguments needs to be .xml");
-            commandLineInterface();
-            System.exit(1);
-        }
-        System.out.println("Converting text file to xml file...");
-        Converter toConvert = new Converter(args[0], args[1]);
-        toConvert.convert();
-        System.out.println("Done converting");
-        System.exit(1);
     }
 
     /**Command Line Interface

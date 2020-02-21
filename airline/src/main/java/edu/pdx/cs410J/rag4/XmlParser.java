@@ -62,7 +62,7 @@ public class XmlParser implements AirlineParser {
                 flightArray.add(flight);
             }
         } catch (Exception e) {
-            System.err.println("FILE DOES NOT EXIST. CANNOT PARSE.");
+            System.err.println("FILE DOES NOT CONFORM TO CORRECT DTD.");
             throw new IllegalArgumentException();
         }
         return new Airline(airlineName, flightArray);
