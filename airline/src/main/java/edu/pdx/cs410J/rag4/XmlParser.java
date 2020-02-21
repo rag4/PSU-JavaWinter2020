@@ -101,4 +101,15 @@ public class XmlParser implements AirlineParser {
         }
         return output;
     }
+
+    public void checkIfEqual(String airlineUser, String airlineText) throws IllegalArgumentException {
+        try {
+            if (!airlineUser.equals(airlineText)) {
+                throw new IllegalArgumentException();
+            }
+        } catch (IllegalArgumentException e) {
+            System.err.println("AIRLINE INPUTTED AND AIRLINE IN TEXT FILE DO NOT MATCH");
+            throw new IllegalArgumentException();
+        }
+    }
 }

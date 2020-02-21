@@ -25,14 +25,17 @@ public class Project4 {
     int textFileFlag = 0; //flag to tell if -textFile file option exists
     int prettyFileFlag = 0; //flag to tell if -pretty option exists (print to text file)
     int prettyOutFlag = 0; //flag to tell if -pretty option exists (print out)
+    int xmlFileFlag = 0; //flag to tell if -xmlFile file option exists
     int numberOfOptions = 0; //count of how many options are in the command line args minus -README
     int invalidOption = 0; //flag to tell if option proceeding '-' does not exist or is bad
-    String [] options = {"-README", "-print", "-textFile", "-pretty", "-"}; //String array of possible options
+    String [] options = {"-README", "-print", "-textFile", "-pretty", "-", "-xmlFile"}; //String array of possible options
 
     int airlineFlightsCommand = 10;  //command list will always have 10 finals: airlineName, flightNumber, src, depart_date, depart_time, depart_symbol
                                     //dest, arrive_date, arrive_time, arrive_symbol
     String textfileName = ""; //String to input file name, located after -textFile
+    String xmlfileName = "";
     String prettyfileName = ""; //String to input file name, located after -textFile
+
     ArrayList<String> newCommandArgs = new ArrayList<String>(); //new arraylist to get 8 finals as said above
 
     //error if there are NO command line arguments
@@ -81,7 +84,20 @@ public class Project4 {
         numberOfOptions += 2;
         continue;
       }
-
+      //if -xmlFile, turn xml file flag on, also, store the next argument as the xml file name
+      if (args[i].equals("-xmlFile")){
+        xmlfileName = args[i+1];
+        xmlFileFlag = 1;
+        numberOfOptions += 2;
+        continue;
+      }
+      //cannot have both -xmlFile and -textFile flag on
+      if(textFileFlag == 1 && xmlFileFlag == 1){
+        System.err.println("YOU CANNOT HAVE BOTH -textFile and -xmlFile OPTIONS SELECTED");
+        commandLineInterface();
+        System.exit(1);
+      }
+      //if -pretty, turn pretty flag on, also, store the next argument depending on its purpose
       if (args[i].equals("-pretty")){
         if(args[i+1].equals("-")){
           prettyOutFlag = 1;
@@ -116,7 +132,7 @@ public class Project4 {
       }
 
       //if -textFile option here, iterate plus 2
-      if (args[i].equals("-textFile") || args[i].equals("-pretty")){
+      if (args[i].equals("-textFile") || args[i].equals("-pretty") || args[i].equals("-xmlFile")){
         i++;
         continue;
       }
@@ -165,75 +181,91 @@ public class Project4 {
       System.exit(1);
     }
 
+    Flight flight = new Flight(Integer.parseInt(newCommandArgs.get(1)), newCommandArgs.get(2), newCommandArgs.get(3), newCommandArgs.get(4), newCommandArgs.get(5));
+    String fileName = null;
+    if(textFileFlag == 1){
+      fileName = textfileName;
+    }
+    if(xmlFileFlag == 1){
+      fileName = xmlfileName;
+    }
+    // initialize flight values according to finals arraylist:
     try {
-      File exists = new File(textfileName); //file to check if it exists
-      //if file exists, parse file contents as new airline, check if new flight has same airline, if it does: dump it back to the file
-      if (textFileFlag == 1 && exists.isFile()) {
-        TextParser toParse = new TextParser(textfileName);
-        Airline airline = (Airline) toParse.parse();
-        // initialize flight values according to finals arraylist:
-        try {
+      if(textFileFlag == 1 || xmlFileFlag == 1) {
+        File exists = new File(fileName); //file to check if it exists
+        //TEXT FILE EXISTS
+        if (textFileFlag == 1 && exists.isFile()) {
+          TextParser toParse = new TextParser(fileName);
+          Airline airline = (Airline) toParse.parse();
           toParse.checkIfEqual(newCommandArgs.get(0), airline.getName());
-          Flight flight = new Flight(Integer.parseInt(newCommandArgs.get(1)), newCommandArgs.get(2), newCommandArgs.get(3), newCommandArgs.get(4), newCommandArgs.get(5));
           airline.addFlight(flight);
+
           // if printFlag is on, print new flight description
-          if (printFlag == 1) {
-            System.out.println("\nAIRLINE: " + airline.getName());
-            System.out.println(flight.toString());
-          }
-          if (prettyOutFlag == 1){
-            PrettyPrinter toPretty = new PrettyPrinter(prettyfileName);
-            toPretty.dumpOut(airline);
-          }
-          if (prettyFileFlag == 1){
-            PrettyPrinter toPretty = new PrettyPrinter(prettyfileName);
-            toPretty.dump(airline);
-          }
+          printers(printFlag, prettyFileFlag, prettyOutFlag, prettyfileName, flight, airline);
           // dump updated contents into file
-          TextDumper toDump = new TextDumper(textfileName);
+          TextDumper toDump = new TextDumper(fileName);
           toDump.dump(airline);
           System.exit(1);
-        } catch (IllegalArgumentException e) {
+        }
+        // XML FILE EXISTS
+        if (xmlFileFlag == 1 && exists.isFile()) {
+          XmlParser toParse = new XmlParser(fileName);
+          Airline airline = (Airline) toParse.parse();
+          toParse.checkIfEqual(newCommandArgs.get(0), airline.getName());
+          airline.addFlight(flight);
+
+          // if printFlag is on, print new flight description
+          printers(printFlag, prettyFileFlag, prettyOutFlag, prettyfileName, flight, airline);
+          // dump updated contents into file
+          XmlDumper toDump = new XmlDumper(fileName);
+          toDump.dump(airline);
           System.exit(1);
         }
       }
-    } catch (IllegalArgumentException e){
-      System.err.println("FILE MALFORMATED. EXITING");
+    } catch (IllegalArgumentException e) {
+      commandLineInterface();
       System.exit(1);
     }
 
-    // initialize flight values according to finals arraylist:
-    ArrayList<Flight> flightArray = new ArrayList<Flight>();
-    Airline airline = new Airline(newCommandArgs.get(0), flightArray);
-
     //NO EXISTING FILE
     try {
-      Flight flight = new Flight(Integer.parseInt(newCommandArgs.get(1)), newCommandArgs.get(2), newCommandArgs.get(3), newCommandArgs.get(4), newCommandArgs.get(5));
+      // initialize flight values according to finals arraylist:
+      ArrayList<Flight> flightArray = new ArrayList<Flight>();
+      Airline airline = new Airline(newCommandArgs.get(0), flightArray);
       airline.addFlight(flight);
-      // if printFlag is on, print new flight description
-      if (printFlag == 1) {
-        System.out.println("\nAIRLINE: " + airline.getName());
-        System.out.println(flight.toString());
-      }
       // if textFileFlag is on, dump this new airline and flight into a newly created file
       if (textFileFlag == 1) {
         TextDumper toDump = new TextDumper(textfileName);
         toDump.dump(airline);
       }
-      if (prettyOutFlag == 1){
-        PrettyPrinter toPretty = new PrettyPrinter(prettyfileName);
-        toPretty.dumpOut(airline);
+      if (xmlFileFlag == 1) {
+        XmlDumper toDump = new XmlDumper(xmlfileName);
+        toDump.dump(airline);
       }
-      if (prettyFileFlag == 1) {
-        PrettyPrinter toPretty = new PrettyPrinter(prettyfileName);
-        toPretty.dump(airline);
-      }
+      printers(printFlag, prettyFileFlag, prettyOutFlag, prettyfileName, flight, airline);
     } catch (IllegalArgumentException e) {
+      commandLineInterface();
       System.exit(1);
     }
-
-
     System.exit(1);
+  }
+
+  private static void printers(int printFlag, int prettyFileFlag, int prettyOutFlag, String prettyfileName, Flight flight, Airline airline) throws IOException {
+    // if printFlag is on, print new flight description
+    if (printFlag == 1) {
+      System.out.println("\nAIRLINE: " + airline.getName());
+      System.out.println(flight.toString());
+    }
+    // if prettyFlag is on (output)
+    if (prettyOutFlag == 1) {
+      PrettyPrinter toPretty = new PrettyPrinter(prettyfileName);
+      toPretty.dumpOut(airline);
+    }
+    // if prettyFlag is on (file)
+    if (prettyFileFlag == 1) {
+      PrettyPrinter toPretty = new PrettyPrinter(prettyfileName);
+      toPretty.dump(airline);
+    }
   }
 
   /**Command Line Interface

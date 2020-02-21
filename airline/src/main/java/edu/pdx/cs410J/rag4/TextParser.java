@@ -88,8 +88,6 @@ public class TextParser implements AirlineParser {
                         newCommandArgs[7] = "0" + newCommandArgs[7];
                     }
 
-                    System.out.println(newCommandArgs[0] + " " + newCommandArgs[1] + " " + newCommandArgs[2] + " " + newCommandArgs[3] + " " + newCommandArgs[4] + " " +
-                            newCommandArgs[5] + " " + newCommandArgs[6] + " " + newCommandArgs[7] + " " + newCommandArgs[8]);
                     Flight flight = new Flight(Integer.parseInt(newCommandArgs[0]), newCommandArgs[1], newCommandArgs[2] + " " + newCommandArgs[3] + " " + newCommandArgs[4],
                             newCommandArgs[5], newCommandArgs[6] + " " + newCommandArgs[7] + " " + newCommandArgs[8]);
                     flightArray.add(flight); // add this newly created flight with initialized values into airline
@@ -119,46 +117,6 @@ public class TextParser implements AirlineParser {
             }
         } catch (IllegalArgumentException e) {
             System.err.println("AIRLINE INPUTTED AND AIRLINE IN TEXT FILE DO NOT MATCH");
-            throw new IllegalArgumentException();
-        }
-    }
-
-    public AbstractAirline prettyparse() throws ParserException {
-        String[] newCommandArgs; // parse words into text file, and classify them into this String array
-
-        try {
-            FileReader file = new FileReader(this.content);
-            BufferedReader reader = new BufferedReader(file);
-            String line = reader.readLine(); // get first line, which should be the Airline name
-            String airlineName = line;
-            ArrayList<Flight> flightArray = new ArrayList<Flight>();
-            line = reader.readLine();
-
-            //in this while loop, go through each flight, parse into string array, then append information one at a time into airline's flightArray
-            while (line != null) {
-                newCommandArgs = line.split(" ");
-
-
-                // if flight number contains anything other than numbers, throw an illegal argument exception
-                try {
-                    String flightNumberCheck = newCommandArgs[0]; //easy string variable to get the flight number
-                    if (!flightNumberCheck.matches("[0-9]+")) {
-                        throw new IllegalArgumentException();
-                    }
-                    Flight flight = new Flight(Integer.parseInt(newCommandArgs[0]), newCommandArgs[1], newCommandArgs[2] + " " + newCommandArgs[3],
-                            newCommandArgs[4], newCommandArgs[5] + " " + newCommandArgs[6]);
-                    flightArray.add(flight); // add this newly created flight with initialized values into airline
-                    Collections.sort(flightArray);
-                } catch (IllegalArgumentException e){
-                    throw new IllegalArgumentException();
-                }
-                line = reader.readLine();
-            }
-            Airline airline = new Airline(airlineName, flightArray);
-            reader.close();
-            return airline;
-        } catch (IOException e) {
-            System.err.println("FILE DOES NOT EXIST. CANNOT PARSE.");
             throw new IllegalArgumentException();
         }
     }

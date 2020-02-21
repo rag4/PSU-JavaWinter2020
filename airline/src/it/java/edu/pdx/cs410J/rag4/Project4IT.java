@@ -101,18 +101,17 @@ public class Project4IT extends InvokeMainTestCase {
   public void readMeTestFirstArg() {
     MainMethodResult result = invokeMain("-README", "Portland", "00", "pdx", "11/11/1111", "11:11", "lax", "22/22/2222", "22:22");
     assertThat(result.getExitCode(), equalTo(1));
-    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 3: PRETTY PRINTING YOUR AIRLINE\n" +
+    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 4: XML\n" +
             "SUBMITION/DEVELOPED BY: Ramon Guarnes 942268924\n" +
             "CLASS: CS410P Advanced Programmin with Java\n" +
             "TEACHER: David Whitlock\n" +
-            "DUE DATE: February 5, 2019 before 5:30PM\n" +
-            "DESCRIPTION: In Project 3, my job is to represent our departure and arrival times as instances of java.util.Date, instead of our\n" +
-            "prior String values. Our get methods however, for these will return String Formats of these instances, so a conversion is needed.\n" +
-            "We will also need to implement sorting for our flights, where our flights should be sorted alphabetically by their code of their source.\n" +
-            "If they depart from the same airport, however, we will need to sort by their departure time in chronological order. We can achieve our\n" +
-            "sorting methods by having our Flight class implment java.lang.Comparable. Our next step is to create a class called the PrettyPrinter class.\n" +
-            "The PrettyPrinterClass implements the AirlineDumper interface, and its purpose is to create a nicely formatted textual presentation of our\n" +
-            "airline's flights. We will need to use DateFormat to make our dates look nice, and we are also recommended to use the AirportNames class.\n\n"));
+            "DUE DATE: February 19, 2020 before 5:30PM\n" +
+            "DESCRIPTION: In Project 4, my job is to implement the classes: XmlDumper, XmlParser, and Converter. The XmlDumper class implements the \n" +
+            "AirlineDumper class, and its purpose is to take an instance of an airline and its flights, and to store it into an external XML file.\n" +
+            "Thew XmlParaser class implements the AirlineParser class, and its purpose is to read an airline instance from an XML file, and to create and\n" +
+            "return an airline from it. The Converter class converts an airline from a text file, and stores it into an XML file.\n" +
+            "The next step of this project is to reconfigure and refactor the Project 3 class --> Project 4 class. The Project 4 class should now include\n" +
+            "the option -xmlFile and should take in one to two parameters (one xml file) (or a text file and an xml file in succession).\n\n"));
   }
 
   /**
@@ -123,18 +122,17 @@ public class Project4IT extends InvokeMainTestCase {
   public void readMeTestSecondArg() {
     MainMethodResult result = invokeMain("-print", "-README", "Portland", "00", "pdx", "11/11/1111", "11:11", "lax", "22/22/2222", "22:22");
     assertThat(result.getExitCode(), equalTo(1));
-    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 3: PRETTY PRINTING YOUR AIRLINE\n" +
+    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 4: XML\n" +
             "SUBMITION/DEVELOPED BY: Ramon Guarnes 942268924\n" +
             "CLASS: CS410P Advanced Programmin with Java\n" +
             "TEACHER: David Whitlock\n" +
-            "DUE DATE: February 5, 2019 before 5:30PM\n" +
-            "DESCRIPTION: In Project 3, my job is to represent our departure and arrival times as instances of java.util.Date, instead of our\n" +
-            "prior String values. Our get methods however, for these will return String Formats of these instances, so a conversion is needed.\n" +
-            "We will also need to implement sorting for our flights, where our flights should be sorted alphabetically by their code of their source.\n" +
-            "If they depart from the same airport, however, we will need to sort by their departure time in chronological order. We can achieve our\n" +
-            "sorting methods by having our Flight class implment java.lang.Comparable. Our next step is to create a class called the PrettyPrinter class.\n" +
-            "The PrettyPrinterClass implements the AirlineDumper interface, and its purpose is to create a nicely formatted textual presentation of our\n" +
-            "airline's flights. We will need to use DateFormat to make our dates look nice, and we are also recommended to use the AirportNames class.\n\n"));
+            "DUE DATE: February 19, 2020 before 5:30PM\n" +
+            "DESCRIPTION: In Project 4, my job is to implement the classes: XmlDumper, XmlParser, and Converter. The XmlDumper class implements the \n" +
+            "AirlineDumper class, and its purpose is to take an instance of an airline and its flights, and to store it into an external XML file.\n" +
+            "Thew XmlParaser class implements the AirlineParser class, and its purpose is to read an airline instance from an XML file, and to create and\n" +
+            "return an airline from it. The Converter class converts an airline from a text file, and stores it into an XML file.\n" +
+            "The next step of this project is to reconfigure and refactor the Project 3 class --> Project 4 class. The Project 4 class should now include\n" +
+            "the option -xmlFile and should take in one to two parameters (one xml file) (or a text file and an xml file in succession).\n\n"));
   }
 
   /***
@@ -295,18 +293,17 @@ public class Project4IT extends InvokeMainTestCase {
   public void testTextFileReadMeOption() {
     MainMethodResult result = invokeMain("-textFile", "-README", "Portland", "00", "pdx", "11/11/1111", "11:11", "lax", "22/22/2222", "22:22");
     assertThat(result.getExitCode(), equalTo(1));
-    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 3: PRETTY PRINTING YOUR AIRLINE\n" +
+    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 4: XML\n" +
             "SUBMITION/DEVELOPED BY: Ramon Guarnes 942268924\n" +
             "CLASS: CS410P Advanced Programmin with Java\n" +
             "TEACHER: David Whitlock\n" +
-            "DUE DATE: February 5, 2019 before 5:30PM\n" +
-            "DESCRIPTION: In Project 3, my job is to represent our departure and arrival times as instances of java.util.Date, instead of our\n" +
-            "prior String values. Our get methods however, for these will return String Formats of these instances, so a conversion is needed.\n" +
-            "We will also need to implement sorting for our flights, where our flights should be sorted alphabetically by their code of their source.\n" +
-            "If they depart from the same airport, however, we will need to sort by their departure time in chronological order. We can achieve our\n" +
-            "sorting methods by having our Flight class implment java.lang.Comparable. Our next step is to create a class called the PrettyPrinter class.\n" +
-            "The PrettyPrinterClass implements the AirlineDumper interface, and its purpose is to create a nicely formatted textual presentation of our\n" +
-            "airline's flights. We will need to use DateFormat to make our dates look nice, and we are also recommended to use the AirportNames class.\n\n"));
+            "DUE DATE: February 19, 2020 before 5:30PM\n" +
+            "DESCRIPTION: In Project 4, my job is to implement the classes: XmlDumper, XmlParser, and Converter. The XmlDumper class implements the \n" +
+            "AirlineDumper class, and its purpose is to take an instance of an airline and its flights, and to store it into an external XML file.\n" +
+            "Thew XmlParaser class implements the AirlineParser class, and its purpose is to read an airline instance from an XML file, and to create and\n" +
+            "return an airline from it. The Converter class converts an airline from a text file, and stores it into an XML file.\n" +
+            "The next step of this project is to reconfigure and refactor the Project 3 class --> Project 4 class. The Project 4 class should now include\n" +
+            "the option -xmlFile and should take in one to two parameters (one xml file) (or a text file and an xml file in succession).\n\n"));
   }
 
   /***
@@ -316,54 +313,51 @@ public class Project4IT extends InvokeMainTestCase {
   public void testTextFilePrintReadMeOption() {
     MainMethodResult result = invokeMain("-textFile", "Example.txt", "-print", "-README", "Portland", "00", "pdx", "11/11/1111", "11:11", "lax", "22/22/2222", "22:22");
     assertThat(result.getExitCode(), equalTo(1));
-    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 3: PRETTY PRINTING YOUR AIRLINE\n" +
+    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 4: XML\n" +
             "SUBMITION/DEVELOPED BY: Ramon Guarnes 942268924\n" +
             "CLASS: CS410P Advanced Programmin with Java\n" +
             "TEACHER: David Whitlock\n" +
-            "DUE DATE: February 5, 2019 before 5:30PM\n" +
-            "DESCRIPTION: In Project 3, my job is to represent our departure and arrival times as instances of java.util.Date, instead of our\n" +
-            "prior String values. Our get methods however, for these will return String Formats of these instances, so a conversion is needed.\n" +
-            "We will also need to implement sorting for our flights, where our flights should be sorted alphabetically by their code of their source.\n" +
-            "If they depart from the same airport, however, we will need to sort by their departure time in chronological order. We can achieve our\n" +
-            "sorting methods by having our Flight class implment java.lang.Comparable. Our next step is to create a class called the PrettyPrinter class.\n" +
-            "The PrettyPrinterClass implements the AirlineDumper interface, and its purpose is to create a nicely formatted textual presentation of our\n" +
-            "airline's flights. We will need to use DateFormat to make our dates look nice, and we are also recommended to use the AirportNames class.\n\n"));
+            "DUE DATE: February 19, 2020 before 5:30PM\n" +
+            "DESCRIPTION: In Project 4, my job is to implement the classes: XmlDumper, XmlParser, and Converter. The XmlDumper class implements the \n" +
+            "AirlineDumper class, and its purpose is to take an instance of an airline and its flights, and to store it into an external XML file.\n" +
+            "Thew XmlParaser class implements the AirlineParser class, and its purpose is to read an airline instance from an XML file, and to create and\n" +
+            "return an airline from it. The Converter class converts an airline from a text file, and stores it into an XML file.\n" +
+            "The next step of this project is to reconfigure and refactor the Project 3 class --> Project 4 class. The Project 4 class should now include\n" +
+            "the option -xmlFile and should take in one to two parameters (one xml file) (or a text file and an xml file in succession).\n\n"));
   }
 
   @Test
   public void testPrettyReadMeOption() {
     MainMethodResult result = invokeMain("-pretty", "Example.txt", "-README", "Portland", "00", "pdx", "11/11/1111", "11:11", "lax", "22/22/2222", "22:22");
     assertThat(result.getExitCode(), equalTo(1));
-    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 3: PRETTY PRINTING YOUR AIRLINE\n" +
+    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 4: XML\n" +
             "SUBMITION/DEVELOPED BY: Ramon Guarnes 942268924\n" +
             "CLASS: CS410P Advanced Programmin with Java\n" +
             "TEACHER: David Whitlock\n" +
-            "DUE DATE: February 5, 2019 before 5:30PM\n" +
-            "DESCRIPTION: In Project 3, my job is to represent our departure and arrival times as instances of java.util.Date, instead of our\n" +
-            "prior String values. Our get methods however, for these will return String Formats of these instances, so a conversion is needed.\n" +
-            "We will also need to implement sorting for our flights, where our flights should be sorted alphabetically by their code of their source.\n" +
-            "If they depart from the same airport, however, we will need to sort by their departure time in chronological order. We can achieve our\n" +
-            "sorting methods by having our Flight class implment java.lang.Comparable. Our next step is to create a class called the PrettyPrinter class.\n" +
-            "The PrettyPrinterClass implements the AirlineDumper interface, and its purpose is to create a nicely formatted textual presentation of our\n" +
-            "airline's flights. We will need to use DateFormat to make our dates look nice, and we are also recommended to use the AirportNames class.\n\n"));
+            "DUE DATE: February 19, 2020 before 5:30PM\n" +
+            "DESCRIPTION: In Project 4, my job is to implement the classes: XmlDumper, XmlParser, and Converter. The XmlDumper class implements the \n" +
+            "AirlineDumper class, and its purpose is to take an instance of an airline and its flights, and to store it into an external XML file.\n" +
+            "Thew XmlParaser class implements the AirlineParser class, and its purpose is to read an airline instance from an XML file, and to create and\n" +
+            "return an airline from it. The Converter class converts an airline from a text file, and stores it into an XML file.\n" +
+            "The next step of this project is to reconfigure and refactor the Project 3 class --> Project 4 class. The Project 4 class should now include\n" +
+            "the option -xmlFile and should take in one to two parameters (one xml file) (or a text file and an xml file in succession).\n\n"));
   }
 
   @Test
   public void testPrettyPrintReadMeOption() {
     MainMethodResult result = invokeMain("-pretty", "Example.txt", "-print", "-README", "Portland", "00", "pdx", "11/11/1111", "11:11", "lax", "22/22/2222", "22:22");
     assertThat(result.getExitCode(), equalTo(1));
-    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 3: PRETTY PRINTING YOUR AIRLINE\n" +
+    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 4: XML\n" +
             "SUBMITION/DEVELOPED BY: Ramon Guarnes 942268924\n" +
             "CLASS: CS410P Advanced Programmin with Java\n" +
             "TEACHER: David Whitlock\n" +
-            "DUE DATE: February 5, 2019 before 5:30PM\n" +
-            "DESCRIPTION: In Project 3, my job is to represent our departure and arrival times as instances of java.util.Date, instead of our\n" +
-            "prior String values. Our get methods however, for these will return String Formats of these instances, so a conversion is needed.\n" +
-            "We will also need to implement sorting for our flights, where our flights should be sorted alphabetically by their code of their source.\n" +
-            "If they depart from the same airport, however, we will need to sort by their departure time in chronological order. We can achieve our\n" +
-            "sorting methods by having our Flight class implment java.lang.Comparable. Our next step is to create a class called the PrettyPrinter class.\n" +
-            "The PrettyPrinterClass implements the AirlineDumper interface, and its purpose is to create a nicely formatted textual presentation of our\n" +
-            "airline's flights. We will need to use DateFormat to make our dates look nice, and we are also recommended to use the AirportNames class.\n\n"));
+            "DUE DATE: February 19, 2020 before 5:30PM\n" +
+            "DESCRIPTION: In Project 4, my job is to implement the classes: XmlDumper, XmlParser, and Converter. The XmlDumper class implements the \n" +
+            "AirlineDumper class, and its purpose is to take an instance of an airline and its flights, and to store it into an external XML file.\n" +
+            "Thew XmlParaser class implements the AirlineParser class, and its purpose is to read an airline instance from an XML file, and to create and\n" +
+            "return an airline from it. The Converter class converts an airline from a text file, and stores it into an XML file.\n" +
+            "The next step of this project is to reconfigure and refactor the Project 3 class --> Project 4 class. The Project 4 class should now include\n" +
+            "the option -xmlFile and should take in one to two parameters (one xml file) (or a text file and an xml file in succession).\n\n"));
   }
 
   @Test
@@ -414,33 +408,16 @@ public class Project4IT extends InvokeMainTestCase {
   @Test
   public void testPrettyFilePrintReadMeOption() {
     MainMethodResult result = invokeMain("-pretty", "Example.txt", "-print", "-README", "TEST1", "11", "PDX", "11/11/1111", "11:11", "am", "lax", "22/22/2222", "22:22", "pm");
-    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 3: PRETTY PRINTING YOUR AIRLINE\n" +
+    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 4: XML\n" +
             "SUBMITION/DEVELOPED BY: Ramon Guarnes 942268924\n" +
             "CLASS: CS410P Advanced Programmin with Java\n" +
             "TEACHER: David Whitlock\n" +
-            "DUE DATE: February 5, 2019 before 5:30PM\n" +
-            "DESCRIPTION: In Project 3, my job is to represent our departure and arrival times as instances of java.util.Date, instead of our\n" +
-            "prior String values. Our get methods however, for these will return String Formats of these instances, so a conversion is needed.\n" +
-            "We will also need to implement sorting for our flights, where our flights should be sorted alphabetically by their code of their source.\n" +
-            "If they depart from the same airport, however, we will need to sort by their departure time in chronological order. We can achieve our\n" +
-            "sorting methods by having our Flight class implment java.lang.Comparable. Our next step is to create a class called the PrettyPrinter class.\n" +
-            "The PrettyPrinterClass implements the AirlineDumper interface, and its purpose is to create a nicely formatted textual presentation of our\n" +
-            "airline's flights. We will need to use DateFormat to make our dates look nice, and we are also recommended to use the AirportNames class.\n\n"));
-  }
-  @Test
-  public void testPrettyFilePrintReadMeOptionAlt() {
-    MainMethodResult result = invokeMain("-pretty", "Example.txt", "-print", "-README", "TEST1", "11", "PDX", "11/11/1111", "11:11", "am", "lax", "22/22/2222", "22:22", "pm");
-    assertThat(result.getTextWrittenToStandardOut(), containsString("PROJECT 3: PRETTY PRINTING YOUR AIRLINE\n" +
-            "SUBMITION/DEVELOPED BY: Ramon Guarnes 942268924\n" +
-            "CLASS: CS410P Advanced Programmin with Java\n" +
-            "TEACHER: David Whitlock\n" +
-            "DUE DATE: February 5, 2019 before 5:30PM\n" +
-            "DESCRIPTION: In Project 3, my job is to represent our departure and arrival times as instances of java.util.Date, instead of our\n" +
-            "prior String values. Our get methods however, for these will return String Formats of these instances, so a conversion is needed.\n" +
-            "We will also need to implement sorting for our flights, where our flights should be sorted alphabetically by their code of their source.\n" +
-            "If they depart from the same airport, however, we will need to sort by their departure time in chronological order. We can achieve our\n" +
-            "sorting methods by having our Flight class implment java.lang.Comparable. Our next step is to create a class called the PrettyPrinter class.\n" +
-            "The PrettyPrinterClass implements the AirlineDumper interface, and its purpose is to create a nicely formatted textual presentation of our\n" +
-            "airline's flights. We will need to use DateFormat to make our dates look nice, and we are also recommended to use the AirportNames class.\n\n"));
+            "DUE DATE: February 19, 2020 before 5:30PM\n" +
+            "DESCRIPTION: In Project 4, my job is to implement the classes: XmlDumper, XmlParser, and Converter. The XmlDumper class implements the \n" +
+            "AirlineDumper class, and its purpose is to take an instance of an airline and its flights, and to store it into an external XML file.\n" +
+            "Thew XmlParaser class implements the AirlineParser class, and its purpose is to read an airline instance from an XML file, and to create and\n" +
+            "return an airline from it. The Converter class converts an airline from a text file, and stores it into an XML file.\n" +
+            "The next step of this project is to reconfigure and refactor the Project 3 class --> Project 4 class. The Project 4 class should now include\n" +
+            "the option -xmlFile and should take in one to two parameters (one xml file) (or a text file and an xml file in succession).\n\n"));
   }
 }
