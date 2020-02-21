@@ -36,8 +36,8 @@ public class XmlDumperTest {
         exampleAirline.addFlight(createFlight("01", "PDX", "10/10/1010 10:10 PM", "LAX", "11/11/1111 11:11 PM"));
         exampleXml.dump(exampleAirline);
 
-        //File file = new File("Example.xml");
-        //file.delete();
+        File file = new File("Example.xml");
+        file.delete();
     }
 
     @Test
