@@ -54,21 +54,16 @@ public class Project5IT extends InvokeMainTestCase {
     }
 
     @Test
-    public void test4AddDefinition() {
-        String word = "WORD";
-        String definition = "DEFINITION";
+    public void test4AddFlight() {
+        String airlineName = "Airline";
+        int flightNumber = 567;
 
-        MainMethodResult result = invokeMain( Project5.class, HOSTNAME, PORT, word, definition );
+        MainMethodResult result = invokeMain( Project5.class, HOSTNAME, PORT, airlineName, String.valueOf(flightNumber) );
         assertThat(result.getTextWrittenToStandardError(), result.getExitCode(), equalTo(0));
-        String out = result.getTextWrittenToStandardOut();
-        assertThat(out, out, containsString(Messages.definedWordAs(word, definition)));
 
-        result = invokeMain( Project5.class, HOSTNAME, PORT, word );
-        out = result.getTextWrittenToStandardOut();
-        assertThat(out, out, containsString(Messages.formatDictionaryEntry(word, definition)));
-
-        result = invokeMain( Project5.class, HOSTNAME, PORT );
-        out = result.getTextWrittenToStandardOut();
-        assertThat(out, out, containsString(Messages.formatDictionaryEntry(word, definition)));
+        result = invokeMain( Project5.class, HOSTNAME, PORT, airlineName );
+        String xml = result.getTextWrittenToStandardOut();
+        assertThat(xml, xml, containsString(airlineName));
+        assertThat(xml, xml, containsString(String.valueOf(flightNumber)));
     }
 }
