@@ -18,12 +18,15 @@ import java.util.regex.Pattern;
 
 public class Flight extends AbstractFlight {
 
+    private final int flightNumber;
+
     public Flight(int flightNumber) {
+        this.flightNumber = flightNumber;
     }
 
     @Override
     public int getNumber() {
-        return 0;
+        return this.flightNumber;
     }
 
     @Override

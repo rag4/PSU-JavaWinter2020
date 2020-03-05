@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -37,7 +37,7 @@ public class AirlineServletTest {
     servlet.doPost(request, response);
 
     Airline airline = servlet.getAirline(airlineName);
-    assertThat(airline, isNotNull());
+    assertThat(airline, not(nullValue()));
 
     Flight flight = airline.getFlights().iterator().next();
     assertThat(flight.getNumber(), equalTo(flightNumber));

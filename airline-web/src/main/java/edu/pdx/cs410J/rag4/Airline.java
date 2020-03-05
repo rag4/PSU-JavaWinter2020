@@ -12,24 +12,26 @@ import java.util.*;
 //AIRLINE CLASS
 public class Airline extends AbstractAirline<Flight>{
 
+  private final String name;
+  Collection<Flight> flights = new ArrayList<>();
 
-  public Airline(String airlineName) {
-
+  public Airline(String name) {
+    this.name = name;
 
   }
 
   @Override
   public String getName() {
-    return null;
+    return this.name;
   }
 
   @Override
   public void addFlight(Flight flight) {
-
+    this.flights.add(flight);
   }
 
   @Override
   public Collection<Flight> getFlights() {
-    return null;
+    return this.flights;
   }
 }

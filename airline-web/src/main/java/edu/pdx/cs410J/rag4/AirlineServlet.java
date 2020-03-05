@@ -18,8 +18,8 @@ import java.util.Map;
  * and their definitions.
  */
 public class AirlineServlet extends HttpServlet {
-  static final String AIRLINE_NAME_PARAMETER = "word";
-  static final String FLIGHT_NUMBER_PARAMETER = "definition";
+  static final String AIRLINE_NAME_PARAMETER = "airline";
+  static final String FLIGHT_NUMBER_PARAMETER = "flightNumber";
 
   private final Map<String, Airline> airlines = new HashMap<>();
 
@@ -34,7 +34,7 @@ public class AirlineServlet extends HttpServlet {
   {
       response.setContentType( "text/plain" );
 
-      String word = getParameter(AIRLINE_NAME_PARAMETER, request );
+      String airlineName = getParameter(AIRLINE_NAME_PARAMETER, request );
   }
 
   /**
@@ -128,7 +128,8 @@ public class AirlineServlet extends HttpServlet {
     }
   }
 
-    public Airline getAirline(String airlineName) {
+  @VisibleForTesting
+  Airline getAirline(String airlineName) {
       return this.airlines.get(airlineName);
-    }
+  }
 }
