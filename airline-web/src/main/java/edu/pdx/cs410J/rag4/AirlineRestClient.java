@@ -49,8 +49,8 @@ public class AirlineRestClient extends HttpRequestHelper
     return Messages.parseDictionaryEntry(content).getValue();
   }
 
-  public void addDictionaryEntry(String word, String definition) throws IOException {
-    Response response = postToMyURL(Map.of("word", word, "definition", definition));
+  public void addFlight(String airlineName, int flightNumber) throws IOException {
+    Response response = postToMyURL(Map.of("airlineName", airlineName, "flightNumber", String.valueOf(flightNumber)));
     throwExceptionIfNotOkayHttpStatus(response);
   }
 

@@ -35,6 +35,10 @@ public class AirlineServlet extends HttpServlet {
       response.setContentType( "text/plain" );
 
       String airlineName = getParameter(AIRLINE_NAME_PARAMETER, request );
+      Airline airline = getAirline(airlineName);
+
+      XmlDumper dumper = new XmlDumper(response.getWriter());
+      dumper.dump(airline);
   }
 
   /**

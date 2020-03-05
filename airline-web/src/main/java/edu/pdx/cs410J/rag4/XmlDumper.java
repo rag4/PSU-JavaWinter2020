@@ -23,14 +23,12 @@ public class XmlDumper implements AirlineDumper<Airline> {
 
     public XmlDumper(PrintWriter pw) {
         this.pw = pw;
+
     }
 
     @Override
     public void dump(Airline airline) throws IOException {
-
-        String xml = airline.getName() + " " + airline.getFlights().iterator().next().getNumber()
-                + airline.getFlights().iterator().next().getSource();
-
+        String xml = airline.getName() + " " + airline.getFlights().iterator().next().getNumber();
         this.pw.println(xml);
     }
 }

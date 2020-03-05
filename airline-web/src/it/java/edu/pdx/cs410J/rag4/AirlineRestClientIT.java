@@ -33,21 +33,14 @@ public class AirlineRestClientIT {
   }
 
   @Test
-  public void test1EmptyServerContainsNoDictionaryEntries() throws IOException {
+  public void test2addOneFlight() throws IOException {
     AirlineRestClient client = newAirlineRestClient();
-    Map<String, String> dictionary = client.getAllDictionaryEntries();
-    assertThat(dictionary.size(), equalTo(0));
-  }
+    String airlineName = "TEST AIRLINE";
+    int flightNumber = 234;
+    client.addFlight(airlineName, flightNumber);
 
-  @Test
-  public void test2DefineOneWord() throws IOException {
-    AirlineRestClient client = newAirlineRestClient();
-    String testWord = "TEST WORD";
-    String testDefinition = "TEST DEFINITION";
-    client.addDictionaryEntry(testWord, testDefinition);
-
-    String definition = client.getDefinition(testWord);
-    assertThat(definition, equalTo(testDefinition));
+    String definition = client.getDefinition(airlineName);
+    assertThat(definition, equalTo(flightNumber));
   }
 
   @Test
