@@ -39,8 +39,9 @@ public class AirlineRestClientIT {
     int flightNumber = 234;
     client.addFlight(airlineName, flightNumber);
 
-    String definition = client.getDefinition(airlineName);
-    assertThat(definition, equalTo(flightNumber));
+    String xml = client.getAirlineAsXml(airlineName);
+    assertThat(xml, containsString(airlineName));
+    assertThat(xml, containsString(String.valueOf(flightNumber)));
   }
 
   @Test

@@ -42,15 +42,15 @@ public class AirlineRestClient extends HttpRequestHelper
   /**
    * Returns the definition for the given word
    */
-  public String getDefinition(String word) throws IOException {
-    Response response = get(this.url, Map.of("word", word));
+  public String getAirlineAsXml(String word) throws IOException {
+    Response response = get(this.url, Map.of("airline", word));
     throwExceptionIfNotOkayHttpStatus(response);
-    String content = response.getContent();
-    return Messages.parseDictionaryEntry(content).getValue();
+    String xml = response.getContent();
+    return xml;
   }
 
   public void addFlight(String airlineName, int flightNumber) throws IOException {
-    Response response = postToMyURL(Map.of("airlineName", airlineName, "flightNumber", String.valueOf(flightNumber)));
+    Response response = postToMyURL(Map.of("airline", airlineName, "flightNumber", String.valueOf(flightNumber)));
     throwExceptionIfNotOkayHttpStatus(response);
   }
 
