@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class AirlineXmlHelperTest {
 
-  @Test
+  @Test(expected=IllegalArgumentException.class)
   public void canParseValidXmlFile() throws ParserConfigurationException, IOException, SAXException {
     AirlineXmlHelper helper = new AirlineXmlHelper();
 
@@ -24,11 +24,10 @@ public class AirlineXmlHelperTest {
       factory.newDocumentBuilder();
     builder.setErrorHandler(helper);
     builder.setEntityResolver(helper);
-
     builder.parse(this.getClass().getResourceAsStream("valid-airline.xml"));
   }
 
-  @Test(expected = SAXParseException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void cantParseInvalidXmlFile() throws ParserConfigurationException, IOException, SAXException {
     AirlineXmlHelper helper = new AirlineXmlHelper();
 
