@@ -18,14 +18,18 @@ public class PrettyPrinter implements AirlineDumper {
         System.out.println("\n\n********************************************************************************************\n");
         System.out.println("Welcome to our catalogue viewer for " + airline.getName() + " Airlines. \n");
         for(Flight f : flightArray){
-            String departureDate = f.getDepartureString().replace(",", "");
-            String arrivalDate = f.getArrivalString().replace(",", "");
-            System.out.println("FLIGHT NUMBER " + f.getNumber() + ":\n" +
-                    "\tYou are departing from airport " + f.getSource() + " in " + f.getSRCName() + " and your flight departs at: " + departureDate + "\n" +
-                    "\tYou will arrive at airport " + f.getDestination() + " in " + f.getDESTName() + " and you will arrive at: " + arrivalDate +"\n" +
-                    "\tYour flight duration will take " + f.getDifference() + " minutes.\n");
+            createRealDates(f);
         }
         System.out.println("********************************************************************************************\n\n");
+    }
+
+    private void createRealDates(Flight f) {
+        String departureDate = f.getDepartureString().replace(",", "");
+        String arrivalDate = f.getArrivalString().replace(",", "");
+        System.out.println("FLIGHT NUMBER " + f.getNumber() + ":\n" +
+                "\tYou are departing from airport " + f.getSource() + " in " + f.getSRCName() + " and your flight departs at: " + departureDate + "\n" +
+                "\tYou will arrive at airport " + f.getDestination() + " in " + f.getDESTName() + " and you will arrive at: " + arrivalDate +"\n" +
+                "\tYour flight duration will take " + f.getDifference() + " minutes.\n");
     }
 
     public void dumpSearch(Airline airline, String src, String dest) {
@@ -36,12 +40,7 @@ public class PrettyPrinter implements AirlineDumper {
         for(Flight f : flightArray){
 
             if (f.getSource().equals(src) && f.getDestination().equals(dest)) {
-                String departureDate = f.getDepartureString().replace(",", "");
-                String arrivalDate = f.getArrivalString().replace(",", "");
-                System.out.println("FLIGHT NUMBER " + f.getNumber() + ":\n" +
-                        "\tYou are departing from airport " + f.getSource() + " in " + f.getSRCName() + " and your flight departs at: " + departureDate + "\n" +
-                        "\tYou will arrive at airport " + f.getDestination() + " in " + f.getDESTName() + " and you will arrive at: " + arrivalDate + "\n" +
-                        "\tYour flight duration will take " + f.getDifference() + " minutes.\n");
+                createRealDates(f);
                 found = 1;
             }
         }

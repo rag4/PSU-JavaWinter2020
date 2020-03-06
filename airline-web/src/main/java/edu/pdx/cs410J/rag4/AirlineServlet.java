@@ -100,7 +100,7 @@ public class AirlineServlet extends HttpServlet {
           airline.addFlight(flight);
 
       } catch (IllegalArgumentException | ParseException ex){
-          System.out.println("TEST");
+          throw new IllegalArgumentException();
       }
 
       PrintWriter pw = response.getWriter();

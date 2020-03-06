@@ -76,6 +76,91 @@ public class AirlineServletTest {
 
   }
 
+  @Test
+  public void delete() throws IOException, ServletException {
+    String airlineName = "TEST AIRLINE";
+    int flightNumber = 123;
+    String src = "PDX";
+    String depart = "07/19/2020 1:02 pm";
+    String dest = "ORD";
+    String arrive = "07/19/2020 6:22 pm";
+
+
+    AirlineServlet servlet = new AirlineServlet();
+    HttpServletRequest request = mock(HttpServletRequest.class);
+    when(request.getParameter("airline")).thenReturn(airlineName);
+    when(request.getParameter("flightNumber")).thenReturn(String.valueOf(flightNumber));
+    when(request.getParameter("src")).thenReturn(src);
+    when(request.getParameter("depart")).thenReturn(depart);
+    when(request.getParameter("dest")).thenReturn(dest);
+    when(request.getParameter("arrive")).thenReturn(arrive);
+
+
+    HttpServletResponse response = mock(HttpServletResponse.class);
+
+    PrintWriter pw = mock(PrintWriter.class);
+    when(response.getWriter()).thenReturn(pw);
+
+    servlet.doDelete(request, response);
+  }
+
+  @Test
+  public void getAirline() {
+    AirlineServlet servlet = new AirlineServlet();
+    String airlineName = "AIRLINE";
+    servlet.getAirline(airlineName);
+  }
+
+  @Test
+  public void Post() throws IOException, ServletException {
+    String airlineName = "TEST AIRLINE";
+    int flightNumber = 123;
+    String src = "PDX";
+    String depart = "07/19/2020 1:02 pm";
+    String dest = "ORD";
+    String arrive = "07/19/2020 6:22 pm";
+
+    AirlineServlet servlet = new AirlineServlet();
+    HttpServletRequest request = mock(HttpServletRequest.class);
+    when(request.getParameter("airline")).thenReturn(airlineName);
+    when(request.getParameter("flightNumber")).thenReturn(String.valueOf(flightNumber));
+    when(request.getParameter("src")).thenReturn(src);
+    when(request.getParameter("depart")).thenReturn(depart);
+    when(request.getParameter("dest")).thenReturn(dest);
+    when(request.getParameter("arrive")).thenReturn(arrive);
+
+    HttpServletResponse response = mock(HttpServletResponse.class);
+    PrintWriter pw = mock(PrintWriter.class);
+    when(response.getWriter()).thenReturn(pw);
+
+    servlet.doPost(request, response);
+  }
+
+  @Test(expected = NullPointerException.class)
+  public void get() throws IOException, ServletException {
+    String airlineName = "TEST AIRLINE";
+    int flightNumber = 123;
+    String src = "PDX";
+    String depart = "07/19/2020 1:02 pm";
+    String dest = "ORD";
+    String arrive = "07/19/2020 6:22 pm";
+
+    AirlineServlet servlet = new AirlineServlet();
+    HttpServletRequest request = mock(HttpServletRequest.class);
+    when(request.getParameter("airline")).thenReturn(airlineName);
+    when(request.getParameter("flightNumber")).thenReturn(String.valueOf(flightNumber));
+    when(request.getParameter("src")).thenReturn(src);
+    when(request.getParameter("depart")).thenReturn(depart);
+    when(request.getParameter("dest")).thenReturn(dest);
+    when(request.getParameter("arrive")).thenReturn(arrive);
+
+    HttpServletResponse response = mock(HttpServletResponse.class);
+    PrintWriter pw = mock(PrintWriter.class);
+    when(response.getWriter()).thenReturn(pw);
+
+    servlet.doGet(request, response);
+  }
+
   private AirlineServlet createFlight(String airlineName, int flightNumber, String src, String depart, String dest, String arrive) throws IOException, ServletException {
     AirlineServlet servlet = new AirlineServlet();
     HttpServletRequest request = mock(HttpServletRequest.class);

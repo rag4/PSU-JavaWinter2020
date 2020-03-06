@@ -89,18 +89,7 @@ public class XmlDumper implements AirlineDumper<Airline> {
             System.err.println("DTD is not correct.");
         }
 
-        try {
-            Source src = new DOMSource(doc);
-            Result res = new StreamResult(pw);
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, AirlineXmlHelper.SYSTEM_ID);
-            transformer.transform(src, res);
-
-        } catch (TransformerException ex) {
-            System.err.println("Something went wrong with the xml dumper...");
-        }
+        transformDoc(doc);
 
 
     }
@@ -209,6 +198,12 @@ public class XmlDumper implements AirlineDumper<Airline> {
             System.err.println("DTD is not correct.");
         }
 
+        transformDoc(doc);
+
+
+    }
+
+    private void transformDoc(Document doc) {
         try {
             Source source = new DOMSource(doc);
             Result result = new StreamResult(pw);
@@ -221,7 +216,5 @@ public class XmlDumper implements AirlineDumper<Airline> {
         } catch (TransformerException ex) {
             System.err.println("Something went wrong with the xml dumper...");
         }
-
-
     }
 }

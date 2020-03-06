@@ -28,6 +28,16 @@ public class Airline extends AbstractAirline<Flight>{
   @Override
   public void addFlight(Flight flight) {
     this.flights.add(flight);
+    ArrayList<Flight> newFlights = (ArrayList<Flight>) this.flights;
+    Collections.sort(newFlights);
+    Collection<Flight> flights = newFlights;
+  }
+
+  public void printFlights(){
+    for(Flight f : this.flights){
+      System.out.println(f.getNumber() + " " + f.getSource() + " " + f.getDepartureString() + " " + f.getDestination() + " " + f.getArrivalString());
+    }
+
   }
 
   @Override
