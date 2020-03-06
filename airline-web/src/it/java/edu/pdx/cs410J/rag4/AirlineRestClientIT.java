@@ -37,11 +37,20 @@ public class AirlineRestClientIT {
     AirlineRestClient client = newAirlineRestClient();
     String airlineName = "TEST AIRLINE";
     int flightNumber = 234;
-    client.addFlight(airlineName, flightNumber);
+    String src = "PDX";
+    String depart = "07/19/2020 1:02 pm";
+    String dest = "ORD";
+    String arrive = "07/19/2020 6:22 pm";
+
+    client.addFlight(airlineName, flightNumber, src, depart, dest, arrive);
 
     String xml = client.getAirlineAsXml(airlineName);
+    System.out.println(xml);
+
     assertThat(xml, containsString(airlineName));
     assertThat(xml, containsString(String.valueOf(flightNumber)));
+    assertThat(xml, containsString(src));
+    assertThat(xml, containsString(dest));
   }
 
   @Test

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +21,10 @@ import java.util.Map;
 public class AirlineServlet extends HttpServlet {
   static final String AIRLINE_NAME_PARAMETER = "airline";
   static final String FLIGHT_NUMBER_PARAMETER = "flightNumber";
+  static final String SOURCE_PARAMETER = "src";
+  static final String DEPARTURE_PARAMETER = "depart";
+  static final String DESTINATION_PARAMETER = "dest";
+  static final String ARRIVAL_PARAMETER = "arrive";
 
   private final Map<String, Airline> airlines = new HashMap<>();
 
@@ -36,6 +41,7 @@ public class AirlineServlet extends HttpServlet {
 
       String airlineName = getParameter(AIRLINE_NAME_PARAMETER, request );
       Airline airline = getAirline(airlineName);
+
 
       XmlDumper dumper = new XmlDumper(response.getWriter());
       dumper.dump(airline);
@@ -65,11 +71,40 @@ public class AirlineServlet extends HttpServlet {
           return;
       }
 
-      Flight flight = new Flight(Integer.parseInt(flightNumber));
-      airline.addFlight(flight);
+      String src = getParameter(SOURCE_PARAMETER, request );
+      if ( src == null) {
+          missingRequiredParameter( response, SOURCE_PARAMETER);
+          return;
+      }
+
+      String depart = getParameter(DEPARTURE_PARAMETER, request );
+      if ( depart == null) {
+          missingRequiredParameter( response, DEPARTURE_PARAMETER);
+          return;
+      }
+
+      String dest = getParameter(DESTINATION_PARAMETER, request );
+      if ( dest == null) {
+          missingRequiredParameter( response, DESTINATION_PARAMETER);
+          return;
+      }
+
+      String arrive = getParameter(ARRIVAL_PARAMETER, request );
+      if ( arrive == null) {
+          missingRequiredParameter( response, ARRIVAL_PARAMETER);
+          return;
+      }
+
+      try {
+          Flight flight = new Flight(Integer.parseInt(flightNumber), src, depart, dest, arrive);
+          airline.addFlight(flight);
+
+      } catch (IllegalArgumentException | ParseException ex){
+          System.out.println("TEST");
+      }
 
       PrintWriter pw = response.getWriter();
-      pw.println(Messages.definedWordAs(airlineName, flightNumber));
+      pw.println(airlineName + flightNumber + src + depart + dest + arrive);
       pw.flush();
 
       response.setStatus( HttpServletResponse.SC_OK);

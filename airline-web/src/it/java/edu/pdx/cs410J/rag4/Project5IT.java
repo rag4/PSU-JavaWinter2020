@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -57,13 +59,26 @@ public class Project5IT extends InvokeMainTestCase {
     public void test4AddFlight() {
         String airlineName = "Airline";
         int flightNumber = 567;
+        String src = "PDX";
+        String depart = "07/19/2020";
+        String departTime = "1:02";
+        String departTimeSymbol = "pm";
+        String dest = "ORD";
+        String arrive = "07/19/2020";
+        String arriveTime = "6:22";
+        String arriveTimeSymbol = "pm";
 
-        MainMethodResult result = invokeMain( Project5.class, HOSTNAME, PORT, airlineName, String.valueOf(flightNumber) );
+        MainMethodResult result = invokeMain( Project5.class, HOSTNAME, PORT, airlineName, String.valueOf(flightNumber), src, depart, departTime, departTimeSymbol,
+                dest, arrive, arriveTime, arriveTimeSymbol);
         assertThat(result.getTextWrittenToStandardError(), result.getExitCode(), equalTo(0));
+    }
 
-        result = invokeMain( Project5.class, HOSTNAME, PORT, airlineName );
-        String xml = result.getTextWrittenToStandardOut();
-        assertThat(xml, xml, containsString(airlineName));
-        assertThat(xml, xml, containsString(String.valueOf(flightNumber)));
+    @Test
+    public void test5PrintAllFlightsGivenAirlineOnly() {
+        String airlineName = "Airline";
+
+        MainMethodResult result = invokeMain(Project5.class, HOSTNAME, PORT, airlineName);
+        assertThat(result.getTextWrittenToStandardError(), result.getExitCode(), equalTo(0));
+        System.out.println(result.getTextWrittenToStandardOut());
     }
 }
