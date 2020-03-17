@@ -1,4 +1,4 @@
-package edu.pdx.cs410j.rag4.androidcalculator;
+package edu.pdx.cs410J.rag4.androidcalculator;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("edu.pdx.cs410j.rag4.androidcalculator", appContext.getPackageName());
+        assertEquals("edu.pdx.cs410J.rag4.androidcalculator", appContext.getPackageName());
     }
 }

@@ -1,4 +1,4 @@
-package edu.pdx.cs410j.rag4.androidcalculator;
+package edu.pdx.cs410J.rag4.androidcalculator;
 
 import org.junit.Test;
 
