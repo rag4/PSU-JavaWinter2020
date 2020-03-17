@@ -16,14 +16,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button launchCalculator = findViewById(R.id.launch_calculator);
-        View.OnClickListener listner = new TellUserIWasClicked();
-        launchCalculator.setOnClickListener(listner);
+        launchCalculator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v, "I was clicked", 1000).show();
+            }
+        });
     }
 
-    private static class TellUserIWasClicked implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            Snackbar.make(v, "I was clicked", 1000).show();
-        }
-    }
 }
