@@ -2,4 +2,6 @@
     <string name="app_name">AndroidCalculator</string>
     <string name="hello_world">Hello World!</string>
     <string name="launch_calculator">Launch Calculator</string>
+    <string name="plus">+</string>
+    <string name="equals">=</string>
 </resources>
