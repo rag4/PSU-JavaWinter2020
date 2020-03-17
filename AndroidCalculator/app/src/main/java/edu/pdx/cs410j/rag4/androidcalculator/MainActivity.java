@@ -15,13 +15,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button launchCalculator = findViewById(R.id.launch_calculator);
-        launchCalculator.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(v, "I was clicked", 1000).show();
-            }
-        });
     }
 
+    public void launchCalculator(View view) {
+        Snackbar.make(view, "I was clicked", 1000).show();
+    }
 }
