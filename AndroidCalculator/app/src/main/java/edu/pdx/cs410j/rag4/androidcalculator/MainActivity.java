@@ -2,6 +2,7 @@ package edu.pdx.cs410J.rag4.androidcalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void launchCalculator(View view) {
-        Snackbar.make(view, "I was clicked", 1000).show();
+        Intent intent = new Intent(this, CalculatorActivity.class);
+        startActivity(intent);
     }
 }
