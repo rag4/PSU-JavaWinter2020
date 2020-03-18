@@ -5,4 +5,5 @@
     <string name="plus">+</string>
     <string name="equals">=</string>
     <string name="launch_listview_example">Launch ListView Example</string>
+    <string name="flight_number">Flight %d</string>
 </resources>
