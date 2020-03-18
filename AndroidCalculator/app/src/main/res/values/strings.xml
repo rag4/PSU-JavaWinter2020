@@ -4,4 +4,5 @@
     <string name="launch_calculator">Launch Calculator</string>
     <string name="plus">+</string>
     <string name="equals">=</string>
+    <string name="launch_listview_example">Launch ListView Example</string>
 </resources>
