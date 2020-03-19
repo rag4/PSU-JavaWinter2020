@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">AirlineApplication</string>
+    <string name="start">START</string>
+    <string name="help">HELP</string>
+    <string name="create">CREATE</string>
+    <string name="search">SEARCH</string>
+    <string name="about">ABOUT</string>
+    <string name="readme">README</string>
+    <string name="about_section">FUNCTION USES: \nAirline: \nUsed as intended. The creation of an Airline object with a collection of Flights. \n\nAirlineXmlHelper: \nUsed in conjunction with XmlDumper and XmlParser. \n\nFlight: \nUsed as intended. The creation of a Flight object. \n\nPrettyPrinter: \nPretty Print an Airline and its flights. \n\nTextDumper: \nDump an Airline and its flights into a text file. Used for Android local storage. \n\nTextParser: \nParse from a text file. Used for Android local storage. \n\nXmlDumper: \nDump an Airline and its flights into an xml file. Used for Android local storage. \n\nXmlParser: \nParse from an xml file. Used for Android local storage</string>
+    <string name="readme_section">PROJECT 4: Small Device App \n\nSUBMITION/DEVELOPED BY: Ramon Guarnes 942268924 \n\nCLASS: CS410P Advanced Programming with Java \n\nTEACHER: David Whitlock \n\nDUE DATE: March 18, 2020 before 5:30PM \n\n\nDESCRIPTION: In Project 6, my job is to implement an android application with all the functionality of the past projects. This includes airline and flight creation, searching for an airline, pretty printing, text dumping, and xml dumping. If there is an error that occurs, a pop up window will come up to tell you of what error you\'ve made.</string>
+    <string name="airline_name">AIRLINE NAME</string>
+    <string name="create_airline">CREATE AIRLINE</string>
+    <string name="flight_number">FLIGHT #</string>
+    <string name="source">SOURCE</string>
+    <string name="departure_date">DEPARTURE DATE AND TIME</string>
+    <string name="destination">DESTINATION</string>
+    <string name="arrival_date">ARRIVAL DATE AND TIME</string>
+    <string name="add_flight">ADD FLIGHT</string>
+    <string name="print_airline">PRINT AIRLINE</string>
+    <string name="pretty_airline">PRETTY AIRLINE</string>
+    <string name="xml_airline">XML AIRLINE</string>
+    <string name="search_airline">SEARCH AIRLINE</string>
+    <string name="main">main</string>
+    <string name="airline">airline</string>
+
+</resources>
